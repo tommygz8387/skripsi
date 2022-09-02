@@ -16,15 +16,27 @@
                     </p>
                 </div>
                 <hr>
-                <form class="forms-sample" method="POST" action="{{ route('ruang.update',['id'=>$edit->id]) }}" enctype="multipart/form-data">
+                <form class="forms-sample" method="POST" action="{{ route('mapel.update',['id'=>$edit->id]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="namaMapel">Nama Mata Pelajaran</label>
                         <input type="text" class="form-control" id="namaMapel" placeholder="Nama Mata Pelajaran" name="nama" value="{{ $edit->nama }}">
                     </div>
                     <div class="form-group">
-                        <label for="kodeMapel">Kode Mata Pelajaran</label>
-                        <input type="text" class="form-control" id="kodeMapel" placeholder="Kode Mapel" name="kode" value="{{ $edit->kode }}">
+                        <label for="jurusan">Jurusan</label>
+                        <input type="text" class="form-control" id="jurusan" placeholder="Jurusan" name="jurusan" value="{{ $edit->jurusan }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="ampu10">Jam Ampu Kelas 10</label>
+                        <input type="number" class="form-control" id="ampu10" placeholder="Jam Ampu Pada Kelas 10" name="ampu1" value="{{ $edit->ampu1 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="ampu11">Jam Ampu Kelas 11</label>
+                        <input type="number" class="form-control" id="ampu11" placeholder="Jam Ampu Pada Kelas 11" name="ampu2" value="{{ $edit->ampu2 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="ampu12">Jam Ampu Kelas 12</label>
+                        <input type="number" class="form-control" id="ampu12" placeholder="Jam Ampu Pada Kelas 12" name="ampu3" value="{{ $edit->ampu3 }}">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button type="reset" class="btn btn-danger">Reset</button>

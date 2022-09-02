@@ -24,7 +24,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
-                                    <th>Kode</th>
+                                    <th>Jurusan</th>
+                                    <th>Ampu 10</th>
+                                    <th>Ampu 11</th>
+                                    <th>Ampu 12</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -33,7 +36,10 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Mapel->nama }}</td>
-                                        <td>{{ $Mapel->kode }}</td>
+                                        <td>{{ $Mapel->jurusan }}</td>
+                                        <td>{{ $Mapel->ampu1 }}</td>
+                                        <td>{{ $Mapel->ampu2 }}</td>
+                                        <td>{{ $Mapel->ampu3 }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Mapel->id }}">
@@ -56,33 +62,7 @@
                                         </td>
                                     </tr>
 
-                                    {{-- delete modal --}}
-                                    <div class="modal fade" id="delMapelModal{{ $Mapel->id }}" tabindex="-1"
-                                        aria-labelledby="delMapelModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="delMapelModalLabel"><strong>Hapus Data
-                                                            Mata Pelajaran</strong></h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        Apakah anda ingin menghapus data {{ $Mapel->nama }}?
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ route('mapel.delete', ['id' => $Mapel->id]) }}"
-                                                        class="btn btn-primary mr-2">Submit</a>
-                                                    <button type="button" class="btn btn-secondary text-light"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('frontend.mapel.delModal')
                                 @endforeach
                             </tbody>
                         </table>

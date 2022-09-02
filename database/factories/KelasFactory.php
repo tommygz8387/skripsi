@@ -14,8 +14,9 @@ class KelasFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->word(),
-            'kode' => $this->faker->unique()->bothify('??###'),
+            'nama' => $this->faker->unique()->bothify('##??#'),
+            'tingkat' => $this->faker->numberBetween(10, 12),
+            'jurusan' => $this->faker->word(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

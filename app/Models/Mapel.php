@@ -17,6 +17,6 @@ class Mapel extends Model
     protected $table = 'mapels';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nama','kode'
+        'nama','jurusan','ampu1','ampu2','ampu3'
     ];
 }
