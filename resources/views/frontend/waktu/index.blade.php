@@ -1,21 +1,35 @@
 @extends('layouts.app')
 
 @section('title')
-    Master Data - Mata Pelajaran
+    Master Data - Waktu Belajar Mengajar
 @endsection
 
 @section('content')
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.waktu.creModal')
+        </div>
+    </div>
     <div class="row">
-        @yield('form')
         {{-- tabel data mapel --}}
-        <div class="col-md-7 grid-margin stretch-card">
+        <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">List Mata Pelajaran</h4>
+                    <h4 class="card-title">List Waktu Belajar Mengajar</h4>
                     <div class="row justify-content-between mx-0">
-                        <p class="card-description">
-                            Basic form layout
-                        </p>
+                        <div class="cols">
+                            <p class="card-description">
+                                Basic form layout
+                            </p>
+                        </div>
+                        <div class="cols">
+                            <!-- Button trigger create modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#createModal">
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
                     <hr>
                     <div class="table-responsive pt-3">
@@ -23,32 +37,34 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama</th>
-                                    <th>Kode</th>
+                                    <th>Jam Mulai</th>
+                                    <th>Jam Selesai</th>
+                                    <th>Total</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataMapel as $Mapel)
+                                @foreach ($dataWaktu as $Waktu)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $Mapel->nama }}</td>
-                                        <td>{{ $Mapel->kode }}</td>
+                                        <td>{{ $Waktu->jam_mulai }}</td>
+                                        <td>{{ $Waktu->jam_selesai }}</td>
+                                        <td>{{ $Waktu->total }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                                                id="Dropdown{{ $Mapel->id }}">
+                                                id="Dropdown{{ $Waktu->id }}">
                                                 <i class="icon-ellipsis text-black"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                                                aria-labelledby="Dropdown{{ $Mapel->id }}">
+                                                aria-labelledby="Dropdown{{ $Waktu->id }}">
                                                 <!-- Button trigger edit modal -->
-                                                <a class="dropdown-item"
-                                                    href="{{ route('mapel.edit', ['id' => $Mapel->id]) }}">
+                                                <button class="dropdown-item" data-toggle="modal"
+                                                    data-target="#editModal{{ $Waktu->id }}">
                                                     <i class="ti-pencil text-black"></i>
                                                     Edit
-                                                </a>
+                                                </button>
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delMapelModal{{ $Mapel->id }}">
+                                                    data-target="#delModal{{ $Waktu->id }}">
                                                     <i class="ti-eraser text-black"></i>
                                                     Delete
                                                 </button>
@@ -56,31 +72,18 @@
                                         </td>
                                     </tr>
 
-                                    {{-- delete modal --}}
-                                    <div class="modal fade" id="delMapelModal{{ $Mapel->id }}" tabindex="-1"
-                                        aria-labelledby="delMapelModalLabel" aria-hidden="true">
+                                    {{-- Modal Edit --}}
+                                    <div class="modal fade" id="editModal{{ $Waktu->id }}" tabindex="-1"
+                                        aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="delMapelModalLabel"><strong>Hapus Data
-                                                            Mata Pelajaran</strong></h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        Apakah anda ingin menghapus data {{ $Mapel->nama }}?
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ route('mapel.delete', ['id' => $Mapel->id]) }}"
-                                                        class="btn btn-primary mr-2">Submit</a>
-                                                    <button type="button" class="btn btn-secondary text-light"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
+                                            @include('frontend.waktu.editModal')
+                                        </div>
+                                    </div>
+                                    {{-- Modal Delete --}}
+                                    <div class="modal fade" id="delModal{{ $Waktu->id }}" tabindex="-1"
+                                        aria-labelledby="delModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @include('frontend.waktu.delModal')
                                         </div>
                                     </div>
                                 @endforeach
@@ -97,8 +100,8 @@
         $(document).ready(function() {
             $('#tabel').DataTable({
                 lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All'],
+                    // [5, 10, 25, 50, -1],
+                    // [5, 10, 25, 50, 'All'],
                 ],
             });
         });

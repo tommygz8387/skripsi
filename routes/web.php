@@ -7,6 +7,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\WaktuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::controller(GuruController::class)->group(function(){
 Route::controller(KelasController::class)->group(function(){
     Route::get('/pages/kelas', 'index')->name('kelas.index');
     Route::post('/pages/kelas', 'store')->name('kelas.store');
-    Route::get('/pages/kelas/{id}', 'edit')->name('kelas.edit');
+    // Route::get('/pages/kelas/{id}', 'edit')->name('kelas.edit');
     Route::post('/pages/kelas/{id}', 'update')->name('kelas.update');
     Route::get('/pages/kelas/delete/{id}', 'destroy')->name('kelas.delete');
 });
@@ -63,7 +64,16 @@ Route::controller(RuangController::class)->group(function(){
 Route::controller(MapelController::class)->group(function(){
     Route::get('/pages/mapel', 'index')->name('mapel.index');
     Route::post('/pages/mapel', 'store')->name('mapel.store');
-    Route::get('/pages/mapel/{id}', 'edit')->name('mapel.edit');
+    // Route::get('/pages/mapel/{id}', 'edit')->name('mapel.edit');
     Route::post('/pages/mapel/{id}', 'update')->name('mapel.update');
     Route::get('/pages/mapel/delete/{id}', 'destroy')->name('mapel.delete');
+});
+
+// grup controller waktu
+Route::controller(WaktuController::class)->group(function(){
+    Route::get('/pages/waktu', 'index')->name('waktu.index');
+    Route::post('/pages/waktu', 'store')->name('waktu.store');
+    // Route::get('/pages/waktu/{id}', 'edit')->name('waktu.edit');
+    Route::post('/pages/waktu/{id}', 'update')->name('waktu.update');
+    Route::get('/pages/waktu/delete/{id}', 'destroy')->name('waktu.delete');
 });

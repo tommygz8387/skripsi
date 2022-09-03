@@ -2,10 +2,13 @@
 @section('title')
     Master Data - Guru
 @endsection
-@section('modals')
-    @include('frontend.guru.modal')
-@endsection
 @section('content')
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="createGuruModal" tabindex="-1" aria-labelledby="createGuruModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.guru.creModal')
+        </div>
+    </div>
     <div class="row">
         {{-- tabel data guru --}}
         <div class="col-md-12 grid-margin stretch-card">
@@ -74,88 +77,20 @@
                                         </td>
                                     </tr>
 
-                                    {{-- edit modal --}}
+                                    {{-- Modal Edit --}}
                                     <div class="modal fade" id="editGuruModal{{ $Guru->id }}" tabindex="-1"
                                         aria-labelledby="editGuruModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="editGuruModalLabel"><strong>Edit Data
-                                                            Guru</strong></h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form class="forms-sample" method="POST"
-                                                        action="{{ route('guru.update', ['id' => $Guru->id]) }}"
-                                                        enctype="multipart/form-data">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <label for="namaGuru">Nama</label>
-                                                            <input type="text" class="form-control" id="namaGuru"
-                                                                placeholder="Nama" name="nama"
-                                                                value="{{ $Guru->nama }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="nipGuru">Nomor Identitas Pegawai (NIP)</label>
-                                                            <input type="number" class="form-control" id="nipGuru"
-                                                                placeholder="NIP" name="nip"
-                                                                value="{{ $Guru->nip }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="notlp">Nomor Telepon</label>
-                                                            <input type="number" class="form-control" id="notlp"
-                                                                placeholder="Nomor Telepon" name="no_tlp"
-                                                                value="{{ $Guru->no_tlp }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="jmlAmpu">Jumlah Ampu per Minggu</label>
-                                                            <input type="number" class="form-control" id="jmlAmpu"
-                                                                placeholder="Jumlah Ampu" name="jml_ampu"
-                                                                value="{{ $Guru->jml_ampu }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="keterangan">Keterangan</label>
-                                                            <input type="text" class="form-control" id="keterangan"
-                                                                placeholder="Keterangan" name="keterangan"
-                                                                value="{{ $Guru->keterangan }}">
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                                        <button type="reset" class="btn btn-danger">Reset</button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                            @include('frontend.guru.editModal')
                                         </div>
                                     </div>
 
 
-                                    {{-- delete modal --}}
+                                    {{-- Modal Delete --}}
                                     <div class="modal fade" id="delGuruModal{{ $Guru->id }}" tabindex="-1"
                                         aria-labelledby="delGuruModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="delGuruModalLabel"><strong>Hapus Data
-                                                            Guru</strong></h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        Apakah anda ingin menghapus data {{ $Guru->nama }}?
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ route('guru.delete', ['id' => $Guru->id]) }}"
-                                                        class="btn btn-primary mr-2">Submit</a>
-                                                    <button type="button" class="btn btn-secondary text-light"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
+                                            @include('frontend.guru.delModal')
                                         </div>
                                     </div>
                                 @endforeach

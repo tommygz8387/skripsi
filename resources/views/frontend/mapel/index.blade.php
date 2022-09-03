@@ -5,17 +5,31 @@
 @endsection
 
 @section('content')
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.mapel.creModal')
+        </div>
+    </div>
     <div class="row">
-        @yield('form')
         {{-- tabel data mapel --}}
-        <div class="col-md-7 grid-margin stretch-card">
+        <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">List Mata Pelajaran</h4>
                     <div class="row justify-content-between mx-0">
-                        <p class="card-description">
-                            Basic form layout
-                        </p>
+                        <div class="cols">
+                            <p class="card-description">
+                                Basic form layout
+                            </p>
+                        </div>
+                        <div class="cols">
+                            <!-- Button trigger create modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#createModal">
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
                     <hr>
                     <div class="table-responsive pt-3">
@@ -48,13 +62,13 @@
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                                                 aria-labelledby="Dropdown{{ $Mapel->id }}">
                                                 <!-- Button trigger edit modal -->
-                                                <a class="dropdown-item"
-                                                    href="{{ route('mapel.edit', ['id' => $Mapel->id]) }}">
+                                                <button class="dropdown-item" data-toggle="modal"
+                                                    data-target="#editModal{{ $Mapel->id }}">
                                                     <i class="ti-pencil text-black"></i>
                                                     Edit
-                                                </a>
+                                                </button>
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delMapelModal{{ $Mapel->id }}">
+                                                    data-target="#delModal{{ $Mapel->id }}">
                                                     <i class="ti-eraser text-black"></i>
                                                     Delete
                                                 </button>
@@ -62,7 +76,20 @@
                                         </td>
                                     </tr>
 
-                                    @include('frontend.mapel.delModal')
+                                    {{-- Modal Edit --}}
+                                    <div class="modal fade" id="editModal{{ $Mapel->id }}" tabindex="-1"
+                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @include('frontend.mapel.editModal')
+                                        </div>
+                                    </div>
+                                    {{-- Modal Delete --}}
+                                    <div class="modal fade" id="delModal{{ $Mapel->id }}" tabindex="-1"
+                                        aria-labelledby="delModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @include('frontend.mapel.delModal')
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -77,8 +104,8 @@
         $(document).ready(function() {
             $('#tabel').DataTable({
                 lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All'],
+                    // [5, 10, 25, 50, -1],
+                    // [5, 10, 25, 50, 'All'],
                 ],
             });
         });

@@ -29,10 +29,14 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // generate guru
+        // generate seeder lain
         Guru::factory(10)->create();
         Mapel::factory(10)->create();
         Kelas::factory(10)->create();
         Ruang::factory(10)->create();
+
+        $this->call([
+            WaktuSeeder::class,
+        ]);
     }
 }

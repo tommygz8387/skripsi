@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">
                 <i class="icon-paper menu-icon"></i>
-                <span class="menu-title">Menu Utama</span>
+                <span class="menu-title">Data Utama</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="menu">
@@ -18,6 +18,7 @@
                     <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}">Data Kelas</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('ruang.index') }}">Data Ruang</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('mapel.index') }}">Data MaPel</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('waktu.index') }}">Data Waktu</a></li>
                 </ul>
             </div>
         </li>

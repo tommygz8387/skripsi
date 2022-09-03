@@ -5,7 +5,6 @@
 
 <body>
     @include('sweetalert::alert')
-    @yield('modals')
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         @include('partials.navbar')

@@ -73,13 +73,13 @@ class MapelController extends Controller
     public function edit($id)
     {
         //
-        $data['dataMapel'] = Mapel::orderBy('created_at', 'DESC')->get();
-        $data['edit'] = Mapel::find($id);
-        if(!$data['edit']){
-            Alert::error('error','Data Not Found!');
-            return redirect()->route('mapel.index');
-        }
-        return view('frontend.mapel.edit',$data);
+        // $data['dataMapel'] = Mapel::orderBy('created_at', 'DESC')->get();
+        // $data['edit'] = Mapel::find($id);
+        // if(!$data['edit']){
+        //     Alert::error('error','Data Not Found!');
+        //     return redirect()->route('mapel.index');
+        // }
+        // return view('frontend.mapel.edit',$data);
     }
 
     /**

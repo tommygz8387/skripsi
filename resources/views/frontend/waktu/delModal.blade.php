@@ -2,18 +2,18 @@
     <div class="modal-content">
         <div class="modal-header">
             <h4 class="modal-title" id="delModalLabel"><strong>Hapus Data
-                    Mata Pelajaran</strong></h4>
+                    Waktu Ajar</strong></h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <div class="form-group">
-                Apakah anda ingin menghapus data {{ $Mapel->nama }}?
+                Apakah anda ingin menghapus data {{ $Waktu->jam_mulai }}-{{ $Waktu->jam_selesai }}?
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{ route('mapel.delete', ['id' => $Mapel->id]) }}" class="btn btn-primary mr-2">Submit</a>
+            <a href="{{ route('waktu.delete', ['id' => $Waktu->id]) }}" class="btn btn-primary mr-2">Submit</a>
             <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
         </div>
     </div>

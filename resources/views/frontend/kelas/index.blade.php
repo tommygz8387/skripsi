@@ -5,18 +5,33 @@
 @endsection
 
 @section('content')
+    <!-- Modal Tambah -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.kelas.creModal')
+        </div>
+    </div>
     <div class="row">
-        @yield('form')
         {{-- tabel data kelas --}}
-        <div class="col-md-7 grid-margin stretch-card">
+        <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">List Kelas</h4>
                     <div class="row justify-content-between mx-0">
-                        <p class="card-description">
-                            Basic form layout
-                        </p>
+                        <div class="cols">
+                            <p class="card-description">
+                                Basic form layout
+                            </p>
+                        </div>
+                        <div class="cols">
+                            <!-- Button trigger create modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#createModal">
+                                Tambah Data
+                            </button>
+                        </div>
                     </div>
+
                     <hr>
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered table-hover" id="tabel">
@@ -24,7 +39,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>
-                                    <th>Kode</th>
+                                    <th>Tingkat</th>
+                                    <th>Jurusan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -33,7 +49,8 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Kelas->nama }}</td>
-                                        <td>{{ $Kelas->kode }}</td>
+                                        <td>{{ $Kelas->tingkat }}</td>
+                                        <td>{{ $Kelas->jurusan }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Kelas->id }}">
@@ -42,13 +59,13 @@
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                                                 aria-labelledby="Dropdown{{ $Kelas->id }}">
                                                 <!-- Button trigger edit modal -->
-                                                <a class="dropdown-item"
-                                                    href="{{ route('kelas.edit', ['id' => $Kelas->id]) }}">
+                                                <button class="dropdown-item" data-toggle="modal"
+                                                    data-target="#editModal{{ $Kelas->id }}">
                                                     <i class="ti-pencil text-black"></i>
                                                     Edit
-                                                </a>
+                                                </button>
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delKelasModal{{ $Kelas->id }}">
+                                                    data-target="#delModal{{ $Kelas->id }}">
                                                     <i class="ti-eraser text-black"></i>
                                                     Delete
                                                 </button>
@@ -56,31 +73,18 @@
                                         </td>
                                     </tr>
 
-                                    {{-- delete modal --}}
-                                    <div class="modal fade" id="delKelasModal{{ $Kelas->id }}" tabindex="-1"
-                                        aria-labelledby="delKelasModalLabel" aria-hidden="true">
+                                    {{-- Modal Edit --}}
+                                    <div class="modal fade" id="editModal{{ $Kelas->id }}" tabindex="-1"
+                                        aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title" id="delKelasModalLabel"><strong>Hapus Data
-                                                            Kelas</strong></h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        Apakah anda ingin menghapus data {{ $Kelas->nama }}?
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="{{ route('kelas.delete', ['id' => $Kelas->id]) }}"
-                                                        class="btn btn-primary mr-2">Submit</a>
-                                                    <button type="button" class="btn btn-secondary text-light"
-                                                        data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
+                                            @include('frontend.kelas.editModal')
+                                        </div>
+                                    </div>
+                                    {{-- Modal Delete --}}
+                                    <div class="modal fade" id="delModal{{ $Kelas->id }}" tabindex="-1"
+                                        aria-labelledby="delModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            @include('frontend.kelas.delModal')
                                         </div>
                                     </div>
                                 @endforeach
@@ -96,10 +100,10 @@
     <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
-                lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All'],
-                ],
+                // lengthMenu: [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50, 'All'],
+                // ],
             });
         });
     </script>

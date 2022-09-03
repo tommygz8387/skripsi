@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelas;
+use App\Models\Waktu;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class KelasController extends Controller
+class WaktuController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +16,8 @@ class KelasController extends Controller
     public function index()
     {
         //
-        $data['dataKelas'] = Kelas::orderBy('created_at', 'DESC')->get();
-        return view('frontend.kelas.index',$data);
+        $data['dataWaktu'] = Waktu::orderBy('created_at', 'DESC')->get();
+        return view('frontend.waktu.index',$data);
     }
 
     /**
@@ -43,23 +39,23 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         //
-        $store = Kelas::create($request->all());
+        $store = Waktu::create($request->all());
         if(!$store){
             Alert::error('error','Add Data Failed!');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         } else {
             Alert::success('success','Data Added successfully');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Waktu  $waktu
      * @return \Illuminate\Http\Response
      */
-    public function show(Kelas $kelas)
+    public function show(Waktu $waktu)
     {
         //
     }
@@ -67,66 +63,59 @@ class KelasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Waktu  $waktu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Waktu $waktu)
     {
         //
-        // $data['dataKelas'] = Kelas::orderBy('created_at', 'DESC')->get();
-        // $data['edit'] = Kelas::find($id);
-        // if(!$data['edit']){
-        //     Alert::error('error','Data Not Found!');
-        //     return redirect()->route('kelas.index');
-        // }
-        // return view('frontend.kelas.edit',$data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Waktu  $waktu
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $update = Kelas::updateOrCreate(['id' => $id], $request->all());
+        $update = Waktu::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {
             Alert::error('error','Data Not Found!');
             return redirect()->back();
         }else{
             Alert::success('success','Data Updated Successfully');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kelas  $kelas
+     * @param  \App\Models\Waktu  $waktu
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        $destroy = Kelas::find($id);
+        $destroy = Waktu::find($id);
 
         // cek data
         if (!$destroy) {
             Alert::error('error','Data Not Found!');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         }
 
         $destroy->delete();
         if (!$destroy) {
             Alert::error('error','Data Cannot Be Deleted!');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         }else{
             Alert::success('success','Data Has Been Deleted!');
-            return redirect()->route('kelas.index');
+            return redirect()->route('waktu.index');
         }
     }
 }
