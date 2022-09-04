@@ -8,6 +8,7 @@ use \App\Models\Guru;
 use \App\Models\Mapel;
 use \App\Models\Kelas;
 use \App\Models\Ruang;
+use \App\Models\Jurusan;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -34,9 +35,11 @@ class DatabaseSeeder extends Seeder
         Mapel::factory(10)->create();
         Kelas::factory(10)->create();
         Ruang::factory(10)->create();
+        Jurusan::factory(10)->create();
 
         $this->call([
             WaktuSeeder::class,
+            HariSeeder::class,
         ]);
     }
 }

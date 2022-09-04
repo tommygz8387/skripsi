@@ -35,8 +35,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama</th>
                                     <th>NIP</th>
+                                    <th>Nama</th>
                                     <th>No Telepon</th>
                                     <th><span data-toggle="tooltip" title="Jam Ampu per Minggu">Ampu</span></th>
                                     <th>Keterangan</th>
@@ -50,8 +50,8 @@
                                 @foreach ($dataGuru as $Guru)
                                     <tr>
                                         <td>{{ $i++ }}</td>
-                                        <td>{{ $Guru->nama }}</td>
                                         <td>{{ $Guru->nip }}</td>
+                                        <td>{{ $Guru->nama }}</td>
                                         <td>{{ $Guru->no_tlp }}</td>
                                         <td>{{ $Guru->jml_ampu }}</td>
                                         <td>{{ $Guru->keterangan }}</td>

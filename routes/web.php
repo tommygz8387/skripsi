@@ -8,6 +8,8 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\RuangController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\WaktuController;
+use App\Http\Controllers\HariController;
+use App\Http\Controllers\JurusanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,4 +78,22 @@ Route::controller(WaktuController::class)->group(function(){
     // Route::get('/pages/waktu/{id}', 'edit')->name('waktu.edit');
     Route::post('/pages/waktu/{id}', 'update')->name('waktu.update');
     Route::get('/pages/waktu/delete/{id}', 'destroy')->name('waktu.delete');
+});
+
+// grup controller hari
+Route::controller(HariController::class)->group(function(){
+    Route::get('/pages/hari', 'index')->name('hari.index');
+    Route::post('/pages/hari', 'store')->name('hari.store');
+    // Route::get('/pages/hari/{id}', 'edit')->name('hari.edit');
+    Route::post('/pages/hari/{id}', 'update')->name('hari.update');
+    Route::get('/pages/hari/delete/{id}', 'destroy')->name('hari.delete');
+});
+
+// grup controller jurusan
+Route::controller(JurusanController::class)->group(function(){
+    Route::get('/pages/jurusan', 'index')->name('jurusan.index');
+    Route::post('/pages/jurusan', 'store')->name('jurusan.store');
+    Route::get('/pages/jurusan/{id}', 'edit')->name('jurusan.edit');
+    Route::post('/pages/jurusan/{id}', 'update')->name('jurusan.update');
+    Route::get('/pages/jurusan/delete/{id}', 'destroy')->name('jurusan.delete');
 });

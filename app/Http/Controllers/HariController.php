@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Waktu;
 use App\Models\Hari;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class WaktuController extends Controller
+class HariController extends Controller
 {
     public function __construct()
     {
@@ -21,9 +20,6 @@ class WaktuController extends Controller
     public function index()
     {
         //
-        $data['dataWaktu'] = Waktu::orderBy('created_at', 'DESC')->get();
-        $data['dataHari'] = Hari::orderBy('created_at', 'DESC')->get();
-        return view('frontend.waktu.index',$data);
     }
 
     /**
@@ -45,7 +41,7 @@ class WaktuController extends Controller
     public function store(Request $request)
     {
         //
-        $store = Waktu::create($request->all());
+        $store = Hari::create($request->all());
         if(!$store){
             Alert::error('error','Add Data Failed!');
             return redirect()->route('waktu.index');
@@ -58,10 +54,10 @@ class WaktuController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Waktu  $waktu
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
-    public function show(Waktu $waktu)
+    public function show($id)
     {
         //
     }
@@ -69,10 +65,10 @@ class WaktuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Waktu  $waktu
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
-    public function edit(Waktu $waktu)
+    public function edit($id)
     {
         //
     }
@@ -81,13 +77,13 @@ class WaktuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Waktu  $waktu
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $update = Waktu::updateOrCreate(['id' => $id], $request->all());
+        $update = Hari::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {
             Alert::error('error','Data Not Found!');
@@ -101,13 +97,13 @@ class WaktuController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Waktu  $waktu
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        $destroy = Waktu::find($id);
+        $destroy = Hari::find($id);
 
         // cek data
         if (!$destroy) {

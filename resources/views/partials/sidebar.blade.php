@@ -16,8 +16,20 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}">Data Kelas</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('ruang.index') }}">Data Ruang</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('mapel.index') }}">Data MaPel</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#opsi" aria-expanded="false" aria-controls="opsi">
+                <i class="icon-paper menu-icon"></i>
+                <span class="menu-title">Data Opsi</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="opsi">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('ruang.index') }}">Data Ruang</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('waktu.index') }}">Data Waktu</a></li>
                 </ul>
             </div>
@@ -30,8 +42,7 @@
             </a>
             <div class="collapse" id="jadwal">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Hari Mengajar</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Jam Mengajar</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Slot Ajar</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Jam Khusus</a></li>
                 </ul>
             </div>
