@@ -32,10 +32,18 @@ class DatabaseSeeder extends Seeder
 
         // generate seeder lain
         Guru::factory(10)->create();
-        Mapel::factory(10)->create();
-        Kelas::factory(10)->create();
         Ruang::factory(10)->create();
-        Jurusan::factory(10)->create();
+        Jurusan::factory(5)
+            ->has(Mapel::factory()->count(3), 'mapel')
+            ->has(Kelas::factory()->count(3), 'kelas')
+            ->create();
+        // Jurusan::factory(5)
+        //     ->has(Kelas::factory()->count(3), 'kelas')
+        //     ->create();
+        // Kelas::factory()
+        //     ->count(3)
+        //     ->for($j)
+        //     ->create();
 
         $this->call([
             WaktuSeeder::class,

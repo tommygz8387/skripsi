@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mapel;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Jurusan;
 
 class MapelController extends Controller
 {
@@ -20,8 +21,9 @@ class MapelController extends Controller
     public function index()
     {
         //
-        $data['dataMapel'] = Mapel::orderBy('created_at', 'DESC')->get();
-        return view('frontend.mapel.create',$data);
+        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
+        $data['dataMapel'] = Mapel::with('jurusan')->orderBy('created_at', 'DESC')->get();
+        return view('frontend.mapel.index',$data);
     }
 
     /**

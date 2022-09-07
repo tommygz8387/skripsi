@@ -46,11 +46,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($dataKelas as $Kelas)
+                                {{-- @php
+                                    dd($Kelas)
+                                @endphp --}}
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Kelas->nama }}</td>
                                         <td>{{ $Kelas->tingkat }}</td>
-                                        <td>{{ $Kelas->jurusan }}</td>
+                                        <td>{{ $Kelas->jurusan->jurusan }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Kelas->id }}">
@@ -99,12 +102,12 @@
 @section('cus-script')
     <script>
         $(document).ready(function() {
-            $('#tabel').DataTable({
+            // $('#tabel').DataTable({
                 // lengthMenu: [
                 //     [5, 10, 25, 50, -1],
                 //     [5, 10, 25, 50, 'All'],
                 // ],
-            });
+            // });
         });
     </script>
     <!-- Plugin js for this page -->

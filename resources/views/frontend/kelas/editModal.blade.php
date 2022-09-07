@@ -18,7 +18,12 @@
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
-                <input type="text" class="form-control" id="jurusan" placeholder="Jurusan" name="jurusan" value="{{ $Kelas->jurusan }}">
+                <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
+                    <option selected disabled value="">Pilih Jurusan</option>
+                    @foreach ($dataJurusan as $jurusan)
+                        <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>

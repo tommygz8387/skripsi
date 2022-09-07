@@ -13,6 +13,11 @@
                 <input type="text" class="form-control" id="hari" placeholder="Hari"
                     name="hari">
             </div>
+            <div class="form-group">
+                <label for="jam">Jumlah Jam Per Hari</label>
+                <input type="number" class="form-control" id="jam" placeholder="Jumlah Jam"
+                    name="jml_jam">
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>
         </form>

@@ -17,6 +17,6 @@ class Hari extends Model
     protected $table = 'haris';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'hari'
+        'hari','jml_jam'
     ];
 }

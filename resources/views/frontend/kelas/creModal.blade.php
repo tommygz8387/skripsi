@@ -10,15 +10,22 @@
             @csrf
             <div class="form-group">
                 <label for="namaKelas">Nama Kelas</label>
-                <input type="text" class="form-control" id="namaKelas" placeholder="Nama Kelas" name="nama">
+                <input type="text" class="form-control" id="namaKelas" placeholder="Nama Kelas" name="nama"
+                    required>
             </div>
             <div class="form-group">
                 <label for="tingkat">Tingkat</label>
-                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat" min="1" max="12">
+                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat"
+                    min="1" max="12" required>
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
-                <input type="text" class="form-control" id="jurusan" placeholder="Jurusan" name="jurusan">
+                <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
+                    <option selected disabled value="">Pilih Jurusan</option>
+                    @foreach ($dataJurusan as $jurusan)
+                        <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>

@@ -16,6 +16,7 @@ class CreateHarisTable extends Migration
         Schema::create('haris', function (Blueprint $table) {
             $table->id();
             $table->string('hari');
+            $table->integer('jml_jam');
             $table->timestamps();
         });
     }

@@ -44,6 +44,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Hari</th>
+                                    <th>Jam</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Hari->hari }}</td>
+                                        <td>{{ $Hari->jml_jam }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Hari->id }}">
@@ -182,10 +184,10 @@
     <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
-                lengthMenu: [
+                // lengthMenu: [
                     // [5, 10, 25, 50, -1],
                     // [5, 10, 25, 50, 'All'],
-                ],
+                // ],
             });
             $('#tabel2').DataTable();
         });

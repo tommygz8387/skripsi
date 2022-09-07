@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,7 +21,9 @@ class KelasController extends Controller
     public function index()
     {
         //
-        $data['dataKelas'] = Kelas::orderBy('created_at', 'DESC')->get();
+        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
+        $data['dataKelas'] = Kelas::with('jurusan')->orderBy('created_at', 'DESC')->get();
+        // dd($data);
         return view('frontend.kelas.index',$data);
     }
 

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Mapel;
+use App\Models\Kelas;
 
 class Jurusan extends Model
 {
@@ -19,4 +21,13 @@ class Jurusan extends Model
     protected $fillable = [
         'jurusan'
     ];
+
+    public function mapel()
+    {
+        return $this->hasMany(Mapel::class);
+    }
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class);
+    }
 }

@@ -50,7 +50,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Mapel->nama }}</td>
-                                        <td>{{ $Mapel->jurusan }}</td>
+                                        <td>{{ $Mapel->jurusan->jurusan }}</td>
                                         <td>{{ $Mapel->ampu1 }}</td>
                                         <td>{{ $Mapel->ampu2 }}</td>
                                         <td>{{ $Mapel->ampu3 }}</td>
@@ -103,10 +103,10 @@
     <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
-                lengthMenu: [
-                    // [5, 10, 25, 50, -1],
-                    // [5, 10, 25, 50, 'All'],
-                ],
+                // lengthMenu: [
+                //     [5, 10, 25, 50, -1],
+                //     [5, 10, 25, 50, 'All'],
+                // ],
             });
         });
     </script>

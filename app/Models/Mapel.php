@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Jurusan;
 
 class Mapel extends Model
 {
@@ -17,6 +18,11 @@ class Mapel extends Model
     protected $table = 'mapels';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nama','jurusan','ampu1','ampu2','ampu3'
+        'nama','jurusan_id','ampu1','ampu2','ampu3'
     ];
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
 }

@@ -17,18 +17,23 @@ class HariSeeder extends Seeder
         //
         Hari::factory()->create([
             'hari' => 'Senin',
+            'jml_jam' => '10',
         ]);
         Hari::factory()->create([
             'hari' => 'Selasa',
+            'jml_jam' => '10',
         ]);
         Hari::factory()->create([
             'hari' => 'Rabu',
+            'jml_jam' => '10',
         ]);
         Hari::factory()->create([
             'hari' => 'Kamis',
+            'jml_jam' => '10',
         ]);
         Hari::factory()->create([
             'hari' => 'Jum\'at',
+            'jml_jam' => '8',
         ]);
     }
 }
