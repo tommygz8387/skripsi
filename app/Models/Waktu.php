@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Slot;
 
 class Waktu extends Model
 {
@@ -19,4 +20,9 @@ class Waktu extends Model
     protected $fillable = [
         'jam_mulai','jam_selesai','total'
     ];
+
+    public function slot()
+    {
+        return $this->hasMany(Slot::class);
+    }
 }

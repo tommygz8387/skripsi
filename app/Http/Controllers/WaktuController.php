@@ -21,8 +21,8 @@ class WaktuController extends Controller
     public function index()
     {
         //
-        $data['dataWaktu'] = Waktu::orderBy('created_at', 'DESC')->get();
-        $data['dataHari'] = Hari::orderBy('created_at', 'DESC')->get();
+        $data['dataWaktu'] = Waktu::latest()->get();
+        $data['dataHari'] = Hari::latest()->get();
         return view('frontend.waktu.index',$data);
     }
 

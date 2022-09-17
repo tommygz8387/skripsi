@@ -21,8 +21,8 @@ class KelasController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
-        $data['dataKelas'] = Kelas::with('jurusan')->orderBy('created_at', 'DESC')->get();
+        $data['dataJurusan'] = Jurusan::latest()->get();
+        $data['dataKelas'] = Kelas::with('jurusan')->latest()->get();
         // dd($data);
         return view('frontend.kelas.index',$data);
     }
@@ -76,7 +76,7 @@ class KelasController extends Controller
     public function edit($id)
     {
         //
-        // $data['dataKelas'] = Kelas::orderBy('created_at', 'DESC')->get();
+        // $data['dataKelas'] = Kelas::latest()->get();
         // $data['edit'] = Kelas::find($id);
         // if(!$data['edit']){
         //     Alert::error('error','Data Not Found!');

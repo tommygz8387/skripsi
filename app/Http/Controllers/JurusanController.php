@@ -20,7 +20,7 @@ class JurusanController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
+        $data['dataJurusan'] = Jurusan::latest()->get();
         return view('frontend.jurusan.create',$data);
     }
 
@@ -73,7 +73,7 @@ class JurusanController extends Controller
     public function edit($id)
     {
         //
-        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
+        $data['dataJurusan'] = Jurusan::latest()->get();
         $data['edit'] = Jurusan::find($id);
         if(!$data['edit']){
             Alert::error('error','Data Not Found!');

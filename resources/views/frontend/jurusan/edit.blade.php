@@ -20,7 +20,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="namaJurusan">Nama Jurusan</label>
-                        <input type="text" class="form-control" id="namaJurusan" placeholder="Nama Jurusan" name="jurusan" value="{{ $edit->jurusan }}">
+                        <input type="text" class="form-control" id="namaJurusan" placeholder="Nama Jurusan" name="jurusan" value="{{ $edit->jurusan }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button type="reset" class="btn btn-danger">Reset</button>

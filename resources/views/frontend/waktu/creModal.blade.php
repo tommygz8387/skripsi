@@ -11,17 +11,17 @@
             <div class="form-group">
                 <label for="jamm">Jam Mulai</label>
                 <input type="time" class="form-control" id="jamm" placeholder="Jam Mulai"
-                    name="jam_mulai">
+                    name="jam_mulai" required>
             </div>
             <div class="form-group">
                 <label for="jams">Jam Selesai</label>
                 <input type="time" class="form-control" id="jams" placeholder="Jam Selesai"
-                    name="jam_selesai">
+                    name="jam_selesai" required>
             </div>
             <div class="form-group">
                 <label for="total">Total</label>
                 <input type="number" class="form-control" id="total" placeholder="Total"
-                    name="total">
+                    name="total" required>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>

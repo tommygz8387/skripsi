@@ -20,7 +20,7 @@ class RuangController extends Controller
     public function index()
     {
         //
-        $data['dataRuang'] = Ruang::orderBy('created_at', 'DESC')->get();
+        $data['dataRuang'] = Ruang::latest()->get();
         return view('frontend.ruang.create',$data);
     }
 
@@ -73,7 +73,7 @@ class RuangController extends Controller
     public function edit($id)
     {
         //
-        $data['dataRuang'] = Ruang::orderBy('created_at', 'DESC')->get();
+        $data['dataRuang'] = Ruang::latest()->get();
         $data['edit'] = Ruang::find($id);
         if(!$data['edit']){
             Alert::error('error','Data Not Found!');

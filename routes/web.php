@@ -10,6 +10,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\WaktuController;
 use App\Http\Controllers\HariController;
 use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\SlotController;
 
 /*
 |--------------------------------------------------------------------------
@@ -96,4 +97,13 @@ Route::controller(JurusanController::class)->group(function(){
     Route::get('/pages/jurusan/{id}', 'edit')->name('jurusan.edit');
     Route::post('/pages/jurusan/{id}', 'update')->name('jurusan.update');
     Route::get('/pages/jurusan/delete/{id}', 'destroy')->name('jurusan.delete');
+});
+
+// grup controller slot
+Route::controller(SlotController::class)->group(function(){
+    Route::get('/pages/slot', 'index')->name('slot.index');
+    Route::post('/pages/slot', 'store')->name('slot.store');
+    Route::get('/pages/slot/{id}', 'edit')->name('slot.edit');
+    Route::post('/pages/slot/{id}', 'update')->name('slot.update');
+    Route::get('/pages/slot/delete/{id}', 'destroy')->name('slot.delete');
 });

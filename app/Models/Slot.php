@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Jurusan;
+use App\Models\Waktu;
+use App\Models\Hari;
 
 class Slot extends Model
 {
@@ -21,8 +22,12 @@ class Slot extends Model
         'hari_id','waktu_id'
     ];
 
-    // public function jurusan()
-    // {
-    //     return $this->belongsTo(Jurusan::class);
-    // }
+    public function hari()
+    {
+        return $this->belongsTo(Hari::class);
+    }
+    public function waktu()
+    {
+        return $this->belongsTo(Waktu::class);
+    }
 }

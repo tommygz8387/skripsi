@@ -11,15 +11,15 @@
             @csrf
             <div class="form-group">
                 <label for="jamm">Jam Mulai</label>
-                <input type="time" class="form-control" id="jamm" placeholder="Jam Mulai" name="jam_mulai" value="{{ $Waktu->jam_mulai }}">
+                <input type="time" class="form-control" id="jamm" placeholder="Jam Mulai" name="jam_mulai" value="{{ $Waktu->jam_mulai }}" required>
             </div>
             <div class="form-group">
                 <label for="jams">Jam Selesai</label>
-                <input type="time" class="form-control" id="jams" placeholder="Jam Selesai" name="jam_selesai" value="{{ $Waktu->jam_selesai }}">
+                <input type="time" class="form-control" id="jams" placeholder="Jam Selesai" name="jam_selesai" value="{{ $Waktu->jam_selesai }}" required>
             </div>
             <div class="form-group">
                 <label for="total">Total</label>
-                <input type="number" class="form-control" id="total" placeholder="Total" name="total" value="{{ $Waktu->total }}">
+                <input type="number" class="form-control" id="total" placeholder="Total" name="total" value="{{ $Waktu->total }}" required>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>

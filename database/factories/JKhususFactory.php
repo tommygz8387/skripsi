@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SlotFactory extends Factory
+class JKhususFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,10 +15,6 @@ class SlotFactory extends Factory
     {
         return [
             //
-            'hari_id' => $this->faker->numberBetween(1, 5),
-            'waktu_id' => $this->faker->numberBetween(1, 10),
-            'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
 }

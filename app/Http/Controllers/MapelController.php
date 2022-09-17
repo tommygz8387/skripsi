@@ -21,8 +21,8 @@ class MapelController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::orderBy('created_at', 'DESC')->get();
-        $data['dataMapel'] = Mapel::with('jurusan')->orderBy('created_at', 'DESC')->get();
+        $data['dataJurusan'] = Jurusan::latest()->get();
+        $data['dataMapel'] = Mapel::with('jurusan')->latest()->get();
         return view('frontend.mapel.index',$data);
     }
 
@@ -75,7 +75,7 @@ class MapelController extends Controller
     public function edit($id)
     {
         //
-        // $data['dataMapel'] = Mapel::orderBy('created_at', 'DESC')->get();
+        // $data['dataMapel'] = Mapel::latest()->get();
         // $data['edit'] = Mapel::find($id);
         // if(!$data['edit']){
         //     Alert::error('error','Data Not Found!');

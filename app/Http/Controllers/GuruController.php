@@ -20,7 +20,7 @@ class GuruController extends Controller
     public function index()
     {
         //
-        $data['dataGuru'] = Guru::orderBy('created_at', 'DESC')->get();
+        $data['dataGuru'] = Guru::latest()->get();
         // return view('frontend.guru.create',$data);
         return view('frontend.guru.index',$data);
     }
@@ -44,6 +44,14 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         //
+        $val = $request->validate([
+            'nama'=>'required',
+            'nip'=>'required',
+            'no_tlp'=>'required',
+            'jml_ampu'=>'required',
+            'keterangan'=>'required',
+        ]);
+        
         $store = Guru::create($request->all());
         if(!$store){
             Alert::error('error','Add Data Failed!');

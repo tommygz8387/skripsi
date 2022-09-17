@@ -42,7 +42,7 @@
             </a>
             <div class="collapse" id="jadwal">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Slot Ajar</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('slot.index') }}">Data Slot Ajar</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Jam Khusus</a></li>
                 </ul>
             </div>

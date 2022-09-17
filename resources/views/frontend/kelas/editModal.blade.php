@@ -10,11 +10,11 @@
             @csrf
             <div class="form-group">
                 <label for="namaKelas">Nama Kelas</label>
-                <input type="text" class="form-control" id="namaKelas" placeholder="Nama Kelas" name="nama" value="{{ $Kelas->nama }}">
+                <input type="text" class="form-control" id="namaKelas" placeholder="Nama Kelas" name="nama" value="{{ $Kelas->nama }}" required>
             </div>
             <div class="form-group">
                 <label for="tingkat">Tingkat</label>
-                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat" min="1" max="12" value="{{ $Kelas->tingkat }}">
+                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat" min="1" max="12" value="{{ $Kelas->tingkat }}" required>
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>

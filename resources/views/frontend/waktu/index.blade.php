@@ -189,7 +189,10 @@
                     // [5, 10, 25, 50, 'All'],
                 // ],
             });
-            $('#tabel2').DataTable();
+            $('#tabel2').DataTable({
+                lengthChange: false,
+                "dom": '<"top"<"pull-left"f><"pull-right"l>>rt<"bottom"<"pull-left"i><"pull-right"p>>'
+            });
         });
     </script>
     <!-- Plugin js for this page -->

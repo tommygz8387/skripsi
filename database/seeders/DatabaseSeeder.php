@@ -9,7 +9,10 @@ use \App\Models\Mapel;
 use \App\Models\Kelas;
 use \App\Models\Ruang;
 use \App\Models\Jurusan;
+use \App\Models\Slot;
+use \App\Models\Hari;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,8 +23,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // generate user
+        // generate factory
         User::factory(3)->create();
+        Guru::factory(10)->create();
+        Ruang::factory(10)->create();
+
+        // custom seeder
         User::factory()->create([
             'name' => 'Toms',
             'email' => 'toms@mail.com',
@@ -30,9 +37,7 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // generate seeder lain
-        Guru::factory(10)->create();
-        Ruang::factory(10)->create();
+        // relationship seeder
         Jurusan::factory(5)
             ->has(Mapel::factory()->count(3), 'mapel')
             ->has(Kelas::factory()->count(3), 'kelas')
@@ -45,9 +50,17 @@ class DatabaseSeeder extends Seeder
         //     ->for($j)
         //     ->create();
 
+        // generate seeder lain
         $this->call([
             WaktuSeeder::class,
             HariSeeder::class,
+            SlotSeeder::class,
         ]);
+        $jml=count(Hari::all());
+        for ($i=1; $i <= $jml; $i++) { 
+            $data=count(Slot::where('hari_id',$i)->get());
+            // $newData=DB::select(`select * from haris where id = ?`, [$i]);
+            DB::update('UPDATE haris SET sisa = jml_jam-? WHERE id = ?',[$data,$i]);
+        }
     }
 }

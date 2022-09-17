@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Slot;
 
 class Hari extends Model
 {
@@ -19,4 +20,12 @@ class Hari extends Model
     protected $fillable = [
         'hari','jml_jam'
     ];
+    protected $hidden = [
+        'sisa'
+    ];
+
+    public function slot()
+    {
+        return $this->hasMany(Slot::class);
+    }
 }

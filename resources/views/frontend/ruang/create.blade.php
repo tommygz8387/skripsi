@@ -20,11 +20,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="namaRuang">Nama Ruang</label>
-                        <input type="text" class="form-control" id="namaRuang" placeholder="Nama" name="nama">
+                        <input type="text" class="form-control" id="namaRuang" placeholder="Nama" name="nama" required>
                     </div>
                     <div class="form-group">
                         <label for="kodeRuang">Kode Ruang</label>
-                        <input type="text" class="form-control" id="kodeRuang" placeholder="Kode Ruang" name="kode">
+                        <input type="text" class="form-control" id="kodeRuang" placeholder="Kode Ruang" name="kode" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     <button type="reset" class="btn btn-danger">Reset</button>
