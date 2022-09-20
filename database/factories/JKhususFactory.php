@@ -15,6 +15,11 @@ class JKhususFactory extends Factory
     {
         return [
             //
+            'guru_id' => $this->faker->numberBetween(1, 10),
+            'hari_id' => $this->faker->numberBetween(1, 5),
+            'waktu_id' => $this->faker->numberBetween(1, 10),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

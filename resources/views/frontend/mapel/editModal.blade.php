@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
                 <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
-                    <option selected disabled hidden value="">{{ $Mapel->jurusan->jurusan }}</option>
+                    <option selected hidden value="{{ $Mapel->jurusan_id }}">{{ $Mapel->jurusan->jurusan }}</option>
                     @foreach ($dataJurusan as $jurusan)
                         <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>
                     @endforeach

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\JKhusus;
 
 class Guru extends Model
 {
@@ -19,4 +20,9 @@ class Guru extends Model
     protected $fillable = [
         'nama','nip','no_tlp','jml_ampu','keterangan'
     ];
+
+    public function jkhusus()
+    {
+        return $this->hasMany(JKhusus::class);
+    }
 }

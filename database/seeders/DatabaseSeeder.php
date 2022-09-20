@@ -11,6 +11,7 @@ use \App\Models\Ruang;
 use \App\Models\Jurusan;
 use \App\Models\Slot;
 use \App\Models\Hari;
+use \App\Models\JKhusus;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -62,5 +63,7 @@ class DatabaseSeeder extends Seeder
             // $newData=DB::select(`select * from haris where id = ?`, [$i]);
             DB::update('UPDATE haris SET sisa = jml_jam-? WHERE id = ?',[$data,$i]);
         }
+
+        JKhusus::factory(10)->create();
     }
 }

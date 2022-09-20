@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\JKhusus;
+use App\Models\Guru;
+use App\Models\Hari;
+use App\Models\Waktu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JKhususController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +24,12 @@ class JKhususController extends Controller
     public function index()
     {
         //
+        $data['dataGuru'] = Guru::latest()->get();
+        $data['dataHari'] = Hari::latest()->get();
+        $data['dataWaktu'] = Waktu::latest()->get();
+        $data['dataJKhusus'] = JKhusus::with(['guru','hari','waktu'])->oldest()->get();
+        // dd($data);
+        return view('frontend.jkhusus.index',$data);
     }
 
     /**
@@ -36,6 +51,15 @@ class JKhususController extends Controller
     public function store(Request $request)
     {
         //
+        $store = JKhusus::create($request->all());
+        if(!$store){
+            Alert::error('error','Add Data Failed!');
+            return redirect()->route('jkhusus.index');
+        } else {
+            // Hari::updateOrCreate(['id' => $request->hari_id], ['sisa' => $hariUpdate]);
+            Alert::success('success','Data Added successfully');
+            return redirect()->route('jkhusus.index');
+        }
     }
 
     /**
@@ -44,7 +68,7 @@ class JKhususController extends Controller
      * @param  \App\Models\JKhusus  $jKhusus
      * @return \Illuminate\Http\Response
      */
-    public function show(JKhusus $jKhusus)
+    public function show($id)
     {
         //
     }
@@ -55,7 +79,7 @@ class JKhususController extends Controller
      * @param  \App\Models\JKhusus  $jKhusus
      * @return \Illuminate\Http\Response
      */
-    public function edit(JKhusus $jKhusus)
+    public function edit($id)
     {
         //
     }
@@ -67,9 +91,17 @@ class JKhususController extends Controller
      * @param  \App\Models\JKhusus  $jKhusus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JKhusus $jKhusus)
+    public function update(Request $request, $id)
     {
         //
+        $update = JKhusus::updateOrCreate(['id' => $id], $request->all());
+        if (!$update) {
+            Alert::error('error','Data Not Found!');
+            return redirect()->back();
+        }else{
+            Alert::success('success','Data Updated Successfully');
+            return redirect()->route('jkhusus.index');
+        }
     }
 
     /**
@@ -78,8 +110,24 @@ class JKhususController extends Controller
      * @param  \App\Models\JKhusus  $jKhusus
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JKhusus $jKhusus)
+    public function destroy($id)
     {
         //
+        $destroy = JKhusus::find($id);
+
+        // cek data
+        if (!$destroy) {
+            Alert::error('error','Data Not Found!');
+            return redirect()->route('jkhusus.index');
+        }
+
+        $destroy->delete();
+        if (!$destroy) {
+            Alert::error('error','Data Cannot Be Deleted!');
+            return redirect()->route('jkhusus.index');
+        }else{
+            Alert::success('success','Data Has Been Deleted!');
+            return redirect()->route('jkhusus.index');
+        }
     }
 }

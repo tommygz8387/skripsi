@@ -11,6 +11,7 @@ use App\Http\Controllers\WaktuController;
 use App\Http\Controllers\HariController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\JKhususController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,4 +107,13 @@ Route::controller(SlotController::class)->group(function(){
     Route::get('/pages/slot/{id}', 'edit')->name('slot.edit');
     Route::post('/pages/slot/{id}', 'update')->name('slot.update');
     Route::get('/pages/slot/delete/{id}', 'destroy')->name('slot.delete');
+});
+
+// grup controller jam khusus
+Route::controller(JKhususController::class)->group(function(){
+    Route::get('/pages/jkhusus', 'index')->name('jkhusus.index');
+    Route::post('/pages/jkhusus', 'store')->name('jkhusus.store');
+    Route::get('/pages/jkhusus/{id}', 'edit')->name('jkhusus.edit');
+    Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
+    Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
 });

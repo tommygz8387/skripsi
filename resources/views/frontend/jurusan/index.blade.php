@@ -90,10 +90,8 @@
     <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
-                lengthMenu: [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, 'All'],
-                ],
+                lengthChange: false,
+                "dom": '<"top"<"pull-left"f><"pull-right"l>>rt<"bottom"<"pull-left"i><"pull-right"p>>'
             });
         });
     </script>

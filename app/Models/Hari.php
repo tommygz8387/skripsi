@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Slot;
+use App\Models\JKhusus;
 
 class Hari extends Model
 {
@@ -27,5 +28,9 @@ class Hari extends Model
     public function slot()
     {
         return $this->hasMany(Slot::class);
+    }
+    public function jkhusus()
+    {
+        return $this->hasMany(JKhusus::class);
     }
 }

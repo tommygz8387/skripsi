@@ -15,6 +15,9 @@ class CreateJKhususesTable extends Migration
     {
         Schema::create('j_khususes', function (Blueprint $table) {
             $table->id();
+            $table->integer('guru_id');
+            $table->integer('hari_id');
+            $table->integer('waktu_id');
             $table->timestamps();
         });
     }
