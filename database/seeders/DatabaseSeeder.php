@@ -12,6 +12,7 @@ use \App\Models\Jurusan;
 use \App\Models\Slot;
 use \App\Models\Hari;
 use \App\Models\JKhusus;
+use \App\Models\Manual;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -65,5 +66,6 @@ class DatabaseSeeder extends Seeder
         }
 
         JKhusus::factory(10)->create();
+        Manual::factory(50)->create();
     }
 }

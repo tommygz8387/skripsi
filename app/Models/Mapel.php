@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Jurusan;
+use App\Models\Manual;
 
 class Mapel extends Model
 {
@@ -24,5 +25,10 @@ class Mapel extends Model
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class);
+    }
+
+    public function manual()
+    {
+        return $this->hasMany(Manual::class);
     }
 }

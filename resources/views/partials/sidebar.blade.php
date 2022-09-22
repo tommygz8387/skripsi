@@ -56,8 +56,8 @@
             </a>
             <div class="collapse" id="form-elements">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Jadwal Manual</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Jadwal Otomatis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Manual</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Otomatis</a></li>
                 </ul>
             </div>
         </li>

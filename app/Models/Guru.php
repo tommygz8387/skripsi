@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\JKhusus;
+use App\Models\Manual;
 
 class Guru extends Model
 {
@@ -24,5 +25,10 @@ class Guru extends Model
     public function jkhusus()
     {
         return $this->hasMany(JKhusus::class);
+    }
+
+    public function manual()
+    {
+        return $this->hasMany(Manual::class);
     }
 }

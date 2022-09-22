@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Manual;
 
 class Ruang extends Model
 {
@@ -19,4 +20,10 @@ class Ruang extends Model
     protected $fillable = [
         'nama','kode'
     ];
+
+
+    public function manual()
+    {
+        return $this->hasMany(Manual::class);
+    }
 }

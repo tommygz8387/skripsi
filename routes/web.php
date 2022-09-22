@@ -12,6 +12,7 @@ use App\Http\Controllers\HariController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\JKhususController;
+use App\Http\Controllers\ManualController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,4 +117,13 @@ Route::controller(JKhususController::class)->group(function(){
     Route::get('/pages/jkhusus/{id}', 'edit')->name('jkhusus.edit');
     Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
     Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
+});
+
+// grup controller penjadwalan manual
+Route::controller(ManualController::class)->group(function(){
+    Route::get('/jadwal/manual', 'index')->name('manual.index');
+    Route::post('/jadwal/manual', 'store')->name('manual.store');
+    Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
+    Route::post('/jadwal/manual/{id}', 'update')->name('manual.update');
+    Route::get('/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
 });

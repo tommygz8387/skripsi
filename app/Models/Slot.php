@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Waktu;
 use App\Models\Hari;
+use App\Models\Manual;
 
 class Slot extends Model
 {
@@ -29,5 +30,9 @@ class Slot extends Model
     public function waktu()
     {
         return $this->belongsTo(Waktu::class);
+    }
+    public function manual()
+    {
+        return $this->hasMany(Manual::class);
     }
 }
