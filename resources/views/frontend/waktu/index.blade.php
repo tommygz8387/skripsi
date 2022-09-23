@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Master Data - Waktu Belajar Mengajar
+    Data Opsi - Waktu Belajar Mengajar
 @endsection
 
 @section('content')

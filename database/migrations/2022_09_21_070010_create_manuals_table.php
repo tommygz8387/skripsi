@@ -15,11 +15,22 @@ class CreateManualsTable extends Migration
     {
         Schema::create('manuals', function (Blueprint $table) {
             $table->id();
-            $table->integer('guru_id');
-            $table->integer('mapel_id');
-            $table->integer('kelas_id');
-            $table->integer('ruang_id')->nullable();
-            $table->integer('slot_id');
+            $table->foreignId('guru_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('mapel_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('kelas_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('ruang_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade')
+                ->nullable();
+            $table->foreignId('slot_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

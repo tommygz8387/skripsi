@@ -15,6 +15,9 @@ class TingkatFactory extends Factory
     {
         return [
             //
+            'tingkat' => $this->faker->numberBetween(10, 12),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

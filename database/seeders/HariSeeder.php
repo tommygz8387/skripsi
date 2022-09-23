@@ -15,14 +15,14 @@ class HariSeeder extends Seeder
     public function run()
     {
         //
-        $data=['Senin','Selasa','Rabu','Kamis','Jum\'at'];
-        $j=count($data);
-        for ($i=1; $i <= $j; $i++) { 
-            Hari::factory()->create([
-            'hari' => $data[$i-1],
-            'jml_jam' => '10',
-            ]);
-        }
+        // $data=['Senin','Selasa','Rabu','Kamis','Jum\'at'];
+        // $j=count($data);
+        // for ($i=1; $i <= $j; $i++) { 
+        //     Hari::factory()->create([
+        //     'hari' => $data[$i-1],
+        //     'jml_jam' => '10',
+        //     ]);
+        // }
         // Hari::factory()->create([
         //     'hari' => 'Senin',
         //     'jml_jam' => '10',

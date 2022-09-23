@@ -52,7 +52,7 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Kelas->nama }}</td>
-                                        <td>{{ $Kelas->tingkat }}</td>
+                                        <td>{{ $Kelas->tingkat->tingkat }}</td>
                                         <td>{{ $Kelas->jurusan->jurusan }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"

@@ -16,7 +16,9 @@ class CreateMapelsTable extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('jurusan_id');
+            $table->foreignId('jurusan_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->integer('ampu1');
             $table->integer('ampu2');
             $table->integer('ampu3');

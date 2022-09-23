@@ -14,7 +14,12 @@
             </div>
             <div class="form-group">
                 <label for="tingkat">Tingkat</label>
-                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat" min="1" max="12" value="{{ $Kelas->tingkat }}" required>
+                <select class="form-control" aria-label="Default select example" id="tingkat" name="tingkat_id" required>
+                    <option selected hidden value="{{ $Kelas->tingkat_id }}">{{ $Kelas->tingkat->tingkat }}</option>
+                    @foreach ($dataTingkat as $Tingkat)
+                        <option value="{{ $Tingkat->id }}">{{ $Tingkat->tingkat }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>

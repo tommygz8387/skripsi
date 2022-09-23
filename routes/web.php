@@ -13,6 +13,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\SlotController;
 use App\Http\Controllers\JKhususController;
 use App\Http\Controllers\ManualController;
+use App\Http\Controllers\TingkatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +86,7 @@ Route::controller(WaktuController::class)->group(function(){
 
 // grup controller hari
 Route::controller(HariController::class)->group(function(){
-    Route::get('/pages/hari', 'index')->name('hari.index');
+    // Route::get('/pages/hari', 'index')->name('hari.index');
     Route::post('/pages/hari', 'store')->name('hari.store');
     // Route::get('/pages/hari/{id}', 'edit')->name('hari.edit');
     Route::post('/pages/hari/{id}', 'update')->name('hari.update');
@@ -105,7 +106,7 @@ Route::controller(JurusanController::class)->group(function(){
 Route::controller(SlotController::class)->group(function(){
     Route::get('/pages/slot', 'index')->name('slot.index');
     Route::post('/pages/slot', 'store')->name('slot.store');
-    Route::get('/pages/slot/{id}', 'edit')->name('slot.edit');
+    // Route::get('/pages/slot/{id}', 'edit')->name('slot.edit');
     Route::post('/pages/slot/{id}', 'update')->name('slot.update');
     Route::get('/pages/slot/delete/{id}', 'destroy')->name('slot.delete');
 });
@@ -114,7 +115,7 @@ Route::controller(SlotController::class)->group(function(){
 Route::controller(JKhususController::class)->group(function(){
     Route::get('/pages/jkhusus', 'index')->name('jkhusus.index');
     Route::post('/pages/jkhusus', 'store')->name('jkhusus.store');
-    Route::get('/pages/jkhusus/{id}', 'edit')->name('jkhusus.edit');
+    // Route::get('/pages/jkhusus/{id}', 'edit')->name('jkhusus.edit');
     Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
     Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
 });
@@ -123,7 +124,16 @@ Route::controller(JKhususController::class)->group(function(){
 Route::controller(ManualController::class)->group(function(){
     Route::get('/jadwal/manual', 'index')->name('manual.index');
     Route::post('/jadwal/manual', 'store')->name('manual.store');
-    Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
+    // Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
     Route::post('/jadwal/manual/{id}', 'update')->name('manual.update');
     Route::get('/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
+});
+
+// grup controller tingkat
+Route::controller(TingkatController::class)->group(function(){
+    // Route::get('/pages/tingkat', 'index')->name('tingkat.index');
+    Route::post('/pages/tingkat', 'store')->name('tingkat.store');
+    // Route::get('/pages/tingkat/{id}', 'edit')->name('tingkat.edit');
+    Route::post('/pages/tingkat/{id}', 'update')->name('tingkat.update');
+    Route::get('/pages/tingkat/delete/{id}', 'destroy')->name('tingkat.delete');
 });

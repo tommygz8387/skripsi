@@ -15,7 +15,7 @@ class KelasFactory extends Factory
     {
         return [
             'nama' => $this->faker->unique()->bothify('##??#'),
-            'tingkat' => $this->faker->numberBetween(10, 12),
+            'tingkat_id' => $this->faker->numberBetween(1, 3),
             'jurusan_id' => $this->faker->numberBetween(0, 12),
             'created_at' => now(),
             'updated_at' => now(),

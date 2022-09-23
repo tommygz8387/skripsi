@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jurusan;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,8 +21,9 @@ class JurusanController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::latest()->get();
-        return view('frontend.jurusan.create',$data);
+        $data['dataTingkat'] = Tingkat::latest()->get();
+        $data['dataJurusan'] = Jurusan::where('jurusan','!=','Umum')->latest()->get();
+        return view('frontend.jurusan.index',$data);
     }
 
     /**
@@ -73,7 +75,7 @@ class JurusanController extends Controller
     public function edit($id)
     {
         //
-        $data['dataJurusan'] = Jurusan::latest()->get();
+        $data['dataJurusan'] = Jurusan::where('jurusan','!=','Umum')->latest()->get();
         $data['edit'] = Jurusan::find($id);
         if(!$data['edit']){
             Alert::error('error','Data Not Found!');

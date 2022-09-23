@@ -17,16 +17,16 @@ class SlotSeeder extends Seeder
     public function run()
     {
         //
-        $hari=count(Hari::all());
-        $waktu=count(Waktu::all());
-        for ($i=1; $i <= $hari; $i++) { 
-            for ($j=1; $j <= $waktu; $j++) { 
-                Slot::factory()->create([
-                    'hari_id' => $i,
-                    'waktu_id' => $j,
-                ]);
-            }
-        }
+        // $hari=count(Hari::all());
+        // $waktu=count(Waktu::all());
+        // for ($i=1; $i <= $hari; $i++) { 
+        //     for ($j=1; $j <= $waktu; $j++) { 
+        //         Slot::factory()->create([
+        //             'hari_id' => $i,
+        //             'waktu_id' => $j,
+        //         ]);
+        //     }
+        // }
         // Slot::factory()->create([
         //     'hari_id' => '1',
         //     'waktu_id' => '1',

@@ -15,9 +15,15 @@ class CreateJKhususesTable extends Migration
     {
         Schema::create('j_khususes', function (Blueprint $table) {
             $table->id();
-            $table->integer('guru_id');
-            $table->integer('hari_id');
-            $table->integer('waktu_id');
+            $table->foreignId('guru_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('hari_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('waktu_id')->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

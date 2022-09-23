@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use App\Models\Jurusan;
+use App\Models\Tingkat;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,8 +22,9 @@ class KelasController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::latest()->get();
-        $data['dataKelas'] = Kelas::with('jurusan')->latest()->get();
+        $data['dataJurusan'] = Jurusan::where('jurusan','!=','Umum')->latest()->get();
+        $data['dataTingkat'] = Tingkat::latest()->get();
+        $data['dataKelas'] = Kelas::with(['jurusan','tingkat'])->latest()->get();
         // dd($data);
         return view('frontend.kelas.index',$data);
     }

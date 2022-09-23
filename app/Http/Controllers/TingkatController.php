@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Tingkat;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TingkatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +41,14 @@ class TingkatController extends Controller
     public function store(Request $request)
     {
         //
+        $store = Tingkat::create($request->all());
+        if(!$store){
+            Alert::error('error','Add Data Failed!');
+            return redirect()->route('jurusan.index');
+        } else {
+            Alert::success('success','Data Added successfully');
+            return redirect()->route('jurusan.index');
+        }
     }
 
     /**
@@ -44,7 +57,7 @@ class TingkatController extends Controller
      * @param  \App\Models\Tingkat  $tingkat
      * @return \Illuminate\Http\Response
      */
-    public function show(Tingkat $tingkat)
+    public function show($id)
     {
         //
     }
@@ -55,7 +68,7 @@ class TingkatController extends Controller
      * @param  \App\Models\Tingkat  $tingkat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tingkat $tingkat)
+    public function edit($id)
     {
         //
     }
@@ -67,9 +80,18 @@ class TingkatController extends Controller
      * @param  \App\Models\Tingkat  $tingkat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tingkat $tingkat)
+    public function update(Request $request, $id)
     {
         //
+        $update = Tingkat::updateOrCreate(['id' => $id], $request->all());
+
+        if (!$update) {
+            Alert::error('error','Data Not Found!');
+            return redirect()->back();
+        }else{
+            Alert::success('success','Data Updated Successfully');
+            return redirect()->route('jurusan.index');
+        }
     }
 
     /**
@@ -78,8 +100,24 @@ class TingkatController extends Controller
      * @param  \App\Models\Tingkat  $tingkat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tingkat $tingkat)
+    public function destroy($id)
     {
         //
+        $destroy = Tingkat::find($id);
+
+        // cek data
+        if (!$destroy) {
+            Alert::error('error','Data Not Found!');
+            return redirect()->route('jurusan.index');
+        }
+
+        $destroy->delete();
+        if (!$destroy) {
+            Alert::error('error','Data Cannot Be Deleted!');
+            return redirect()->route('jurusan.index');
+        }else{
+            Alert::success('success','Data Has Been Deleted!');
+            return redirect()->route('jurusan.index');
+        }
     }
 }

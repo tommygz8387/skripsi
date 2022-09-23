@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use \App\Models\Tingkat;
 
 class TingkatSeeder extends Seeder
 {
@@ -14,5 +15,10 @@ class TingkatSeeder extends Seeder
     public function run()
     {
         //
+        // for ($i=10; $i <= 12; $i++) { 
+        //     Tingkat::factory()->create([
+        //     'tingkat' => $i,
+        //     ]);
+        // }
     }
 }

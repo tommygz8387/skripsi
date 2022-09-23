@@ -15,15 +15,19 @@
             </div>
             <div class="form-group">
                 <label for="tingkat">Tingkat</label>
-                <input type="number" class="form-control" id="tingkat" placeholder="Tingkat" name="tingkat"
-                    min="1" max="12" required>
+                <select class="form-control" aria-label="Default select example" id="tingkat" name="tingkat_id" required>
+                    <option selected disabled value="">Pilih Tingkat</option>
+                    @foreach ($dataTingkat as $Tingkat)
+                        <option value="{{ $Tingkat->id }}">{{ $Tingkat->tingkat }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
                 <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
                     <option selected disabled value="">Pilih Jurusan</option>
-                    @foreach ($dataJurusan as $jurusan)
-                        <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>
+                    @foreach ($dataJurusan as $Jurusan)
+                        <option value="{{ $Jurusan->id }}">{{ $Jurusan->jurusan }}</option>
                     @endforeach
                 </select>
             </div>

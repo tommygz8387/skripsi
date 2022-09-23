@@ -13,6 +13,9 @@ use \App\Models\Slot;
 use \App\Models\Hari;
 use \App\Models\JKhusus;
 use \App\Models\Manual;
+use \App\Models\Ampu;
+use \App\Models\Waktu;
+use \App\Models\Tingkat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -39,25 +42,100 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
+        // seeder waktu
+        Waktu::factory()->create([
+            'jam_mulai' => '07:15',
+            'jam_selesai' => '08:00',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '08:00',
+            'jam_selesai' => '08:45',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '08:45',
+            'jam_selesai' => '09:30',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '09:45',
+            'jam_selesai' => '10:30',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '10:30',
+            'jam_selesai' => '11:15',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '11:15',
+            'jam_selesai' => '12:00',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '12:30',
+            'jam_selesai' => '13:15',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '13:15',
+            'jam_selesai' => '14:00',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '14:00',
+            'jam_selesai' => '14:45',
+            'total' => '45',
+        ])->create([
+            'jam_mulai' => '14:45',
+            'jam_selesai' => '15:30',
+            'total' => '45',
+        ]);
+
+        // seeder tingkat
+        for ($i=10; $i <= 12; $i++) { 
+            Tingkat::factory()->create([
+            'tingkat' => $i,
+            ]);
+        }
+
+        // seeder hari
+        $data=['Senin','Selasa','Rabu','Kamis','Jum\'at'];
+        $j=count($data);
+        for ($i=1; $i <= $j; $i++) { 
+            Hari::factory()->create([
+            'hari' => $data[$i-1],
+            'jml_jam' => '10',
+            ]);
+        }
+
         // relationship seeder
+        Jurusan::factory()->create([
+                'id'=>'0',
+                'jurusan'=>'Umum'
+            ]);
         Jurusan::factory(5)
             ->has(Mapel::factory()->count(3), 'mapel')
             ->has(Kelas::factory()->count(3), 'kelas')
             ->create();
-        // Jurusan::factory(5)
-        //     ->has(Kelas::factory()->count(3), 'kelas')
-        //     ->create();
         // Kelas::factory()
         //     ->count(3)
         //     ->for($j)
         //     ->create();
 
         // generate seeder lain
-        $this->call([
-            WaktuSeeder::class,
-            HariSeeder::class,
-            SlotSeeder::class,
-        ]);
+        // $this->call([
+        //     WaktuSeeder::class,
+        //     HariSeeder::class,
+        //     SlotSeeder::class,
+        //     TingkatSeeder::class,
+        // ]);
+
+        // seeder slot
+        $hari=count(Hari::all());
+        $waktu=count(Waktu::all());
+        for ($i=1; $i <= $hari; $i++) { 
+            for ($j=1; $j <= $waktu; $j++) { 
+                Slot::factory()->create([
+                    'hari_id' => $i,
+                    'waktu_id' => $j,
+                ]);
+            }
+        }
+        // atur slot
         $jml=count(Hari::all());
         for ($i=1; $i <= $jml; $i++) { 
             $data=count(Slot::where('hari_id',$i)->get());
@@ -67,5 +145,6 @@ class DatabaseSeeder extends Seeder
 
         JKhusus::factory(10)->create();
         Manual::factory(50)->create();
+        Ampu::factory(10)->create();
     }
 }

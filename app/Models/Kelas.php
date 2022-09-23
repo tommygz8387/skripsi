@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Jurusan;
 use App\Models\Manual;
+use App\Models\Tingkat;
 
 class Kelas extends Model
 {
@@ -19,12 +20,17 @@ class Kelas extends Model
     protected $table = 'kelas';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nama','tingkat','jurusan_id'
+        'nama','tingkat_id','jurusan_id'
     ];
 
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class);
+    }
+
+    public function tingkat()
+    {
+        return $this->belongsTo(Tingkat::class);
     }
 
     public function manual()
