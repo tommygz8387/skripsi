@@ -2,13 +2,13 @@
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/home') }}">
-                <i class="icon-grid menu-icon"></i>
+                <i class="ti-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">
-                <i class="icon-paper menu-icon"></i>
+                <i class="ti-layout-grid2 menu-icon"></i>
                 <span class="menu-title">Data Utama</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -22,7 +22,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#opsi" aria-expanded="false" aria-controls="opsi">
-                <i class="icon-paper menu-icon"></i>
+                <i class="ti-view-list-alt menu-icon"></i>
                 <span class="menu-title">Data Opsi</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -35,12 +35,12 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#jadwal" aria-expanded="false" aria-controls="jadwal">
-                <i class="icon-paper menu-icon"></i>
+            <a class="nav-link" data-toggle="collapse" href="#aturjadwal" aria-expanded="false" aria-controls="aturjadwal">
+                <i class="ti-agenda menu-icon"></i>
                 <span class="menu-title">Atur Jadwal</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="jadwal">
+            <div class="collapse" id="aturjadwal">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('slot.index') }}">Data Slot Ajar</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('slot.index') }}">Data Ampu Guru</a></li>
@@ -49,13 +49,13 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-                aria-controls="form-elements">
-                <i class="icon-columns menu-icon"></i>
+            <a class="nav-link" data-toggle="collapse" href="#penjadwalan" aria-expanded="false"
+                aria-controls="penjadwalan">
+                <i class="ti-book menu-icon"></i>
                 <span class="menu-title">Penjadwalan</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
+            <div class="collapse" id="penjadwalan">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Manual</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Otomatis</a></li>
@@ -63,10 +63,18 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-                <i class="icon-cog menu-icon"></i>
+            <a class="nav-link" data-toggle="collapse" href="#jadwal" aria-expanded="false"
+                aria-controls="jadwal">
+                <i class="ti-calendar menu-icon"></i>
                 <span class="menu-title">Jadwal</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="jadwal">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.kelas') }}">Jadwal Kelas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.guru') }}">Jadwal Guru</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="pages/documentation/documentation.html">

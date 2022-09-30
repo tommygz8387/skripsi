@@ -74,7 +74,7 @@ class ManualController extends Controller
      * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
-    public function show(Manual $manual)
+    public function show($id)
     {
         //
     }
@@ -85,7 +85,7 @@ class ManualController extends Controller
      * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
-    public function edit(Manual $manual)
+    public function edit($id)
     {
         //
     }
@@ -97,7 +97,7 @@ class ManualController extends Controller
      * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manual $manual)
+    public function update(Request $request, $id)
     {
         //
         $update = Manual::updateOrCreate(['id' => $id], $request->all());
@@ -116,7 +116,7 @@ class ManualController extends Controller
      * @param  \App\Models\Manual  $manual
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Manual $manual)
+    public function destroy($id)
     {
         //
         $destroy = Manual::find($id);

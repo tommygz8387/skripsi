@@ -14,6 +14,7 @@ use App\Http\Controllers\SlotController;
 use App\Http\Controllers\JKhususController;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TingkatController;
+use App\Http\Controllers\JadwalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,4 +137,17 @@ Route::controller(TingkatController::class)->group(function(){
     // Route::get('/pages/tingkat/{id}', 'edit')->name('tingkat.edit');
     Route::post('/pages/tingkat/{id}', 'update')->name('tingkat.update');
     Route::get('/pages/tingkat/delete/{id}', 'destroy')->name('tingkat.delete');
+});
+
+
+// grup controller Jadwal
+Route::controller(JadwalController::class)->group(function(){
+    Route::get('/pages/jadwalGuru', 'guru')->name('jadwal.guru');
+    Route::get('/pages/jadwalKelas', 'kelas')->name('jadwal.kelas');
+    // Route::post('/pages/jadwal', 'store')->name('jadwal.store');
+    // Route::get('/pages/jadwal/{id}', 'edit')->name('jadwal.edit');
+    // Route::post('/pages/jadwal/{id}', 'update')->name('jadwal.update');
+    // Route::get('/pages/jadwal/delete/{id}', 'destroy')->name('jadwal.delete');
+    Route::post('/pages/jadwalGuru/filter', 'findGuru')->name('jadwal.findGuru');
+    Route::post('/pages/jadwalKelas/filter', 'findKelas')->name('jadwal.findKelas');
 });

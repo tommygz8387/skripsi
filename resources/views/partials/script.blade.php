@@ -11,3 +11,8 @@
 <!-- inject:js -->
 @yield('cus-script')
 <!-- endinject -->
+<script>
+    $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+    });
+</script>

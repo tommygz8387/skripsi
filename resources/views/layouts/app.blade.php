@@ -4,6 +4,9 @@
 @include('partials.header')
 
 <body>
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
     @include('sweetalert::alert')
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
