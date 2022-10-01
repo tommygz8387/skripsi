@@ -6,6 +6,7 @@ use App\Models\JKhusus;
 use App\Models\Guru;
 use App\Models\Hari;
 use App\Models\Waktu;
+use App\Models\Slot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -27,7 +28,10 @@ class JKhususController extends Controller
         $data['dataGuru'] = Guru::latest()->get();
         $data['dataHari'] = Hari::latest()->get();
         $data['dataWaktu'] = Waktu::latest()->get();
-        $data['dataJKhusus'] = JKhusus::with(['guru','hari','waktu'])->oldest()->get();
+        $data['dataJKhusus'] = JKhusus::with(['guru','slot'])
+        // ->with(['slot.hari:hari','slot.waktu:jam_mulai,jam_selesai'])
+        ->oldest()
+        ->get();
         // dd($data);
         return view('frontend.jkhusus.index',$data);
     }
@@ -51,7 +55,16 @@ class JKhususController extends Controller
     public function store(Request $request)
     {
         //
-        $store = JKhusus::create($request->all());
+        // $cekHari = $request->get('hari_id');
+        // $cekWaktu = $request->get('waktu_id');
+        $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
+        // dd($cek);
+        if(!$cek){
+            Alert::error('error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
+            return redirect()->route('jkhusus.index');
+        }
+        // $store = JKhusus::create($request->all());
+        $store = JKhusus::create(array_merge($request->all(), ['slot_id' => $cek]));
         if(!$store){
             Alert::error('error','Add Data Failed!');
             return redirect()->route('jkhusus.index');
@@ -94,7 +107,14 @@ class JKhususController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $update = JKhusus::updateOrCreate(['id' => $id], $request->all());
+        $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
+        // dd($cek);
+        if(!$cek){
+            Alert::error('error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
+            return redirect()->route('jkhusus.index');
+        }
+
+        $update = JKhusus::updateOrCreate(['id' => $id], array_merge($request->all(), ['slot_id' => $cek]));
         if (!$update) {
             Alert::error('error','Data Not Found!');
             return redirect()->back();

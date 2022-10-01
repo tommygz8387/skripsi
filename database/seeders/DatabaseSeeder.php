@@ -135,15 +135,8 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        // atur slot
-        $jml=count(Hari::all());
-        for ($i=1; $i <= $jml; $i++) { 
-            $data=count(Slot::where('hari_id',$i)->get());
-            // $newData=DB::select(`select * from haris where id = ?`, [$i]);
-            DB::update('UPDATE haris SET sisa = jml_jam-? WHERE id = ?',[$data,$i]);
-        }
 
-        JKhusus::factory(10)->create();
+        JKhusus::factory(20)->create();
         Manual::factory(50)->create();
         Ampu::factory(10)->create();
     }

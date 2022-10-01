@@ -18,10 +18,7 @@ class CreateJKhususesTable extends Migration
             $table->foreignId('guru_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('hari_id')->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('waktu_id')->constrained()
+            $table->foreignId('slot_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

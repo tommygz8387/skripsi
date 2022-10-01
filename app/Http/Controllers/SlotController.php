@@ -26,12 +26,16 @@ class SlotController extends Controller
         
         // $data=['07:15','08:00','08:45','09:30'];
         // $j=count($data);
-        $cek=Hari::where('sisa','>',0)->get();
+        // $jslot = Slot::count();
+        // $cek=Hari::where('sisa','>',0)->get();
         // dd($cek);
 
-        $data['dataWaktu'] = Waktu::latest()->get();
-        $data['dataHari'] = $cek;
-        $data['dataSlot'] = Slot::with(['hari','waktu'])->oldest()->get();
+        $data['dataWaktu'] = Waktu::all();
+        $data['dataHari'] = Hari::all();
+        $data['dataSlot'] = Slot::with(['hari','waktu'])
+        ->orderBy('hari_id', 'asc')
+        ->orderBy('waktu_id', 'asc')
+        ->get();
         // dd($data);
         return view('frontend.slot.index',$data);
     }
@@ -65,22 +69,18 @@ class SlotController extends Controller
         // Hari::updateOrCreate(['id' => $request->hari_id], $dataInput);
         
         
-        $cek = count(Slot::
+        $cek = Slot::
         where('hari_id',$request->hari_id)->
         where('waktu_id',$request->waktu_id)
-        ->get());
+        ->value('id');
         
         // dd($cek);
-        if ($cek!='0') {
+        if ($cek) {
             Alert::error('error','Data Already Exist!');
             return redirect()->route('slot.index');
         }
         
         $store = Slot::create($request->all());
-
-        $sisaGanti=Hari::findOrFail($request->hari_id);
-        $sisaGanti->sisa-=1;
-        $sisaGanti->save();
         if(!$store){
             Alert::error('error','Add Data Failed!');
             return redirect()->route('slot.index');
@@ -123,28 +123,18 @@ class SlotController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $cek2 = count(Slot::
+        $cek2 = Slot::
         where('hari_id',$request->hari_id)->
         where('waktu_id',$request->waktu_id)
-        ->get());
+        ->value('id');
         
         // dd($cek2);
-        if ($cek2!='0') {
+        if ($cek2) {
             Alert::error('error','Data Already Exist!');
             return redirect()->route('slot.index');
         } 
-
-        
-        $data=Slot::find($id);
-        $sisaLama=Hari::findOrFail($data->hari_id);
-        $sisaLama->sisa+=1;
-        $sisaLama->save();
         
         $update = Slot::updateOrCreate(['id' => $id], $request->all());
-        
-        $sisaBaru=Hari::findOrFail($request->hari_id);
-        $sisaBaru->sisa-=1;
-        $sisaBaru->save();
         if (!$update) {
             Alert::error('error','Data Not Found!');
             return redirect()->back();
@@ -163,11 +153,7 @@ class SlotController extends Controller
     public function destroy($id)
     {
         //
-        $data=Slot::find($id);
-        $destroy = $data;
-        $sisaGanti=Hari::findOrFail($data->hari_id);
-        $sisaGanti->sisa+=1;
-        $sisaGanti->save();
+        $destroy=Slot::find($id);
 
         // cek data
         if (!$destroy) {

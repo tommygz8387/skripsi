@@ -8,7 +8,7 @@
     <!-- Modal Tambah -->
     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            {{-- @include('frontend.manual.creModal') --}}
+            @include('frontend.manual.creModal')
         </div>
     </div>
     <div class="row">
@@ -82,14 +82,14 @@
                                     <div class="modal fade" id="editModal{{ $Manual->id }}" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            {{-- @include('frontend.manual.editModal') --}}
+                                            @include('frontend.manual.editModal')
                                         </div>
                                     </div>
                                     {{-- Modal Delete --}}
                                     <div class="modal fade" id="delModal{{ $Manual->id }}" tabindex="-1"
                                         aria-labelledby="delModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            {{-- @include('frontend.manual.delModal') --}}
+                                            @include('frontend.manual.delModal')
                                         </div>
                                     </div>
                                 @endforeach

@@ -21,9 +21,9 @@ class Hari extends Model
     protected $fillable = [
         'hari','jml_jam'
     ];
-    protected $hidden = [
-        'sisa'
-    ];
+    // protected $hidden = [
+    //     'sisa'
+    // ];
 
     public function slot()
     {

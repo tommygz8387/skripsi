@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Waktu;
 use App\Models\Hari;
 use App\Models\Manual;
+use App\Models\JKhusus;
 
 class Slot extends Model
 {
@@ -34,5 +35,9 @@ class Slot extends Model
     public function manual()
     {
         return $this->hasMany(Manual::class);
+    }
+    public function jkhusus()
+    {
+        return $this->hasMany(JKhusus::class);
     }
 }

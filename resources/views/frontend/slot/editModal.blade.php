@@ -14,14 +14,18 @@
                 <select class="form-control" aria-label="Default select example" id="Hari" name="hari_id" required>
                     <option selected hidden value="{{ $Slot->hari_id }}">{{ $Slot->hari->hari }}</option>
                     @foreach ($dataHari as $hari)
-                        <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
+                        @if (count(App\Models\Slot::where('hari_id', $hari->id)->get()) < $hari->jml_jam)
+                            <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label>
-                <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id" required>
-                    <option selected hidden value="{{ $Slot->waktu_id }}">{{ $Slot->waktu->jam_mulai }}-{{ $Slot->waktu->jam_selesai }}</option>
+                <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id"
+                    required>
+                    <option selected hidden value="{{ $Slot->waktu_id }}">
+                        {{ $Slot->waktu->jam_mulai }}-{{ $Slot->waktu->jam_selesai }}</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
                     @endforeach

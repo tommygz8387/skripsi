@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label for="Hari">Hari</label>
                 <select class="form-control" aria-label="Default select example" id="Hari" name="hari_id" required>
-                    <option selected hidden value="{{ $JKhusus->hari_id }}">{{ $JKhusus->hari->hari }}</option>
+                    <option selected hidden value="{{ $JKhusus->slot->hari_id }}">{{ $JKhusus->slot->hari->hari }}</option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
                     @endforeach
@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="Jam">Jam</label>
                 <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id" required>
-                    <option selected hidden value="{{ $JKhusus->waktu_id }}">{{ $JKhusus->waktu->jam_mulai }}-{{ $JKhusus->waktu->jam_selesai }}</option>
+                    <option selected hidden value="{{ $JKhusus->slot->waktu_id }}">{{ $JKhusus->slot->waktu->jam_mulai }}-{{ $JKhusus->slot->waktu->jam_selesai }}</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
                     @endforeach

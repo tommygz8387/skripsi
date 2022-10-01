@@ -48,8 +48,8 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $JKhusus->guru->nama }}</td>
-                                        <td>{{ $JKhusus->hari->hari }}</td>
-                                        <td>{{ $JKhusus->waktu->jam_mulai }}-{{ $JKhusus->waktu->jam_selesai }}</td>
+                                        <td>{{ $JKhusus->slot->hari->hari }}</td>
+                                        <td>{{ $JKhusus->slot->waktu->jam_mulai }}-{{ $JKhusus->slot->waktu->jam_selesai }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $JKhusus->id }}">

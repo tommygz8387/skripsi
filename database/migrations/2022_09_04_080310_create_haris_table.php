@@ -17,7 +17,7 @@ class CreateHarisTable extends Migration
             $table->id();
             $table->string('hari');
             $table->integer('jml_jam');
-            $table->integer('sisa')->nullable();
+            // $table->integer('sisa')->nullable();
             $table->timestamps();
         });
     }
