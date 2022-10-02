@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('title')
-    Data Opsi - Ruang
+    Atur Jadwal - Data Ampu Guru
 @endsection
 
 @section('content')
     <!-- Modal Tambah -->
     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            @include('frontend.ruang.creModal')
+            @include('frontend.ampu.creModal')
         </div>
     </div>
     <div class="row">
-        {{-- tabel data guru --}}
+        {{-- tabel data mapel --}}
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">List Ruang</h4>
+                    <h4 class="card-title">List Ampu Guru</h4>
                     <div class="row justify-content-between mx-0">
                         <div class="cols">
                             <p class="card-description">
-                                Basic form layout
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, voluptate?
                             </p>
                         </div>
                         <div class="cols">
@@ -37,50 +37,53 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama</th>
-                                    <th>Kode</th>
+                                    <th>Nama Guru</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Tingkat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataRuang as $Ruang)
+                                @foreach ($dataAmpu as $Ampu)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $Ruang->nama }}</td>
-                                        <td>{{ $Ruang->kode }}</td>
+                                        <td>{{ $Ampu->guru->nama }}</td>
+                                        <td>{{ $Ampu->mapel->nama }}</td>
+                                        <td>{{ $Ampu->tingkat->tingkat }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                                                id="Dropdown{{ $Ruang->id }}">
+                                                id="Dropdown{{ $Ampu->id }}">
                                                 <i class="icon-ellipsis text-black"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                                                aria-labelledby="Dropdown{{ $Ruang->id }}">
+                                                aria-labelledby="Dropdown{{ $Ampu->id }}">
                                                 <!-- Button trigger edit modal -->
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#editModal{{ $Ruang->id }}">
+                                                    data-target="#editModal{{ $Ampu->id }}">
                                                     <i class="ti-pencil text-black"></i>
                                                     Edit
                                                 </button>
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delRuangModal{{ $Ruang->id }}">
+                                                    data-target="#delModal{{ $Ampu->id }}">
                                                     <i class="ti-eraser text-black"></i>
                                                     Delete
                                                 </button>
                                             </div>
                                         </td>
                                     </tr>
+
                                     {{-- Modal Edit --}}
-                                    <div class="modal fade" id="editModal{{ $Ruang->id }}" tabindex="-1"
+                                    <div class="modal fade" id="editModal{{ $Ampu->id }}" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            @include('frontend.ruang.editModal')
+                                            @include('frontend.ampu.editModal')
                                         </div>
                                     </div>
-                                    {{-- delete modal --}}
-                                    <div class="modal fade" id="delRuangModal{{ $Ruang->id }}" tabindex="-1"
-                                        aria-labelledby="delRuangModalLabel" aria-hidden="true">
+                                    {{-- Modal Delete --}}
+                                    <div class="modal fade" id="delModal{{ $Ampu->id }}" tabindex="-1"
+                                        aria-labelledby="delModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            @include('frontend.ruang.delModal')
+                                            @include('frontend.ampu.delModal')
                                         </div>
                                     </div>
                                 @endforeach
@@ -96,10 +99,10 @@
     <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
-                // lengthMenu: [
-                //     [5, 10, 25, 50, -1],
-                //     [5, 10, 25, 50, 'All'],
-                // ],
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All'],
+                ],
             });
         });
     </script>

@@ -15,6 +15,7 @@ use App\Http\Controllers\JKhususController;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\AmpuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +138,15 @@ Route::controller(TingkatController::class)->group(function(){
     // Route::get('/pages/tingkat/{id}', 'edit')->name('tingkat.edit');
     Route::post('/pages/tingkat/{id}', 'update')->name('tingkat.update');
     Route::get('/pages/tingkat/delete/{id}', 'destroy')->name('tingkat.delete');
+});
+
+// grup controller ampu
+Route::controller(AmpuController::class)->group(function(){
+    Route::get('/pages/ampu', 'index')->name('ampu.index');
+    Route::post('/pages/ampu', 'store')->name('ampu.store');
+    // Route::get('/pages/ampu/{id}', 'edit')->name('ampu.edit');
+    Route::post('/pages/ampu/{id}', 'update')->name('ampu.update');
+    Route::get('/pages/ampu/delete/{id}', 'destroy')->name('ampu.delete');
 });
 
 

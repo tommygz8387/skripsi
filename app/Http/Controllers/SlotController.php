@@ -76,17 +76,17 @@ class SlotController extends Controller
         
         // dd($cek);
         if ($cek) {
-            Alert::error('error','Data Already Exist!');
+            Alert::error('Error','Data Already Exist!');
             return redirect()->route('slot.index');
         }
         
         $store = Slot::create($request->all());
         if(!$store){
-            Alert::error('error','Add Data Failed!');
+            Alert::error('Error','Add Data Failed!');
             return redirect()->route('slot.index');
         } else {
             // Hari::updateOrCreate(['id' => $request->hari_id], ['sisa' => $hariUpdate]);
-            Alert::success('success','Data Added successfully');
+            Alert::success('Success','Data Added successfully');
             return redirect()->route('slot.index');
         }
     }
@@ -130,16 +130,16 @@ class SlotController extends Controller
         
         // dd($cek2);
         if ($cek2) {
-            Alert::error('error','Data Already Exist!');
+            Alert::error('Error','Data Already Exist!');
             return redirect()->route('slot.index');
         } 
         
         $update = Slot::updateOrCreate(['id' => $id], $request->all());
         if (!$update) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->back();
         }else{
-            Alert::success('success','Data Updated Successfully');
+            Alert::success('Success','Data Updated Successfully');
             return redirect()->route('slot.index');
         }
     }
@@ -157,16 +157,16 @@ class SlotController extends Controller
 
         // cek data
         if (!$destroy) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->route('slot.index');
         }
 
         $destroy->delete();
         if (!$destroy) {
-            Alert::error('error','Data Cannot Be Deleted!');
+            Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('slot.index');
         }else{
-            Alert::success('success','Data Has Been Deleted!');
+            Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('slot.index');
         }
     }

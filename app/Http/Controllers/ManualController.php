@@ -65,12 +65,20 @@ class ManualController extends Controller
         $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
         // dd($cek);
         if(!$cek){
-            Alert::error('error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
+            Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
+            return redirect()->route('manual.index');
+        }
+        $cekGuru = Guru::where('id',$request->guru_id)->value('jml_ampu');
+        // dd($cekGuru);
+        
+        if(count(Manual::where('guru_id',$request->guru_id)->get())>=$cekGuru){
+            Alert::error('Error','Jumlah Ampu Guru Sudah Terpenuhi! 
+            Silahkan Isi Jadwal Untuk Guru Lain.');
             return redirect()->route('manual.index');
         }
         $store = Manual::create(array_merge($request->all(), ['slot_id' => $cek]));
         if(!$store){
-            Alert::error('error','Add Data Failed!');
+            Alert::error('Error','Add Data Failed!');
             return redirect()->route('manual.index');
         } else {
             Alert::success('success','Data Added successfully');
@@ -112,7 +120,7 @@ class ManualController extends Controller
         //
         $update = Manual::updateOrCreate(['id' => $id], $request->all());
         if (!$update) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->back();
         }else{
             Alert::success('success','Data Updated Successfully');
@@ -133,13 +141,13 @@ class ManualController extends Controller
 
         // cek data
         if (!$destroy) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->route('manual.index');
         }
 
         $destroy->delete();
         if (!$destroy) {
-            Alert::error('error','Data Cannot Be Deleted!');
+            Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('manual.index');
         }else{
             Alert::success('success','Data Has Been Deleted!');

@@ -38,7 +38,7 @@ class JadwalController extends Controller
     //     //
     //     $data['find'] = Jadwal::find($id);
     //     if(!$data['find']){
-    //         Alert::error('error','Data Not Found!');
+    //         Alert::error('Error','Data Not Found!');
     //         return redirect()->route('jadwal.index');
     //     }
     //     return view('frontend.jadwal.guru.index',$data);
@@ -57,14 +57,14 @@ class JadwalController extends Controller
         $data['dataGuru'] = Guru::all();
         // dd($find);
         if(!$find){
-            Alert::error('error','Data not Found!');
+            Alert::error('Error','Data not Found!');
             return redirect()->route('jadwal.guru');
         } elseif ($find == 'all') {
             $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->get();
             // dd($data);
             return view('frontend.jadwal.guru.index',$data);
         } else {
-            // Alert::success('success','Data Added successfully');
+            // Alert::success('Success','Data Added successfully');
             // $data['Jadwal'] = DB::select('select * from manuals where guru_id = ?', [$find])->get();
             $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])
             ->where('guru_id', $find)
@@ -90,14 +90,14 @@ class JadwalController extends Controller
         $data['dataKelas'] = Kelas::all();
         // dd($find);
         if(!$find){
-            Alert::error('error','Data not Found!');
+            Alert::error('Error','Data not Found!');
             return redirect()->route('jadwal.kelas');
         } elseif ($find == 'all') {
             $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->get();
             // dd($data);
             return view('frontend.jadwal.kelas.index',$data);
         } else {
-            // Alert::success('success','Data Added successfully');
+            // Alert::success('Success','Data Added successfully');
             // $data['Jadwal'] = DB::select('select * from manuals where guru_id = ?', [$find])->get();
             $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])
             ->where('kelas_id', $find)

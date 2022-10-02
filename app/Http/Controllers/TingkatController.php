@@ -43,10 +43,10 @@ class TingkatController extends Controller
         //
         $store = Tingkat::create($request->all());
         if(!$store){
-            Alert::error('error','Add Data Failed!');
+            Alert::error('Error','Add Data Failed!');
             return redirect()->route('jurusan.index');
         } else {
-            Alert::success('success','Data Added successfully');
+            Alert::success('Success','Data Added successfully');
             return redirect()->route('jurusan.index');
         }
     }
@@ -86,10 +86,10 @@ class TingkatController extends Controller
         $update = Tingkat::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->back();
         }else{
-            Alert::success('success','Data Updated Successfully');
+            Alert::success('Success','Data Updated Successfully');
             return redirect()->route('jurusan.index');
         }
     }
@@ -107,16 +107,16 @@ class TingkatController extends Controller
 
         // cek data
         if (!$destroy) {
-            Alert::error('error','Data Not Found!');
+            Alert::error('Error','Data Not Found!');
             return redirect()->route('jurusan.index');
         }
 
         $destroy->delete();
         if (!$destroy) {
-            Alert::error('error','Data Cannot Be Deleted!');
+            Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('jurusan.index');
         }else{
-            Alert::success('success','Data Has Been Deleted!');
+            Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('jurusan.index');
         }
     }

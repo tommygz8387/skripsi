@@ -1,7 +1,7 @@
 @extends('frontend.ruang.index')
 
 @section('title')
-    Master Data - Ruang
+    Data Opsi - Ruang
 @endsection
 
 @section('form')
