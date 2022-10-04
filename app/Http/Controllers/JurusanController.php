@@ -131,4 +131,25 @@ class JurusanController extends Controller
             return redirect()->route('jurusan.index');
         }
     }
+
+    public function reset()
+    {
+        //
+        $destroy = Jurusan::all();
+
+        // cek data
+        if (!$destroy) {
+            Alert::error('Error','Data Not Found!');
+            return redirect()->route('jurusan.index');
+        }
+
+        $destroy->delete();
+        if (!$destroy) {
+            Alert::error('Error','Data Cannot Be Deleted!');
+            return redirect()->route('jurusan.index');
+        }else{
+            Alert::success('Success','Data Has Been Deleted!');
+            return redirect()->route('jurusan.index');
+        }
+    }
 }

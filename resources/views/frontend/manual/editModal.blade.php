@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title" id="editModalLabel"><strong>Edit Data Jam Khusus</strong></h4>
+        <h4 class="modal-title" id="editModalLabel"><strong>Edit Data Jam Ajar</strong></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -12,7 +12,7 @@
             <div class="form-group">
                 <label for="Hari">Hari</label>
                 <select class="form-control" aria-label="Default select example" id="Hari" name="hari_id">
-                    <option selected hidden value="{{ $Manual->hari_id }}">{{ $Manual->slot->hari->hari }}</option>
+                    <option selected hidden value="{{ $Manual->slot->hari_id }}">{{ $Manual->slot->hari->hari }}</option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
                     @endforeach
@@ -21,7 +21,7 @@
             <div class="form-group">
                 <label for="Jam">Jam</label>
                 <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id">
-                    <option selected hidden value="{{ $Manual->waktu_id }}">{{ $Manual->slot->waktu->jam_mulai }}-{{ $Manual->slot->waktu->jam_selesai }}</option>
+                    <option selected hidden value="{{ $Manual->slot->waktu_id }}">{{ $Manual->slot->waktu->jam_mulai }}-{{ $Manual->slot->waktu->jam_selesai }}</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
                     @endforeach
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="Guru">Guru</label>
                 <select class="form-control" aria-label="Default select example" id="Guru" name="guru_id">
-                    <option selected hidden value="{{ $Manual->guru_id }}">{{ $Manual->guru->nama }}</option>
+                    <option selected hidden value="{{ $Manual->ampu->guru_id }}">{{ $Manual->ampu->guru->nama }}</option>
                     @foreach ($dataGuru as $Guru)
                         <option value="{{ $Guru->id }}">{{ $Guru->nama }}</option>
                     @endforeach
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <label for="Mapel">Mata Pelajaran</label>
                 <select class="form-control" aria-label="Default select example" id="Mapel" name="mapel_id">
-                    <option selected hidden value="{{ $Manual->mapel_id }}">{{ $Manual->mapel->nama }}</option>
+                    <option selected hidden value="{{ $Manual->ampu->mapel_id }}">{{ $Manual->ampu->mapel->nama }}</option>
                     @foreach ($dataMapel as $Mapel)
                         <option value="{{ $Mapel->id }}">{{ $Mapel->nama }}</option>
                     @endforeach

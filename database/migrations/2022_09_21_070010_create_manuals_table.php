@@ -15,10 +15,7 @@ class CreateManualsTable extends Migration
     {
         Schema::create('manuals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guru_id')->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('mapel_id')->constrained()
+            $table->foreignId('ampu_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('kelas_id')->constrained()

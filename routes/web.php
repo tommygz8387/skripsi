@@ -102,6 +102,7 @@ Route::controller(JurusanController::class)->group(function(){
     Route::get('/pages/jurusan/{id}', 'edit')->name('jurusan.edit');
     Route::post('/pages/jurusan/{id}', 'update')->name('jurusan.update');
     Route::get('/pages/jurusan/delete/{id}', 'destroy')->name('jurusan.delete');
+    Route::get('/pages/jurusan/reset', 'reset')->name('jurusan.reset');
 });
 
 // grup controller slot

@@ -44,7 +44,19 @@ class WaktuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Waktu::
+        where('jam_mulai',$request->jam_mulai)->
+        where('jam_selesai',$request->jam_selesai)->
+        where('total',$request->total)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('waktu.index');
+        }
+
         $store = Waktu::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -86,7 +98,19 @@ class WaktuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = Waktu::
+        where('jam_mulai',$request->jam_mulai)->
+        where('jam_selesai',$request->jam_selesai)->
+        where('total',$request->total)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('waktu.index');
+        }
+
         $update = Waktu::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

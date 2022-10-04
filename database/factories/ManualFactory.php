@@ -15,8 +15,7 @@ class ManualFactory extends Factory
     {
         return [
             //
-            'guru_id' => $this->faker->numberBetween(1, 10),
-            'mapel_id' => $this->faker->numberBetween(1, 5),
+            'ampu_id' => $this->faker->numberBetween(1, 40),
             'kelas_id' => $this->faker->numberBetween(1, 5),
             'ruang_id' => $this->faker->numberBetween(1, 5),
             'slot_id' => $this->faker->numberBetween(1, 50),

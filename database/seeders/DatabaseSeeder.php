@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
         }
 
         JKhusus::factory(20)->create();
+        Ampu::factory(40)->create();
         Manual::factory(50)->create();
-        Ampu::factory(10)->create();
     }
 }

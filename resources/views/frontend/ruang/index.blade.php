@@ -35,6 +35,7 @@
                     <div class="table-responsive pt-3">
                         <table class="table table-bordered table-hover" id="tabel">
                             <thead>
+                            {{-- <thead style="background: #4B49AC;color: #ffffff;"> --}}
                                 <tr>
                                     <th>#</th>
                                     <th>Nama</th>

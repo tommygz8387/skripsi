@@ -47,7 +47,19 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Kelas::
+        where('nama',$request->nama)->
+        where('jurusan_id',$request->jurusan_id)->
+        where('tingkat_id',$request->tingkat_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('kelas.index');
+        }
+
         $store = Kelas::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -96,7 +108,19 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //cek duplikat
+        $cek = Kelas::
+        where('nama',$request->nama)->
+        where('jurusan_id',$request->jurusan_id)->
+        where('tingkat_id',$request->tingkat_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('kelas.index');
+        }
+        
         $update = Kelas::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

@@ -58,6 +58,18 @@ class AmpuController extends Controller
     public function store(Request $request)
     {
         //
+        $cek = Ampu::
+        where('guru_id',$request->guru_id)->
+        where('mapel_id',$request->mapel_id)->
+        where('tingkat_id',$request->tingkat_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('ampu.index');
+        }
+
         $store = Ampu::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -100,6 +112,18 @@ class AmpuController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cek = Ampu::
+        where('guru_id',$request->guru_id)->
+        where('mapel_id',$request->mapel_id)->
+        where('tingkat_id',$request->tingkat_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('ampu.index');
+        }
+        
         $update = Ampu::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

@@ -29,7 +29,6 @@ class JKhususController extends Controller
         $data['dataHari'] = Hari::latest()->get();
         $data['dataWaktu'] = Waktu::latest()->get();
         $data['dataJKhusus'] = JKhusus::with(['guru','slot'])
-        // ->with(['slot.hari:hari','slot.waktu:jam_mulai,jam_selesai'])
         ->oldest()
         ->get();
         // dd($data);
@@ -54,7 +53,18 @@ class JKhususController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = JKhusus::
+        where('guru_id',$request->guru_id)->
+        where('slot_id',$request->slot_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('jkhusus.index');
+        }
+
         // $cekHari = $request->get('hari_id');
         // $cekWaktu = $request->get('waktu_id');
         $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
@@ -106,7 +116,18 @@ class JKhususController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = JKhusus::
+        where('guru_id',$request->guru_id)->
+        where('slot_id',$request->slot_id)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('jkhusus.index');
+        }
+        
         $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
         // dd($cek);
         if(!$cek){

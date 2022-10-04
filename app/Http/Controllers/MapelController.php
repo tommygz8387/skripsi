@@ -44,7 +44,21 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Mapel::
+        where('nama',$request->nama)->
+        where('jurusan_id',$request->jurusan_id)->
+        where('ampu1',$request->ampu1)->
+        where('ampu2',$request->ampu2)->
+        where('ampu3',$request->ampu3)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('mapel.index');
+        }
+
         $store = Mapel::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -93,7 +107,21 @@ class MapelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = Mapel::
+        where('nama',$request->nama)->
+        where('jurusan_id',$request->jurusan_id)->
+        where('ampu1',$request->ampu1)->
+        where('ampu2',$request->ampu2)->
+        where('ampu3',$request->ampu3)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('mapel.index');
+        }
+        
         $update = Mapel::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

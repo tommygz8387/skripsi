@@ -51,6 +51,18 @@ class GuruController extends Controller
         //     'jml_ampu'=>'required',
         //     'keterangan'=>'required',
         // ]);
+        $cek = Guru::
+        where('nama',$request->nama)->
+        where('nip',$request->nip)->
+        where('no_tlp',$request->no_tlp)->
+        where('jml_ampu',$request->jml_ampu)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('guru.index');
+        }
         
         $store = Guru::create($request->all());
         if(!$store){
@@ -94,6 +106,19 @@ class GuruController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cek = Guru::
+        where('nama',$request->nama)->
+        where('nip',$request->nip)->
+        where('no_tlp',$request->no_tlp)->
+        where('jml_ampu',$request->jml_ampu)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('guru.index');
+        }
+        
         $update = Guru::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

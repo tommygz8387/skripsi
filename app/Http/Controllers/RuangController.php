@@ -42,7 +42,18 @@ class RuangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Ruang::
+        where('nama',$request->nama)->
+        where('kode',$request->kode)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('ruang.index');
+        }
+
         $store = Ruang::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -84,7 +95,18 @@ class RuangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = Ruang::
+        where('nama',$request->nama)->
+        where('kode',$request->kode)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('ruang.index');
+        }
+        
         $update = Ruang::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

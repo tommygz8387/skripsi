@@ -72,7 +72,7 @@ class SlotController extends Controller
         $cek = Slot::
         where('hari_id',$request->hari_id)->
         where('waktu_id',$request->waktu_id)
-        ->value('id');
+        ->exists();
         
         // dd($cek);
         if ($cek) {

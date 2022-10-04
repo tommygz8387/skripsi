@@ -40,7 +40,17 @@ class TingkatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Tingkat::
+        where('tingkat',$request->tingkat)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('tingkat.index');
+        }
+
         $store = Tingkat::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -82,7 +92,17 @@ class TingkatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = Tingkat::
+        where('tingkat',$request->tingkat)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('tingkat.index');
+        }
+        
         $update = Tingkat::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

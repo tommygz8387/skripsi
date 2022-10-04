@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Guru;
-use App\Models\Mapel;
+use App\Models\Ampu;
 use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Ruang;
@@ -23,17 +22,9 @@ class Manual extends Model
     protected $table = 'manuals';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'guru_id','mapel_id','kelas_id','ruang_id','slot_id'
+        'ampu_id','kelas_id','ruang_id','slot_id'
     ];
 
-    public function guru()
-    {
-        return $this->belongsTo(Guru::class);
-    }
-    public function mapel()
-    {
-        return $this->belongsTo(Mapel::class);
-    }
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
@@ -41,6 +32,10 @@ class Manual extends Model
     public function ruang()
     {
         return $this->belongsTo(Ruang::class);
+    }
+    public function ampu()
+    {
+        return $this->belongsTo(Ampu::class)->with(['guru','mapel']);
     }
     public function slot()
     {

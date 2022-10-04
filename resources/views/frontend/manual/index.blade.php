@@ -53,8 +53,8 @@
                                         <td>{{ $Manual->slot->hari->hari }}</td>
                                         <td>{{ $Manual->slot->waktu->jam_mulai }}-<br>{{ $Manual->slot->waktu->jam_selesai }}</td>
                                         <td>{{ $Manual->kelas->nama }}</td>
-                                        <td>{{ $Manual->guru->nama }}</td>
-                                        <td>{{ $Manual->mapel->nama }}</td>
+                                        <td>{{ $Manual->ampu->guru->nama }}</td>
+                                        <td>{{ $Manual->ampu->mapel->nama }}</td>
                                         <td>{{ $Manual->ruang->nama }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"

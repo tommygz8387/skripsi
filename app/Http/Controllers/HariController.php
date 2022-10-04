@@ -40,7 +40,19 @@ class HariController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek duplikat
+        $cek = Hari::
+        where('hari',$request->hari)->
+        where('jml_jam',$request->jml_jam)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('hari.index');
+        }
+
+        // simpan data
         $store = Hari::create($request->all());
         if(!$store){
             Alert::error('Error','Add Data Failed!');
@@ -82,7 +94,18 @@ class HariController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // cek duplikat
+        $cek = Hari::
+        where('hari',$request->hari)->
+        where('jml_jam',$request->jml_jam)->
+        exists();
+        
+        // dd($cek);
+        if ($cek) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('hari.index');
+        }
+
         $update = Hari::updateOrCreate(['id' => $id], $request->all());
 
         if (!$update) {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Guru;
 use App\Models\Mapel;
 use App\Models\Tingkat;
+use App\Models\Manual;
 
 class Ampu extends Model
 {
@@ -36,5 +37,9 @@ class Ampu extends Model
     public function mapel()
     {
         return $this->belongsTo(Mapel::class);
+    }
+    public function manual()
+    {
+        return $this->hasMany(Manual::class);
     }
 }
