@@ -66,8 +66,8 @@
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Manual->kelas->nama }}</td>
-                                        <td>{{ $Manual->mapel->nama }}</td>
-                                        <td>{{ $Manual->guru->nama }}</td>
+                                        <td>{{ $Manual->ampu->mapel->nama }}</td>
+                                        <td>{{ $Manual->ampu->guru->nama }}</td>
                                         <td>{{ $Manual->slot->hari->hari }}</td>
                                         <td>{{ $Manual->slot->waktu->jam_mulai }}-{{ $Manual->slot->waktu->jam_selesai }}
                                         </td>

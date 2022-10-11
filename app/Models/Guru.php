@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\JKhusus;
+use App\Models\Ampu;
 use App\Models\Manual;
+use App\Models\JKhusus;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Guru extends Model
 {
@@ -30,5 +31,10 @@ class Guru extends Model
     public function manual()
     {
         return $this->hasMany(Manual::class);
+    }
+
+    public function ampu()
+    {
+        return $this->hasMany(Ampu::class);
     }
 }

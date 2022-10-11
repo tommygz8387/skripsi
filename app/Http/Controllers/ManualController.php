@@ -183,4 +183,26 @@ class ManualController extends Controller
             return redirect()->route('manual.index');
         }
     }
+
+    public function reset()
+    {
+        //
+        $reset = Manual::truncate();
+        // dd($reset);
+
+        // cek data
+        if (!$reset) {
+            Alert::error('Error','Data Not Found!');
+            return redirect()->route('manual.index');
+        }
+
+        // $reset->delete();
+        if (!$reset) {
+            Alert::error('Error','Data Cannot Be Deleted!');
+            return redirect()->route('manual.index');
+        }else{
+            Alert::success('Success','Data Has Been Deleted!');
+            return redirect()->route('manual.index');
+        }
+    }
 }

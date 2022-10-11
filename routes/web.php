@@ -1,21 +1,22 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\KelasController;
-use App\Http\Controllers\RuangController;
-use App\Http\Controllers\MapelController;
-use App\Http\Controllers\WaktuController;
-use App\Http\Controllers\HariController;
-use App\Http\Controllers\JurusanController;
-use App\Http\Controllers\SlotController;
-use App\Http\Controllers\JKhususController;
-use App\Http\Controllers\ManualController;
-use App\Http\Controllers\TingkatController;
-use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\AmpuController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\HariController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SlotController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
+use App\Http\Controllers\RuangController;
+use App\Http\Controllers\WaktuController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\ManualController;
+use App\Http\Controllers\JKhususController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\TingkatController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +103,7 @@ Route::controller(JurusanController::class)->group(function(){
     Route::get('/pages/jurusan/{id}', 'edit')->name('jurusan.edit');
     Route::post('/pages/jurusan/{id}', 'update')->name('jurusan.update');
     Route::get('/pages/jurusan/delete/{id}', 'destroy')->name('jurusan.delete');
-    Route::get('/pages/jurusan/reset', 'reset')->name('jurusan.reset');
+    // Route::get('/pages/jurusan/reset', 'reset')->name('jurusan.reset');
 });
 
 // grup controller slot
@@ -112,6 +113,9 @@ Route::controller(SlotController::class)->group(function(){
     // Route::get('/pages/slot/{id}', 'edit')->name('slot.edit');
     Route::post('/pages/slot/{id}', 'update')->name('slot.update');
     Route::get('/pages/slot/delete/{id}', 'destroy')->name('slot.delete');
+    Route::get('/pages/slot/reset', 'reset')->name('slot.reset');
+    Route::get('/pages/slot/seed', 'seed')->name('slot.seed');
+    Route::get('/pages/slot/export', 'export')->name('slot.export');
 });
 
 // grup controller jam khusus
@@ -121,6 +125,7 @@ Route::controller(JKhususController::class)->group(function(){
     // Route::get('/pages/jkhusus/{id}', 'edit')->name('jkhusus.edit');
     Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
     Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
+    Route::get('/pages/jkhusus/reset', 'reset')->name('jkhusus.reset');
 });
 
 // grup controller penjadwalan manual
@@ -129,7 +134,8 @@ Route::controller(ManualController::class)->group(function(){
     Route::post('/jadwal/manual', 'store')->name('manual.store');
     // Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
     Route::post('/jadwal/manual/{id}', 'update')->name('manual.update');
-    Route::get('/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
+    Route::get('/jadwal/manual/delete/{id}', 'delete')->name('manual.delete');
+    Route::get('/pages/manual/reset', 'reset')->name('manual.reset');
 });
 
 // grup controller tingkat

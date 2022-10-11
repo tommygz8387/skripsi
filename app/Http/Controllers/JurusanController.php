@@ -135,16 +135,17 @@ class JurusanController extends Controller
     public function reset()
     {
         //
-        $destroy = Jurusan::all();
+        $res = Jurusan::where('id','!=','0');
+        dd($res);
 
         // cek data
-        if (!$destroy) {
+        if (!$res) {
             Alert::error('Error','Data Not Found!');
             return redirect()->route('jurusan.index');
         }
 
-        $destroy->delete();
-        if (!$destroy) {
+        $res->delete();
+        if (!$res) {
             Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('jurusan.index');
         }else{

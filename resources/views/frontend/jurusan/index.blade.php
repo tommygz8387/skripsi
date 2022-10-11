@@ -17,11 +17,11 @@
             @include('frontend.jurusan.creModal')
         </div>
     </div>
-    <div class="modal fade" id="resetJurusanModal" tabindex="-1" aria-labelledby="resetJurusanModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="resetJurusanModal" tabindex="-1" aria-labelledby="resetJurusanModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             @include('frontend.jurusan.resModal')
         </div>
-    </div>
+    </div> --}}
     <div class="row">
         {{-- tabel data tingkat --}}
         <div class="col-md-5 grid-margin">
@@ -106,11 +106,11 @@
                 <div class="card-body">
                     <h4 class="card-title">List Jurusan</h4>
                     <div class="row justify-content-between mx-0">
-                        {{-- <div class="cols">
+                        <div class="cols">
                             <p class="card-description">
                                 Tabel berisi semua jurusan yang ada disekolah.
                             </p>
-                        </div> --}}
+                        </div>
                         <div class="cols">
                             <!-- Button trigger create modal -->
                             <button type="button" class="btn btn-primary" data-toggle="modal"
@@ -118,13 +118,13 @@
                                 Tambah Data
                             </button>
                         </div>
-                        <div class="cols">
+                        {{-- <div class="cols">
                             <!-- Button trigger reset modal -->
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#resetJurusanModal">
                                 Reset
                             </button>
-                        </div>
+                        </div> --}}
                     </div>
                     <hr>
                     <div class="table-responsive pt-3">

@@ -11,6 +11,11 @@
             @include('frontend.manual.creModal')
         </div>
     </div>
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.manual.resModal')
+        </div>
+    </div>
     <div class="row">
         {{-- tabel data mapel --}}
         <div class="col-md-12 grid-margin stretch-card">
@@ -18,17 +23,24 @@
                 <div class="card-body">
                     <h4 class="card-title">List Jam Ajar</h4>
                     <div class="row justify-content-between mx-0">
-                        <div class="cols">
+                        <div class="cols-6">
                             <p class="card-description">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, voluptate?
                             </p>
                         </div>
-                        <div class="cols">
-                            <!-- Button trigger create modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#createModal">
-                                Tambah Data
-                            </button>
+                        <div class="cols-3">
+                            <div class="row d-block">
+                                <!-- Button trigger reset modal -->
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#resetModal">
+                                    Reset
+                                </button>
+                                <!-- Button trigger create modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#createModal">
+                                    Tambah Data
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <hr>

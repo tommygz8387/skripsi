@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Manual;
+use App\Models\Ampu;
 use App\Models\Guru;
 use App\Models\Kelas;
 // use App\Models\JKhusus;
 // use App\Models\Mapel;
 // use App\Models\Ruang;
 // use App\Models\Slot;
+use App\Models\Manual;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -16,8 +17,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class JadwalController extends Controller
 {
+    private $manual;
     public function __construct()
     {
+        $this->manual = Manual::with(['ampu','kelas','ruang','slot']);
         $this->middleware('auth');
     }
     /**
@@ -29,7 +32,7 @@ class JadwalController extends Controller
     {
         //
         $data['dataGuru'] = Guru::all();
-        $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->oldest()->get();
+        $data['dataManual'] = $this->manual->oldest()->get();
         return view('frontend.jadwal.guru.index',$data);
     }
 
@@ -53,21 +56,24 @@ class JadwalController extends Controller
     public function findGuru(Request $request)
     {
         //
-        $find = $request->get('guru_id');
         $data['dataGuru'] = Guru::all();
-        // dd($find);
+        $find = Guru::where('id',$request->guru_id)->value('id');
+        $findAmpu = Ampu::where('guru_id',$find)->pluck('id');
+        // dd($findAmpu);
         if(!$find){
             Alert::error('Error','Data not Found!');
             return redirect()->route('jadwal.guru');
-        } elseif ($find == 'all') {
-            $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->get();
+        } 
+
+        if ($find == 'all') {
+            $data['dataManual'] = $this->manual->get();
             // dd($data);
             return view('frontend.jadwal.guru.index',$data);
         } else {
             // Alert::success('Success','Data Added successfully');
             // $data['Jadwal'] = DB::select('select * from manuals where guru_id = ?', [$find])->get();
-            $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])
-            ->where('guru_id', $find)
+            $data['dataManual'] = $this->manual
+            ->whereIn('ampu_id', $findAmpu)
             ->orderBy('slot_id', 'asc')
             ->get();
             // dd($data);
@@ -79,27 +85,29 @@ class JadwalController extends Controller
     {
         //
         $data['dataKelas'] = Kelas::all();
-        $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->oldest()->get();
+        $data['dataManual'] = $this->manual->oldest()->get();
         return view('frontend.jadwal.kelas.index',$data);
     }
 
     public function findKelas(Request $request)
     {
         //
-        $find = $request->get('kelas_id');
+        $find = $request->kelas_id;
         $data['dataKelas'] = Kelas::all();
         // dd($find);
         if(!$find){
             Alert::error('Error','Data not Found!');
             return redirect()->route('jadwal.kelas');
-        } elseif ($find == 'all') {
-            $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])->get();
+        } 
+        
+        if ($find == 'all') {
+            $data['dataManual'] = $this->manual->get();
             // dd($data);
             return view('frontend.jadwal.kelas.index',$data);
         } else {
             // Alert::success('Success','Data Added successfully');
             // $data['Jadwal'] = DB::select('select * from manuals where guru_id = ?', [$find])->get();
-            $data['dataManual'] = Manual::with(['guru','mapel','kelas','ruang','slot'])
+            $data['dataManual'] = $this->manual
             ->where('kelas_id', $find)
             ->orderBy('slot_id', 'asc')
             ->get();

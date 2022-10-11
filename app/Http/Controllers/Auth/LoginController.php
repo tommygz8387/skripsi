@@ -51,7 +51,7 @@ class LoginController extends Controller
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            Alert::success('Success', 'Anda Berhasil Login');
+            // Alert::success('Success', 'Anda Berhasil Login');
             return redirect()->route('home');
         }else{
             Alert::error('Error', 'Username atau Password Salah!');

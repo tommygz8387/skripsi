@@ -11,6 +11,11 @@
             @include('frontend.jkhusus.creModal')
         </div>
     </div>
+    <div class="modal fade" id="resetJKhususModal" tabindex="-1" aria-labelledby="resetJKhususModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.jkhusus.resModal')
+        </div>
+    </div>
     <div class="row">
         {{-- tabel data mapel --}}
         <div class="col-md-12 grid-margin stretch-card">
@@ -18,17 +23,24 @@
                 <div class="card-body">
                     <h4 class="card-title">List Jam Khusus</h4>
                     <div class="row justify-content-between mx-0">
-                        <div class="cols">
+                        <div class="cols-6">
                             <p class="card-description">
                                 Jam khusus diisi saat guru tidak bisa mengajar pada hari dan jam tertentu.
                             </p>
                         </div>
-                        <div class="cols">
-                            <!-- Button trigger create modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#createModal">
-                                Tambah Data
-                            </button>
+                        <div class="cols-3">
+                            <div class="row d-block">
+                                <!-- Button trigger reset modal -->
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#resetJKhususModal">
+                                    Reset
+                                </button>
+                                <!-- Button trigger create modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#createModal">
+                                    Tambah Data
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <hr>

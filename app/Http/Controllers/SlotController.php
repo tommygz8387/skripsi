@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Slot;
+use Carbon\Carbon;
 use App\Models\Hari;
+use App\Models\Slot;
 use App\Models\Waktu;
+use App\Exports\SlotExport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+// use App\Imports\SlotImport;
 use RealRashid\SweetAlert\Facades\Alert;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class SlotController extends Controller
 {
@@ -169,5 +173,58 @@ class SlotController extends Controller
             Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('slot.index');
         }
+    }
+
+    public function reset()
+    {
+        //
+        $reset = Slot::all();
+        // dd($reset);
+
+        // cek data
+        if ($reset->isEmpty()) {
+            Alert::error('Error','Data Not Found!');
+            return redirect()->route('slot.index');
+        }
+
+        $reset->map->delete();
+        if (!$reset) {
+            Alert::error('Error','Data Cannot Be Deleted!');
+            return redirect()->route('slot.index');
+        }else{
+            Alert::success('Success','Data Has Been Deleted!');
+            return redirect()->route('slot.index');
+        }
+    }
+
+    public function seed()
+    {
+        $cek = Slot::all();
+
+        if ($cek->isEmpty()) {
+            $hari=count(Hari::all());
+            $waktu=count(Waktu::all());
+            for ($i=1; $i <= $hari; $i++) { 
+                for ($j=1; $j <= $waktu; $j++) { 
+                    Slot::factory()->create([
+                        'hari_id' => $i,
+                        'waktu_id' => $j,
+                    ]);
+                }
+            }
+            Alert::success('Success','Data Has Been Generated!');
+            return redirect()->route('slot.index');
+        } else {
+            Alert::error('Error','Data Isn\'t Empty!');
+            return redirect()->route('slot.index');
+        }
+
+    }
+
+    public function export()
+    {
+        $today = Carbon::now('GMT+7');
+        $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-slot-ajar.xlsx';
+        return Excel::download(new SlotExport, $nama);
     }
 }

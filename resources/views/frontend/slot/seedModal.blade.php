@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title" id="delModalLabel"><strong>Hapus Data
+        <h4 class="modal-title" id="seedModalLabel"><strong>Generate Data Dummy
                 Slot Ajar</strong></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -8,11 +8,11 @@
     </div>
     <div class="modal-body">
         <div class="form-group">
-            Apakah anda ingin menghapus data?
+            Apakah anda ingin membuat data dummy?
         </div>
     </div>
     <div class="modal-footer">
-        <a href="{{ route('slot.delete', ['id' => $Slot->id]) }}" class="btn btn-primary mr-2">Submit</a>
+        <a href="{{ route('slot.seed') }}" class="btn btn-primary mr-2">Submit</a>
         <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
     </div>
 </div>
