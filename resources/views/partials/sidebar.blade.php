@@ -15,21 +15,10 @@
             <div class="collapse" id="menu">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('guru.index') }}">Data Guru</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}">Data Kelas</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('mapel.index') }}">Data MaPel</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#opsi" aria-expanded="false" aria-controls="opsi">
-                <i class="ti-view-list-alt menu-icon"></i>
-                <span class="menu-title">Data Opsi</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="opsi">
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('ruang.index') }}">Data Ruang</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{ route('jurusan.index') }}">Data Jurusan</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('waktu.index') }}">Data Waktu</a></li>
                 </ul>
             </div>
@@ -77,7 +66,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
+            <a class="nav-link" href="{{ route('user.index') }}">
                 <i class="icon-cog menu-icon"></i>
                 <span class="menu-title">Pengaturan</span>
             </a>

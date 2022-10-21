@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Ampu;
+use App\Models\Guru;
+use App\Models\Hari;
+use App\Models\Slot;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Ruang;
+use App\Models\Waktu;
 use App\Models\Manual;
 use App\Models\JKhusus;
-use App\Models\Guru;
-use App\Models\Mapel;
-use App\Models\Kelas;
 use App\Models\Jurusan;
-use App\Models\Ruang;
-use App\Models\Slot;
-use App\Models\Hari;
-use App\Models\Waktu;
-use App\Models\Ampu;
 use Illuminate\Http\Request;
+use App\Exports\ManualExport;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ManualController extends Controller
 {
+    private $manual;
     public function __construct()
     {
+        $this->manual = Manual::with(['ampu','kelas','ruang','slot']);
         $this->middleware('auth');
     }
     /**
@@ -42,7 +47,7 @@ class ManualController extends Controller
         $data['dataSlot'] = Slot::all();
         $data['dataHari'] = Hari::all();
         $data['dataWaktu'] = Waktu::all();
-        $data['dataManual'] = Manual::with(['ampu','kelas','ruang','slot'])->latest()->get();
+        $data['dataManual'] = $this->manual->latest()->get();
         // dd($data);
         return view('frontend.manual.index',$data);
     }
@@ -81,12 +86,20 @@ class ManualController extends Controller
             return redirect()->route('manual.index');
         }
 
+        // cek apakah data ada di jam khusus
+        $cekJK = JKhusus::where('guru_id',$request->guru_id)->where('slot_id',$cekSlot)->value('id');
+        // dd($cekJK);
+        if($cekJK){
+            Alert::error('Error','Guru Tidak Bisa Mengajar Di Waktu Tersebut! Cek Jam Khusus');
+            return redirect()->route('manual.index');
+        }
+
         // cek apakah jumlah ampu guru sudah penuh
         $cekGuru = Guru::where('id',$request->guru_id)->value('jml_ampu');
         $cekIdAmpu = Ampu::where('guru_id',$request->guru_id)->pluck('id');
         // dd($cekIdAmpu);
         // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
-        $cekIf = count(Manual::whereIn('ampu_id',$cekIdAmpu)->get());
+        $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
         // dd($cekIf);
         if($cekIf>=$cekGuru){
             Alert::error('Error','Jumlah Ampu Guru Sudah Terpenuhi!');
@@ -147,7 +160,54 @@ class ManualController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $update = Manual::updateOrCreate(['id' => $id], $request->all());
+        // cek apakah guru bisa mengajar mapel tersebut
+        $cekAmpu = Ampu::where('guru_id',$request->guru_id)->where('mapel_id',$request->mapel_id)->value('id');
+        // dd($cekAmpu);
+        if(!$cekAmpu){
+            Alert::error('Error','Guru Tidak Mengampu Mata Pelajaran Tersebut!');
+            return redirect()->route('manual.index');
+        }
+
+        // cek apakah slot ajar ada
+        $cekSlot = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
+        // dd($cekSlot);
+        if(!$cekSlot){
+            Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
+            return redirect()->route('manual.index');
+        }
+
+        // cek apakah data ada di jam khusus
+        $cekJK = JKhusus::where('guru_id',$request->guru_id)->where('slot_id',$cekSlot)->value('id');
+        // dd($cekJK);
+        if($cekJK){
+            Alert::error('Error','Guru Tidak Bisa Mengajar Di Waktu Tersebut! Cek Jam Khusus');
+            return redirect()->route('manual.index');
+        }
+
+        // cek apakah jumlah ampu guru sudah penuh
+        $cekGuru = Guru::where('id',$request->guru_id)->value('jml_ampu');
+        $cekIdAmpu = Ampu::where('guru_id',$request->guru_id)->pluck('id');
+        // dd($cekIdAmpu);
+        // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
+        $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
+        // dd($cekIf);
+        if($cekIf>=$cekGuru){
+            Alert::error('Error','Jumlah Ampu Guru Sudah Terpenuhi!');
+            return redirect()->route('manual.index');
+        }
+
+        // cek duplikat
+        if (Manual::where('ampu_id',$cekAmpu)
+        ->where('kelas_id',$request->kelas)
+        ->where('ruang_id',$request->ruang)
+        ->where('slot_id',$cekSlot)
+        ->exists()
+        ) {
+            Alert::error('Error','Data Already Exist!');
+            return redirect()->route('manual.index');
+        }
+
+        $update = Manual::updateOrCreate(['id' => $id], array_merge($request->all(), ['ampu_id' => $cekAmpu,'slot_id' => $cekSlot]));
         if (!$update) {
             Alert::error('Error','Data Not Found!');
             return redirect()->back();
@@ -166,7 +226,7 @@ class ManualController extends Controller
     public function destroy($id)
     {
         //
-        $destroy = Manual::find($id);
+        $destroy = $this->manual->find($id);
 
         // cek data
         if (!$destroy) {
@@ -187,22 +247,44 @@ class ManualController extends Controller
     public function reset()
     {
         //
-        $reset = Manual::truncate();
+        $reset = $this->manual->get();
         // dd($reset);
 
         // cek data
-        if (!$reset) {
+        if ($reset->isEmpty()) {
             Alert::error('Error','Data Not Found!');
             return redirect()->route('manual.index');
         }
 
-        // $reset->delete();
-        if (!$reset) {
+        $reset->map->delete();
+        if ($reset->isEmpty()) {
             Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('manual.index');
         }else{
             Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('manual.index');
         }
+    }
+
+    public function seed()
+    {
+        $cek = $this->manual->get();
+
+        if ($cek->isEmpty()) {
+            Manual::factory(50)->create();
+            Alert::success('Success','Data Has Been Generated!');
+            return redirect()->route('manual.index');
+        } else {
+            Alert::error('Error','Data Isn\'t Empty!');
+            return redirect()->route('manual.index');
+        }
+
+    }
+
+    public function export()
+    {
+        $today = Carbon::now('GMT+7');
+        $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-manual.xlsx';
+        return Excel::download(new ManualExport, $nama);
     }
 }

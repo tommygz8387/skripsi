@@ -9,8 +9,9 @@
         <form class="forms-sample" method="POST" action="{{ route('manual.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="Hari">Hari</label>
-                <select class="form-control" aria-label="Default select example" id="Hari" name="hari_id" required>
+                <label for="Hari">Hari</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Hari"
+                    name="hari_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Hari</option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
@@ -18,8 +19,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Jam">Jam</label>
-                <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id" required>
+                <label for="Jam">Jam</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam"
+                    name="waktu_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Jam</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
@@ -27,8 +29,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Kelas">Kelas</label>
-                <select class="form-control" aria-label="Default select example" id="Kelas" name="kelas_id" required>
+                <label for="Kelas">Kelas</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Kelas"
+                    name="kelas_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Kelas</option>
                     @foreach ($dataKelas as $Kelas)
                         <option value="{{ $Kelas->id }}">{{ $Kelas->nama }}</option>
@@ -36,8 +39,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Guru">Guru</label>
-                <select class="form-control" aria-label="Default select example" id="Guru" name="guru_id" required>
+                <label for="Guru">Guru</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Guru"
+                    name="guru_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Guru</option>
                     @foreach ($dataGuru as $Guru)
                         <option value="{{ $Guru->id }}">{{ $Guru->nama }}</option>
@@ -45,8 +49,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Mapel">Mata Pelajaran</label>
-                <select class="form-control" aria-label="Default select example" id="Mapel" name="mapel_id" required>
+                <label for="Mapel">Mata Pelajaran</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Mapel"
+                    name="mapel_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Mapel</option>
                     @foreach ($dataMapel as $Mapel)
                         <option value="{{ $Mapel->id }}">{{ $Mapel->nama }}</option>
@@ -54,8 +59,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="Ruang">Ruang</label>
-                <select class="form-control" aria-label="Default select example" id="Ruang" name="ruang_id" required>
+                <label for="Ruang">Ruang</label><br>
+                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Ruang"
+                    name="ruang_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Ruang</option>
                     @foreach ($dataRuang as $Ruang)
                         <option value="{{ $Ruang->id }}">{{ $Ruang->nama }}</option>

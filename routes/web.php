@@ -16,6 +16,7 @@ use App\Http\Controllers\ManualController;
 use App\Http\Controllers\JKhususController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\TingkatController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -42,6 +43,9 @@ Auth::routes([
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout1');
+Route::get('/user/edit', [UserController::class, 'index'])->name('user.index');
+Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
+Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
 // grup controller guru
 Route::controller(GuruController::class)->group(function(){
@@ -126,6 +130,8 @@ Route::controller(JKhususController::class)->group(function(){
     Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
     Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
     Route::get('/pages/jkhusus/reset', 'reset')->name('jkhusus.reset');
+    Route::get('/pages/jkhusus/seed', 'seed')->name('jkhusus.seed');
+    Route::get('/pages/jkhusus/export', 'export')->name('jkhusus.export');
 });
 
 // grup controller penjadwalan manual
@@ -134,8 +140,10 @@ Route::controller(ManualController::class)->group(function(){
     Route::post('/jadwal/manual', 'store')->name('manual.store');
     // Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
     Route::post('/jadwal/manual/{id}', 'update')->name('manual.update');
-    Route::get('/jadwal/manual/delete/{id}', 'delete')->name('manual.delete');
+    Route::get('/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
     Route::get('/pages/manual/reset', 'reset')->name('manual.reset');
+    Route::get('/pages/manual/seed', 'seed')->name('manual.seed');
+    Route::get('/pages/manual/export', 'export')->name('manual.export');
 });
 
 // grup controller tingkat
@@ -154,6 +162,9 @@ Route::controller(AmpuController::class)->group(function(){
     // Route::get('/pages/ampu/{id}', 'edit')->name('ampu.edit');
     Route::post('/pages/ampu/{id}', 'update')->name('ampu.update');
     Route::get('/pages/ampu/delete/{id}', 'destroy')->name('ampu.delete');
+    Route::get('/pages/ampu/reset', 'reset')->name('ampu.reset');
+    Route::get('/pages/ampu/seed', 'seed')->name('ampu.seed');
+    Route::get('/pages/ampu/export', 'export')->name('ampu.export');
 });
 
 

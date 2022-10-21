@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JKhusus;
+use Carbon\Carbon;
 use App\Models\Guru;
 use App\Models\Hari;
-use App\Models\Waktu;
 use App\Models\Slot;
+use App\Models\Waktu;
+use App\Models\JKhusus;
 use Illuminate\Http\Request;
+use App\Exports\JKhususExport;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class JKhususController extends Controller
 {
+    private $jkhusus;
     public function __construct()
     {
+        $this->jkhusus = JKhusus::with(['guru','slot']);
         $this->middleware('auth');
     }
     /**
@@ -28,8 +33,8 @@ class JKhususController extends Controller
         $data['dataGuru'] = Guru::latest()->get();
         $data['dataHari'] = Hari::latest()->get();
         $data['dataWaktu'] = Waktu::latest()->get();
-        $data['dataJKhusus'] = JKhusus::with(['guru','slot'])
-        ->oldest()
+        $data['dataJKhusus'] = $this->jkhusus
+        ->latest()
         ->get();
         // dd($data);
         return view('frontend.jkhusus.index',$data);
@@ -54,7 +59,7 @@ class JKhususController extends Controller
     public function store(Request $request)
     {
         // cek duplikat
-        $cek = JKhusus::
+        $cek = $this->jkhusus->
         where('guru_id',$request->guru_id)->
         where('slot_id',$request->slot_id)->
         exists();
@@ -73,8 +78,8 @@ class JKhususController extends Controller
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
             return redirect()->route('jkhusus.index');
         }
-        // $store = JKhusus::create($request->all());
-        $store = JKhusus::create(array_merge($request->all(), ['slot_id' => $cek]));
+        // $store = $this->jkhusus->create($request->all());
+        $store = $this->jkhusus->create(array_merge($request->all(), ['slot_id' => $cek]));
         if(!$store){
             Alert::error('Error','Add Data Failed!');
             return redirect()->route('jkhusus.index');
@@ -117,7 +122,7 @@ class JKhususController extends Controller
     public function update(Request $request, $id)
     {
         // cek duplikat
-        $cek = JKhusus::
+        $cek = $this->jkhusus->
         where('guru_id',$request->guru_id)->
         where('slot_id',$request->slot_id)->
         exists();
@@ -128,14 +133,14 @@ class JKhususController extends Controller
             return redirect()->route('jkhusus.index');
         }
         
-        $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
-        // dd($cek);
-        if(!$cek){
+        $cek2 = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
+        // dd($cek2);
+        if(!$cek2){
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
             return redirect()->route('jkhusus.index');
         }
 
-        $update = JKhusus::updateOrCreate(['id' => $id], array_merge($request->all(), ['slot_id' => $cek]));
+        $update = JKhusus::updateOrCreate(['id' => $id], array_merge($request->all(), ['slot_id' => $cek2]));
         if (!$update) {
             Alert::error('Error','Data Not Found!');
             return redirect()->back();
@@ -154,7 +159,7 @@ class JKhususController extends Controller
     public function destroy($id)
     {
         //
-        $destroy = JKhusus::find($id);
+        $destroy = $this->jkhusus->find($id);
 
         // cek data
         if (!$destroy) {
@@ -175,16 +180,16 @@ class JKhususController extends Controller
     public function reset()
     {
         //
-        $reset = JKhusus::truncate();
+        $reset = $this->jkhusus->get();
         // dd($reset);
 
         // cek data
-        if (!$reset) {
+        if ($reset->isEmpty()) {
             Alert::error('Error','Data Not Found!');
             return redirect()->route('jkhusus.index');
         }
 
-        // $reset->delete();
+        $reset->map->delete();
         if (!$reset) {
             Alert::error('Error','Data Cannot Be Deleted!');
             return redirect()->route('jkhusus.index');
@@ -192,5 +197,27 @@ class JKhususController extends Controller
             Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('jkhusus.index');
         }
+    }
+
+    public function seed()
+    {
+        $cek = $this->jkhusus->get();
+
+        if ($cek->isEmpty()) {
+            JKhusus::factory(20)->create();
+            Alert::success('Success','Data Has Been Generated!');
+            return redirect()->route('jkhusus.index');
+        } else {
+            Alert::error('Error','Data Isn\'t Empty!');
+            return redirect()->route('jkhusus.index');
+        }
+
+    }
+
+    public function export()
+    {
+        $today = Carbon::now('GMT+7');
+        $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-jkhusus.xlsx';
+        return Excel::download(new JKhususExport, $nama);
     }
 }

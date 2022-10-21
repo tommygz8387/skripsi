@@ -6,9 +6,19 @@
 
 @section('content')
     <!-- Modal Tambah -->
+    <div class="modal fade" id="seedModal" tabindex="-1" aria-labelledby="seedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.ampu.seedModal')
+        </div>
+    </div>
     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             @include('frontend.ampu.creModal')
+        </div>
+    </div>
+    <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.ampu.resModal')
         </div>
     </div>
     <div class="row">
@@ -23,12 +33,36 @@
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, voluptate?
                             </p>
                         </div>
-                        <div class="cols">
-                            <!-- Button trigger create modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#createModal">
-                                Tambah Data
-                            </button>
+                        <div class="cols-3">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <!-- Button trigger create modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#createModal">
+                                    Add Data
+                                </button>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        More
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <!-- Button dummy reset modal -->
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#seedModal">
+                                            Generate
+                                        </button>
+                                        <!-- Button trigger reset modal -->
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#resetModal">
+                                            Reset
+                                        </button>
+                                        <!-- Button trigger export -->
+                                        <a href="{{ route('ampu.export') }}" class="dropdown-item">
+                                            Export
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Atur Jadwal - Jadwal Manual
+    Penjadwalan - Jadwal Manual
 @endsection
 
 @section('content')
@@ -14,6 +14,11 @@
     <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             @include('frontend.manual.resModal')
+        </div>
+    </div>
+    <div class="modal fade" id="seedModal" tabindex="-1" aria-labelledby="seedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.manual.seedModal')
         </div>
     </div>
     <div class="row">
@@ -29,17 +34,34 @@
                             </p>
                         </div>
                         <div class="cols-3">
-                            <div class="row d-block">
-                                <!-- Button trigger reset modal -->
-                                <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#resetModal">
-                                    Reset
-                                </button>
+                            <div class="btn-group" role="group" aria-label="Basic example">
                                 <!-- Button trigger create modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#createModal">
-                                    Tambah Data
+                                    Add Data
                                 </button>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        More
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <!-- Button dummy reset modal -->
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#seedModal">
+                                            Generate
+                                        </button>
+                                        <!-- Button trigger reset modal -->
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#resetModal">
+                                            Reset
+                                        </button>
+                                        <!-- Button trigger export -->
+                                        <a href="{{ route('manual.export') }}" class="dropdown-item">
+                                            Export
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,6 +150,8 @@
     {{-- <script src="{{ asset('/') }}vendors/chart.js/Chart.min.js"></script> --}}
     <script src="{{ asset('/') }}vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="{{ asset('/') }}vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script src="{{ asset('/') }}vendors/select2/select2.min.js"></script>
+    <script src="{{ asset('/') }}js/select2.js"></script>
     {{-- <script src="{{ asset('/') }}js/dataTables.select.min.js"></script>
     <script src="{{ asset('/') }}js/todolist.js"></script>
     <script src="{{ asset('/') }}js/Chart.roundedBarCharts.js"></script> --}}
