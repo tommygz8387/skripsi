@@ -30,9 +30,7 @@
                 <label for="Jam">Jam</label><br>
                 <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam" name="waktu_id" required style="width: 100%">
                     <option selected disabled hidden value="">Pilih Jam</option>
-                    @foreach ($dataWaktu as $waktu)
-                        <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
-                    @endforeach
+                    
                 </select>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -137,6 +137,55 @@
 @endsection
 @section('cus-script')
     <script>
+        $(function(){
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+        });
+    </script>
+    <script>
+        $(function(){
+            $('#Hari').on('change',function(){
+                let hari_id = $('#Hari').val();
+
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('jkhusus.getSlot') }}",
+                    data: {awe : hari_id},
+                    cache: false,
+
+                    success: function (msg) {  
+                        $('#Jam').html(msg);
+                    },
+                    error: function (data) {  
+                        console.log('error:',data);
+                    }
+                });
+                    // console.log(hari_id);
+            });
+            $('#Guru').on('change',function(){
+                let guru_id = $('#Guru').val();
+
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('manual.getAmpu') }}",
+                    data: {ampu : guru_id},
+                    cache: false,
+
+                    success: function (msg) {  
+                        $('#Mapel').html(msg);
+                    },
+                    error: function (data) {  
+                        console.log('error:',data);
+                    }
+                });
+                    // console.log(guru_id);
+            });
+        });
+    </script>
+    <script>
         $(document).ready(function() {
             $('#tabel').DataTable({
                 lengthMenu: [

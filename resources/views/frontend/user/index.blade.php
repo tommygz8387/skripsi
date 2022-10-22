@@ -52,33 +52,29 @@
                     </div>
                     <div class="d-flex justify-content-end mt-3 mr-3 mb-3">
                         <button type="submit" class="btn btn-primary mr-2">Save</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#delModal">Hapus User</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delModal">Hapus User</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="delModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="delModalLabel"><strong>Hapus User</strong></h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="delModalLabel"><strong>Hapus User</strong></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        Apakah anda yakin ingin menghapus User {{ $user->name }}?
                     </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            Apakah anda yakin ingin menghapus User {{ $user->name }}?
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{{ route('user.delete', ['id' => $user->id]) }}"
-                            class="btn btn-primary mr-2">Submit</a>
-                        <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('user.delete', ['id' => $user->id]) }}" class="btn btn-primary mr-2">Submit</a>
+                    <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

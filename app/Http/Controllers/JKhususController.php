@@ -36,8 +36,9 @@ class JKhususController extends Controller
         $data['dataJKhusus'] = $this->jkhusus
         ->latest()
         ->get();
-        // dd($data);
         return view('frontend.jkhusus.index',$data);
+        // $data = Slot::where('hari_id',2)->get();
+        // dd($data->waktu_id);
     }
 
     /**
@@ -219,5 +220,23 @@ class JKhususController extends Controller
         $today = Carbon::now('GMT+7');
         $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-jkhusus.xlsx';
         return Excel::download(new JKhususExport, $nama);
+    }
+
+    public function getSlot(Request $request)
+    {
+        $hari = $request->awe;
+
+        $slots = Slot::with('waktu')->select('id','hari_id','waktu_id')->where('hari_id',$hari)->get();
+        // dd($slots);
+
+        foreach ($slots as $slot) {
+            $isi = $slot->waktu->jam_mulai.'-'.$slot->waktu->jam_selesai;
+            echo "<option value='$slot->waktu_id'>$isi</option>";
+            // echo "<option>awe</option>";
+        }
+        // for ($i = 0; $i < count($slots); $i++){
+        //     echo "<option value='$i'>'$slots->id'</option>";
+        // }
+        // return response()->json($slots);
     }
 }

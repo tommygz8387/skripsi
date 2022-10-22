@@ -287,4 +287,18 @@ class ManualController extends Controller
         $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-manual.xlsx';
         return Excel::download(new ManualExport, $nama);
     }
+
+    public function getAmpu(Request $request)
+    {
+        $guru = $request->ampu;
+
+        $ampus = Ampu::with('mapel')->select('id','guru_id','mapel_id')->where('guru_id',$guru)->get();
+        // dd($ampus);
+
+        foreach ($ampus as $ampu) {
+            $isi = $ampu->mapel->nama;
+            echo "<option value='$ampu->mapel_id'>$isi</option>";
+            // echo "<option>awe</option>";
+        }
+    }
 }

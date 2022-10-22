@@ -91,7 +91,7 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
             $path = 'photo/'.$update->photo;
-            if (File::exists($path)) {
+            if (File::exists($path)&& $path!='photo/default.jpg') {
                 File::delete($path);
             }
 

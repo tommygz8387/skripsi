@@ -132,18 +132,20 @@ Route::controller(JKhususController::class)->group(function(){
     Route::get('/pages/jkhusus/reset', 'reset')->name('jkhusus.reset');
     Route::get('/pages/jkhusus/seed', 'seed')->name('jkhusus.seed');
     Route::get('/pages/jkhusus/export', 'export')->name('jkhusus.export');
+    Route::post('/pages/getSlot', 'getSlot')->name('jkhusus.getSlot');
 });
 
 // grup controller penjadwalan manual
 Route::controller(ManualController::class)->group(function(){
-    Route::get('/jadwal/manual', 'index')->name('manual.index');
-    Route::post('/jadwal/manual', 'store')->name('manual.store');
-    // Route::get('/jadwal/manual/{id}', 'edit')->name('manual.edit');
-    Route::post('/jadwal/manual/{id}', 'update')->name('manual.update');
-    Route::get('/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
+    Route::get('/pages/jadwal/manual', 'index')->name('manual.index');
+    Route::post('/pages/jadwal/manual', 'store')->name('manual.store');
+    // Route::get('/pages/jadwal/manual/{id}', 'edit')->name('manual.edit');
+    Route::post('/pages/jadwal/manual/{id}', 'update')->name('manual.update');
+    Route::get('/pages/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
     Route::get('/pages/manual/reset', 'reset')->name('manual.reset');
     Route::get('/pages/manual/seed', 'seed')->name('manual.seed');
     Route::get('/pages/manual/export', 'export')->name('manual.export');
+    Route::post('/pages/manual/getAmpu', 'getAmpu')->name('manual.getAmpu');
 });
 
 // grup controller tingkat
@@ -165,6 +167,7 @@ Route::controller(AmpuController::class)->group(function(){
     Route::get('/pages/ampu/reset', 'reset')->name('ampu.reset');
     Route::get('/pages/ampu/seed', 'seed')->name('ampu.seed');
     Route::get('/pages/ampu/export', 'export')->name('ampu.export');
+    // Route::post('/pages/ampu/getGuru', 'getGuru')->name('ampu.getGuru');
 });
 
 
