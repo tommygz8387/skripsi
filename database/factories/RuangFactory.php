@@ -14,7 +14,7 @@ class RuangFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->word(),
+            'nama' => $this->faker->unique()->word(),
             'kode' => $this->faker->unique()->bothify('??###'),
             'created_at' => now(),
             'updated_at' => now(),

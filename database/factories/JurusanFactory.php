@@ -15,7 +15,7 @@ class JurusanFactory extends Factory
     {
         return [
             //
-            'jurusan' => $this->faker->jobTitle(),
+            'jurusan' => $this->faker->unique()->jobTitle(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

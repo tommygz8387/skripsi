@@ -17,6 +17,7 @@ use App\Http\Controllers\JKhususController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AntColonyController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -42,6 +43,7 @@ Auth::routes([
 ]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/generate', [HomeController::class, 'generate'])->name('generate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout1');
 Route::get('/user/edit', [UserController::class, 'index'])->name('user.index');
 Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
@@ -181,4 +183,10 @@ Route::controller(JadwalController::class)->group(function(){
     // Route::get('/pages/jadwal/delete/{id}', 'destroy')->name('jadwal.delete');
     Route::post('/pages/jadwalGuru/filter', 'findGuru')->name('jadwal.findGuru');
     Route::post('/pages/jadwalKelas/filter', 'findKelas')->name('jadwal.findKelas');
+});
+
+
+// grup controller otomatis
+Route::controller(AntColonyController::class)->group(function(){
+    Route::get('/pages/init', 'initialisasi')->name('init');
 });

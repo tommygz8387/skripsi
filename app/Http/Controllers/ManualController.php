@@ -106,13 +106,43 @@ class ManualController extends Controller
             return redirect()->route('manual.index');
         }
 
+        // cek apakah sudah ada mapel di kelas
+        $cekMapelAmpu = Ampu::where('mapel_id',$request->mapel_id)->pluck('id');
+        // dd($cekMapelAmpu);
+        $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
+        // dd($cekIfMapelKelas->exists());
+        if ($cekIfMapelKelas->exists()) {
+            Alert::error('Error','Mapel yang sama tidak boleh ada pada satu kelas!');
+            return redirect()->route('manual.index');
+        }
+        
+        
+        // cek apakah sudah ada slot di kelas
+        // dd($cekMapelAmpu);
+        $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
+        // dd($cekIfSlotKelas->exists());
+        if ($cekIfSlotKelas->exists()) {
+            Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
+            return redirect()->route('manual.index');
+        }
+        
+        
+        // cek bentrok ruang
+        $cekIfSlotRuang = Manual::where('ruang_id',$request->ruang_id)->where('slot_id',$cekSlot);
+        // dd($cekIfSlotRuang->exists());
+        if ($cekIfSlotRuang!=1) {
+            if ($cekIfSlotRuang->exists()) {
+                Alert::error('Error','Ruang pada hari dan jam tersebut telah terpakai!');
+                return redirect()->route('manual.index');
+            }
+        }
+
         // cek duplikat
-        if (Manual::where('ampu_id',$cekAmpu)
-        ->where('kelas_id',$request->kelas)
-        ->where('ruang_id',$request->ruang)
+        if ($this->manual->where('ampu_id',$cekAmpu)
+        ->where('kelas_id',$request->kelas_id)
+        ->where('ruang_id',$request->ruang_id)
         ->where('slot_id',$cekSlot)
-        ->exists()
-        ) {
+        ->exists()) {
             Alert::error('Error','Data Already Exist!');
             return redirect()->route('manual.index');
         }
@@ -196,13 +226,43 @@ class ManualController extends Controller
             return redirect()->route('manual.index');
         }
 
+        // cek apakah sudah ada mapel di kelas
+        $cekMapelAmpu = Ampu::where('mapel_id',$request->mapel_id)->pluck('id');
+        // dd($cekMapelAmpu);
+        $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
+        // dd($cekIfMapelKelas->exists());
+        if ($cekIfMapelKelas->exists()) {
+            Alert::error('Error','Mapel yang sama tidak boleh ada pada satu kelas!');
+            return redirect()->route('manual.index');
+        }
+        
+        
+        // cek apakah sudah ada slot di kelas
+        // dd($cekMapelAmpu);
+        $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
+        // dd($cekIfSlotKelas->exists());
+        if ($cekIfSlotKelas->exists()) {
+            Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
+            return redirect()->route('manual.index');
+        }
+        
+        
+        // cek bentrok ruang
+        $cekIfSlotRuang = Manual::where('ruang_id',$request->ruang_id)->where('slot_id',$cekSlot);
+        // dd($cekIfSlotRuang->exists());
+        if ($cekIfSlotRuang!=1) {
+            if ($cekIfSlotRuang->exists()) {
+                Alert::error('Error','Ruang pada hari dan jam tersebut telah terpakai!');
+                return redirect()->route('manual.index');
+            }
+        }
+
         // cek duplikat
-        if (Manual::where('ampu_id',$cekAmpu)
-        ->where('kelas_id',$request->kelas)
-        ->where('ruang_id',$request->ruang)
+        if ($this->manual->where('ampu_id',$cekAmpu)
+        ->where('kelas_id',$request->kelas_id)
+        ->where('ruang_id',$request->ruang_id)
         ->where('slot_id',$cekSlot)
-        ->exists()
-        ) {
+        ->exists()) {
             Alert::error('Error','Data Already Exist!');
             return redirect()->route('manual.index');
         }

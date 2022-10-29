@@ -14,7 +14,7 @@ class MapelFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->jobTitle(),
+            'nama' => $this->faker->unique->jobTitle(),
             'jurusan_id' => $this->faker->numberBetween(1, 12),
             'ampu1' => $this->faker->numberBetween(0, 21),
             'ampu2' => $this->faker->numberBetween(0, 21),
