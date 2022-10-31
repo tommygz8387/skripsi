@@ -22,7 +22,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ManualController extends Controller
 {
-    private $manual;
     public function __construct()
     {
         $this->manual = Manual::with(['ampu','kelas','ruang','slot']);
@@ -112,7 +111,7 @@ class ManualController extends Controller
         $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
         // dd($cekIfMapelKelas->exists());
         if ($cekIfMapelKelas->exists()) {
-            Alert::error('Error','Mapel yang sama tidak boleh ada pada satu kelas!');
+            Alert::error('Error','Mapel sudah ada di kelas tersebut!');
             return redirect()->route('manual.index');
         }
         
@@ -120,7 +119,8 @@ class ManualController extends Controller
         // cek apakah sudah ada slot di kelas
         // dd($cekMapelAmpu);
         $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
-        // dd($cekIfSlotKelas->exists());
+        // dd($request->kelas_id);
+        // dd($cekIfSlotKelas->get());
         if ($cekIfSlotKelas->exists()) {
             Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
             return redirect()->route('manual.index');
@@ -129,12 +129,21 @@ class ManualController extends Controller
         
         // cek bentrok ruang
         $cekIfSlotRuang = Manual::where('ruang_id',$request->ruang_id)->where('slot_id',$cekSlot);
-        // dd($cekIfSlotRuang->exists());
-        if ($cekIfSlotRuang!=1) {
+        if ($request->ruang_id!=1) {
             if ($cekIfSlotRuang->exists()) {
-                Alert::error('Error','Ruang pada hari dan jam tersebut telah terpakai!');
+                Alert::error('Error','Jadwal Ruang Bentrok!');
                 return redirect()->route('manual.index');
             }
+        }
+
+        // cek bentrok guru
+        $cekGuru = Ampu::where('guru_id',$request->guru_id)->pluck('id');
+        // dd($cekGuru);
+        $cekIfGuruSlot = Manual::where('slot_id',$cekSlot)->whereIn('ampu_id',$cekGuru);
+        // dd($cekIfGuruSlot->get());
+        if ($cekIfGuruSlot->exists()) {
+            Alert::error('Error','Jadwal Guru Bentrok!');
+            return redirect()->route('manual.index');
         }
 
         // cek duplikat
@@ -232,7 +241,7 @@ class ManualController extends Controller
         $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
         // dd($cekIfMapelKelas->exists());
         if ($cekIfMapelKelas->exists()) {
-            Alert::error('Error','Mapel yang sama tidak boleh ada pada satu kelas!');
+            Alert::error('Error','Mapel sudah ada di kelas tersebut!');
             return redirect()->route('manual.index');
         }
         
@@ -240,7 +249,8 @@ class ManualController extends Controller
         // cek apakah sudah ada slot di kelas
         // dd($cekMapelAmpu);
         $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
-        // dd($cekIfSlotKelas->exists());
+        // dd($request->kelas_id);
+        // dd($cekIfSlotKelas->get());
         if ($cekIfSlotKelas->exists()) {
             Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
             return redirect()->route('manual.index');
@@ -249,12 +259,21 @@ class ManualController extends Controller
         
         // cek bentrok ruang
         $cekIfSlotRuang = Manual::where('ruang_id',$request->ruang_id)->where('slot_id',$cekSlot);
-        // dd($cekIfSlotRuang->exists());
-        if ($cekIfSlotRuang!=1) {
+        if ($request->ruang_id!=1) {
             if ($cekIfSlotRuang->exists()) {
-                Alert::error('Error','Ruang pada hari dan jam tersebut telah terpakai!');
+                Alert::error('Error','Jadwal Ruang Bentrok!');
                 return redirect()->route('manual.index');
             }
+        }
+
+        // cek bentrok guru
+        $cekGuru = Ampu::where('guru_id',$request->guru_id)->pluck('id');
+        // dd($cekGuru);
+        $cekIfGuruSlot = Manual::where('slot_id',$cekSlot)->whereIn('ampu_id',$cekGuru);
+        // dd($cekIfGuruSlot->get());
+        if ($cekIfGuruSlot->exists()) {
+            Alert::error('Error','Jadwal Guru Bentrok!');
+            return redirect()->route('manual.index');
         }
 
         // cek duplikat

@@ -189,4 +189,5 @@ Route::controller(JadwalController::class)->group(function(){
 // grup controller otomatis
 Route::controller(AntColonyController::class)->group(function(){
     Route::get('/pages/init', 'initialisasi')->name('init');
+    // Route::get('/pages/otomatis', 'otomatis')->name('otomatis');
 });

@@ -136,6 +136,8 @@
     </div>
 @endsection
 @section('cus-script')
+<script src="{{ asset('/') }}vendors/select2/select2.min.js"></script>
+<script src="{{ asset('/') }}js/select2.js"></script>
     <script>
         $(function(){
             $.ajaxSetup({
@@ -199,8 +201,6 @@
     {{-- <script src="{{ asset('/') }}vendors/chart.js/Chart.min.js"></script> --}}
     <script src="{{ asset('/') }}vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="{{ asset('/') }}vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    <script src="{{ asset('/') }}vendors/select2/select2.min.js"></script>
-    <script src="{{ asset('/') }}js/select2.js"></script>
     {{-- <script src="{{ asset('/') }}js/dataTables.select.min.js"></script>
     <script src="{{ asset('/') }}js/todolist.js"></script>
     <script src="{{ asset('/') }}js/Chart.roundedBarCharts.js"></script> --}}

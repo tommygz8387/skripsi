@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Ampu;
 use App\Models\Guru;
 use App\Models\Hari;
-use App\Models\JKhusus;
 use App\Models\Slot;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Ruang;
 use App\Models\Waktu;
 use App\Models\Manual;
+use App\Models\JKhusus;
 use App\Models\Jurusan;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AntColonyController extends Controller
 {
@@ -22,10 +23,11 @@ class AntColonyController extends Controller
     // private $manual;
     public function __construct()
     {
-        $this->manual = Manual::with(['ampu','kelas','ruang','slot']);
+        // $this->manual = Manual::with(['ampu','kelas','ruang','slot']);
+        $this->manual = Manual::orderBy('id');
         $this->ampu = Ampu::orderBy('id');
-        $this->kelas = Kelas::all();
-        $this->ruang = Ruang::all();
+        $this->kelas = Kelas::orderBy('id');
+        $this->ruang = Ruang::orderBy('id');
         $this->slot = Slot::orderBy('id');
         $this->jk = JKhusus::orderBy('id');
         $this->guru = Guru::orderBy('id');
@@ -42,141 +44,150 @@ class AntColonyController extends Controller
         return view('frontend.otomatis.index');
     }
 
-    public function initialisasi(Request $request)
+    public function initialisasi()
     {
+        ini_set('max_execution_time', 0);
         //generate value to array
         $valAmpu = $this->ampu->pluck('id')->toArray();
         $valKelas = $this->kelas->pluck('id')->toArray();
         $valRuang = $this->ruang->pluck('id')->toArray();
         $valSlot = $this->slot->pluck('id')->toArray();
         
-        // generate random
+        
+        // dd($ranAmpu.'-'.$ranKelas.'-'.$ranRuang.'-'.$ranSlot);
+        
+        $totalKBM = count($this->slot->get())*count($this->kelas->get());
+        // $jmlM = count(Manual::get());
+        // dd($totalKBM);
+        // dd($jmlM);
+
+        do{
+        
+
         $ranAmpu = Arr::random($valAmpu);
         $ranKelas = Arr::random($valKelas);
         $ranRuang = Arr::random($valRuang);
         $ranSlot = Arr::random($valSlot);
-        // dd($ranAmpu.'-'.$ranKelas.'-'.$ranRuang.'-'.$ranSlot);
-        
-        
-        
-
-        // get total
-        $totalKBM = count($this->slot->get())*count($this->kelas);
-        // $arr = [];
-        // dd($totalKBM);
+        // generate random
 
         // get value by random id
         $getGuruId = $this->ampu->where('id',$ranAmpu)->value('guru_id');
         $getMapelId = $this->ampu->where('id',$ranAmpu)->value('mapel_id');
         $getHariId = $this->slot->where('id',$ranSlot)->value('hari_id');
         $getWaktuId = $this->slot->where('id',$ranSlot)->value('waktu_id');
-        // dd($getGuruId);
-        // $getGuruId = $getAmpuId->guru_id;
-        // dd($getGuruId);
-        // return $getGuruId.'-'.$getMapelId.'-'.$cekAmpu;
-        // dd($cekAmpu);
+        $getKelasId = $this->kelas->where('id',$ranKelas)->value('id');
+        $getRuangId = $this->ruang->where('id',$ranRuang)->value('id');
 
-        // testing space
 
-        
-        
-        
-
-        // end testing space
-
-        for ($i=0; $i < $totalKBM; $i++) { 
-            // cek apakah guru bisa mengajar mapel tersebut
-            $cekAmpu = $this->ampu->where('guru_id',$getGuruId)->where('mapel_id',$getMapelId)->value('id');
-            if(!$cekAmpu){
-                continue;
-            }
-
-            // cek apakah slot ajar ada
-            $cekSlot = $this->slot->where('hari_id',$getHariId)->where('waktu_id',$getWaktuId)->value('id');
-            // dd($cekSlot);
-            if(!$cekSlot){
-                continue;
-            }
-
-            // cek apakah data ada di jam khusus
-            $cekJK = $this->jk->where('guru_id',$getGuruId)->where('slot_id',$cekSlot)->value('id');
-            // dd($cekJK);
-            if($cekJK){
-                continue;
-            }
-
-            // cek apakah jumlah ampu guru sudah penuh
-            $cekGuru = $this->guru->where('id',$getGuruId)->value('jml_ampu');
-            // return $cekGuru;
-            // dd($cekGuru);
-            $cekIdAmpu = Ampu::where('guru_id',$getGuruId)->pluck('id');
-            // dd($cekIdAmpu);
-            // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
-            $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
-            // dd($cekIf);
-            if($cekIf>=$cekGuru){
-                continue;
-            }
-
-            // SAMPE SINI
-
-            // cek apakah sudah ada mapel di kelas
-            $cekMapelAmpu = Ampu::where('mapel_id',$request->mapel_id)->pluck('id');
-            // dd($cekMapelAmpu);
-            $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
-            // dd($cekIfMapelKelas->exists());
-            if ($cekIfMapelKelas->exists()) {
-                continue;
-            }
-            
-            
-            // cek apakah sudah ada slot di kelas
-            // dd($cekMapelAmpu);
-            $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
-            // dd($cekIfSlotKelas->exists());
-            if ($cekIfSlotKelas->exists()) {
-                continue;
-            }
-            
-            
-            // cek bentrok ruang
-            $cekIfSlotRuang = Manual::where('ruang_id',$request->ruang_id)->where('slot_id',$cekSlot);
-            // dd($cekIfSlotRuang->exists());
-            if ($cekIfSlotRuang!=1) {
-                if ($cekIfSlotRuang->exists()) {
-                    continue;
-                }
-            }
-
-            // cek duplikat
-            if ($this->manual->where('ampu_id',$cekAmpu)
-            ->where('kelas_id',$request->kelas_id)
-            ->where('ruang_id',$request->ruang_id)
-            ->where('slot_id',$cekSlot)
-            ->exists()) {
-                continue;
-            }
-
+        // cek apakah guru bisa mengajar mapel tersebut
+        $cekAmpu = $this->ampu->where('guru_id',$getGuruId)->where('mapel_id',$getMapelId)->value('id');
+        if(!$cekAmpu){
+            break;
         }
-        // return $arr;
 
+        // cek apakah slot ajar ada
+        $cekSlot = $this->slot->where('hari_id',$getHariId)->where('waktu_id',$getWaktuId)->value('id');
+        // dd($cekSlot);
+        if(!$cekSlot){
+            break;
+        }
+
+        // cek apakah data ada di jam khusus
+        $cekJK = $this->jk->where('guru_id',$getGuruId)->where('slot_id',$cekSlot)->value('id');
+        // dd($cekJK);
+        if($cekJK){
+            break;
+        }
+
+        // cek apakah jumlah ampu guru sudah penuh
+        $cekGuru = $this->guru->where('id',$getGuruId)->value('jml_ampu');
+        // return $cekGuru;
+        // dd($cekGuru);
+        $cekIdAmpu = Ampu::where('guru_id',$getGuruId)->pluck('id');
+        // dd($cekIdAmpu);
+        // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
+        $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
+        // dd($cekIf);
+        if($cekIf>=$cekGuru){
+            break;
+        }
+
+
+        // cek apakah sudah ada mapel di kelas
+        $cekMapelAmpu = Ampu::where('mapel_id',$getMapelId)->pluck('id');
+        // dd($getMapelId.'-'.$cekMapelAmpu);
+        $cekIfMapelKelas = $this->manual->where('kelas_id',$getKelasId)->whereIn('ampu_id',$cekMapelAmpu);
+        // dd($cekIfMapelKelas->exists().'-'.$cekIfMapelKelas->get());
+        // return $getMapelId.'-'.$getKelasId.'-'.$cekMapelAmpu.'-'.$cekIfMapelKelas->exists().'-'.$cekIfMapelKelas->get();
+        if ($cekIfMapelKelas->exists()) {
+            break;
+        }
         
         
-        // fill array
-        // $arr = [];
-        // $arr2 = array($ranAmpu,$ranKelas,$ranRuang,$ranSlot);
+        // cek apakah sudah ada slot di kelas
+        // dd($cekMapelAmpu);
+        $cekIfSlotKelas = $this->manual->where('kelas_id',$getKelasId)->where('slot_id',$cekSlot);
+        // dd($cekIfSlotKelas->exists());
+        if ($cekIfSlotKelas->exists()) {
+            break;
+        }
         
-        // for($i=0;$i<5;$i++){
-        //     for($j=0;$j<4;$j++){
-        //         $arr[$i][$j] = $arr2;
-        //     }
-        // }
-        // dd($arr);
-        // return $arr;
+        
+        // cek bentrok ruang
+        $cekIfSlotRuang = $this->manual->where('ruang_id',$getRuangId)->where('slot_id',$cekSlot);
+        // return $getRuangId.'-'.$cekSlot.'-'.count($cekIfSlotRuang->get()).'-'.$cekIfSlotRuang->get();
+        // dd($cekIfSlotRuang->exists());
+        if ($getRuangId!=1) {
+            if ($cekIfSlotRuang->exists()) {
+                break;
+            }
+        }
 
+        // cek bentrok guru
+        $cekGuru = Ampu::where('guru_id',$getGuruId)->pluck('id');
+        // dd($cekSlot.'-'.$cekGuru);
+        $cekIfGuruSlot = $this->manual->where('slot_id',$cekSlot)->whereIn('ampu_id',$cekGuru);
+        // dd($cekSlot.'-'.$cekGuru.'-'.$cekIfGuruSlot->get());
+        if ($cekIfGuruSlot->exists()) {
+            break;
+        }
 
+        // cek duplikat
+        if ($this->manual->where('ampu_id',$cekAmpu)
+        ->where('kelas_id',$getKelasId)
+        ->where('ruang_id',$getRuangId)
+        ->where('slot_id',$cekSlot)
+        ->exists()) {
+            break;
+        }
 
+        Manual::create([
+            'ampu_id'=>$cekAmpu,
+            'kelas_id'=>$getKelasId,
+            'ruang_id'=>$getRuangId,
+            'slot_id'=>$cekSlot
+        ]);
 
+        $jmlM = count(Manual::get());
+        // dd($jmlM);
 
+        return redirect()->route('init');
+    }while ($jmlM < $totalKBM);
+
+        Alert::success('success','Data Generated successfully');
+        return redirect()->route('manual.index');
+        
     }
+
+    // public function otomatis(){
+    //     $totalKBM = count($this->slot->get())*count($this->kelas->get());
+    //     $jmlM = count($this->manual->get());
+
+    //     // dd($jmlM);
+    //     while ($jmlM <= $totalKBM) {
+    //         $this->initialisasi();
+            
+    //         // dd($jmlM);
+    //     }
+    // }
 }
