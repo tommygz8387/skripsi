@@ -17,7 +17,7 @@ class GuruFactory extends Factory
             'nama' => $this->faker->name(),
             'nip' => $this->faker->unique()->randomNumber(5, true),
             'no_tlp' => $this->faker->unique()->numerify('08##########'),
-            'jml_ampu' => $this->faker->numberBetween(7, 36),
+            'jml_ampu' => $this->faker->numberBetween(10, 20),
             'keterangan' => $this->faker->sentence(2),
             'created_at' => now(),
             'updated_at' => now(),

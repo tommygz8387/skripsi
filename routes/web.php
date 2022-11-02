@@ -18,6 +18,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AntColonyController;
+use App\Http\Controllers\contoh;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -43,6 +44,8 @@ Auth::routes([
 ]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/test', [contoh::class, 'initialisasi'])->name('test');
+Route::get('/loop', [contoh::class, 'loop'])->name('loop');
 Route::get('/generate', [HomeController::class, 'generate'])->name('generate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout1');
 Route::get('/user/edit', [UserController::class, 'index'])->name('user.index');
@@ -188,6 +191,6 @@ Route::controller(JadwalController::class)->group(function(){
 
 // grup controller otomatis
 Route::controller(AntColonyController::class)->group(function(){
-    Route::get('/pages/init', 'initialisasi')->name('init');
-    // Route::get('/pages/otomatis', 'otomatis')->name('otomatis');
+    Route::get('/pages/jadwal/manual/init', 'initialisasi')->name('init');
 });
+Route::get('/ot', [contoh::class, 'otomatis'])->name('otomatis');

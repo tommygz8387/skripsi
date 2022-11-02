@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
     {
         // generate factory
         User::factory(3)->create();
-        Guru::factory(10)->create();
+        Guru::factory(50)->create();
         Ruang::factory()->create([
             'nama' => 'Kelas',
             'kode' => 'K01',

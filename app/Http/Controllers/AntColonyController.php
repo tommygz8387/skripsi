@@ -48,10 +48,10 @@ class AntColonyController extends Controller
     {
         ini_set('max_execution_time', 0);
         //generate value to array
-        $valAmpu = $this->ampu->pluck('id')->toArray();
-        $valKelas = $this->kelas->pluck('id')->toArray();
-        $valRuang = $this->ruang->pluck('id')->toArray();
-        $valSlot = $this->slot->pluck('id')->toArray();
+        // $valAmpu = ;
+        // $valKelas = ;
+        // $valRuang = ;
+        // $valSlot = ;
         
         
         // dd($ranAmpu.'-'.$ranKelas.'-'.$ranRuang.'-'.$ranSlot);
@@ -61,15 +61,16 @@ class AntColonyController extends Controller
         // dd($totalKBM);
         // dd($jmlM);
 
-        do{
+        for ($i=0; $i < $totalKBM; $i++) { 
         
 
-        $ranAmpu = Arr::random($valAmpu);
-        $ranKelas = Arr::random($valKelas);
-        $ranRuang = Arr::random($valRuang);
-        $ranSlot = Arr::random($valSlot);
+        $ranAmpu = Arr::random($this->ampu->pluck('id')->toArray());
+        $ranKelas = Arr::random($this->kelas->pluck('id')->toArray());
+        $ranRuang = Arr::random($this->ruang->pluck('id')->toArray());
+        $ranSlot = Arr::random($this->slot->pluck('id')->toArray());
+        // dd($ranAmpu.'-'.$ranKelas.'-'.$ranRuang.'-'.$ranSlot);
         // generate random
-
+        
         // get value by random id
         $getGuruId = $this->ampu->where('id',$ranAmpu)->value('guru_id');
         $getMapelId = $this->ampu->where('id',$ranAmpu)->value('mapel_id');
@@ -77,7 +78,8 @@ class AntColonyController extends Controller
         $getWaktuId = $this->slot->where('id',$ranSlot)->value('waktu_id');
         $getKelasId = $this->kelas->where('id',$ranKelas)->value('id');
         $getRuangId = $this->ruang->where('id',$ranRuang)->value('id');
-
+        
+        // dd($getGuruId.'-'.$getMapelId.'-'.$getHariId.'-'.$getWaktuId);
 
         // cek apakah guru bisa mengajar mapel tersebut
         $cekAmpu = $this->ampu->where('guru_id',$getGuruId)->where('mapel_id',$getMapelId)->value('id');
@@ -171,8 +173,7 @@ class AntColonyController extends Controller
         $jmlM = count(Manual::get());
         // dd($jmlM);
 
-        return redirect()->route('init');
-    }while ($jmlM < $totalKBM);
+    }
 
         Alert::success('success','Data Generated successfully');
         return redirect()->route('manual.index');
