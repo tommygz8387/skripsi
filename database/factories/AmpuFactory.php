@@ -14,7 +14,7 @@ class AmpuFactory extends Factory
     public function definition()
     {
         return [
-            'guru_id' => $this->faker->numberBetween(1, 10),
+            'guru_id' => $this->faker->numberBetween(1, 50),
             'mapel_id' => $this->faker->numberBetween(1, 15),
             'tingkat_id' => $this->faker->numberBetween(1, 3),
             'created_at' => now(),
