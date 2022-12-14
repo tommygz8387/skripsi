@@ -15,7 +15,7 @@ class MapelFactory extends Factory
     {
         return [
             'nama' => $this->faker->unique->jobTitle(),
-            'jurusan_id' => $this->faker->numberBetween(1, 12),
+            'jurusan_id' => $this->faker->numberBetween(1, 6),
             'ampu1' => $this->faker->numberBetween(0, 21),
             'ampu2' => $this->faker->numberBetween(0, 21),
             'ampu3' => $this->faker->numberBetween(0, 21),

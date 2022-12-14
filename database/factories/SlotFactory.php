@@ -16,7 +16,7 @@ class SlotFactory extends Factory
         return [
             //
             'hari_id' => $this->faker->numberBetween(1, 5),
-            'waktu_id' => $this->faker->numberBetween(1, 10),
+            'waktu_id' => $this->faker->numberBetween(1, 9),
             'created_at' => now(),
             'updated_at' => now(),
         ];

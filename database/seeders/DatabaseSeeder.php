@@ -30,7 +30,30 @@ class DatabaseSeeder extends Seeder
     {
         // generate factory
         User::factory(3)->create();
-        Guru::factory(50)->create();
+
+        // seeder tingkat
+        for ($i=10; $i <= 12; $i++) { 
+            Tingkat::factory()->create([
+            'tingkat' => $i,
+            ]);
+        }
+
+        // relationship seeder
+        Jurusan::factory()->create([
+                'id'=>'1',
+                'jurusan'=>'Umum'
+            ]);
+        Jurusan::factory(5)
+            ->has(Mapel::factory()->count(5), 'mapel')
+            ->has(Kelas::factory()->count(3), 'kelas')
+            ->create();
+
+        
+        Mapel::factory()->count(10)->create(
+            ['jurusan_id'=>'1']
+        );
+
+        Guru::factory(20)->has(Ampu::factory()->count(5), 'ampu')->create();
         Ruang::factory()->create([
             'nama' => 'Kelas',
             'kode' => 'K01',
@@ -83,18 +106,13 @@ class DatabaseSeeder extends Seeder
             'jam_mulai' => '14:00',
             'jam_selesai' => '14:45',
             'total' => '45',
-        ])->create([
-            'jam_mulai' => '14:45',
-            'jam_selesai' => '15:30',
-            'total' => '45',
-        ]);
-
-        // seeder tingkat
-        for ($i=10; $i <= 12; $i++) { 
-            Tingkat::factory()->create([
-            'tingkat' => $i,
-            ]);
-        }
+        ])
+        // ->create([
+        //     'jam_mulai' => '14:45',
+        //     'jam_selesai' => '15:30',
+        //     'total' => '45',
+        // ])
+        ;
 
         // seeder hari
         $data=['Senin','Selasa','Rabu','Kamis','Jum\'at'];
@@ -105,28 +123,6 @@ class DatabaseSeeder extends Seeder
             'jml_jam' => '10',
             ]);
         }
-
-        // relationship seeder
-        Jurusan::factory()->create([
-                'id'=>'0',
-                'jurusan'=>'Umum'
-            ]);
-        Jurusan::factory(5)
-            ->has(Mapel::factory()->count(3), 'mapel')
-            ->has(Kelas::factory()->count(3), 'kelas')
-            ->create();
-        // Kelas::factory()
-        //     ->count(3)
-        //     ->for($j)
-        //     ->create();
-
-        // generate seeder lain
-        // $this->call([
-        //     WaktuSeeder::class,
-        //     HariSeeder::class,
-        //     SlotSeeder::class,
-        //     TingkatSeeder::class,
-        // ]);
 
         // seeder slot
         $hari=count(Hari::all());
@@ -141,7 +137,6 @@ class DatabaseSeeder extends Seeder
         }
 
         JKhusus::factory(20)->create();
-        Ampu::factory(40)->create();
-        Manual::factory(50)->create();
+        Ampu::factory(20)->create();
     }
 }

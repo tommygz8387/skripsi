@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
-                <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
+                <select class="chosen" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
                     <option selected disabled hidden value="">Pilih Jurusan</option>
                     @foreach ($dataJurusan as $jurusan)
                         <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>

@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label for="tingkat">Tingkat</label>
-                <select class="form-control" aria-label="Default select example" id="tingkat" name="tingkat_id" required>
+                <select class="chosen" aria-label="Default select example" id="tingkat" name="tingkat_id" required>
                     <option selected hidden value="{{ $Kelas->tingkat_id }}">{{ $Kelas->tingkat->tingkat }}</option>
                     @foreach ($dataTingkat as $Tingkat)
                         <option value="{{ $Tingkat->id }}">{{ $Tingkat->tingkat }}</option>
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="jurusan">Jurusan</label>
-                <select class="form-control" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
+                <select class="chosen" aria-label="Default select example" id="jurusan" name="jurusan_id" required>
                     <option selected hidden value="{{ $Kelas->jurusan_id }}">{{ $Kelas->jurusan->jurusan }}</option>
                     @foreach ($dataJurusan as $jurusan)
                         <option value="{{ $jurusan->id }}">{{ $jurusan->jurusan }}</option>

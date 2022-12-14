@@ -44,8 +44,6 @@ Auth::routes([
 ]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/test', [contoh::class, 'initialisasi'])->name('test');
-Route::get('/loop', [contoh::class, 'loop'])->name('loop');
 Route::get('/generate', [HomeController::class, 'generate'])->name('generate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout1');
 Route::get('/user/edit', [UserController::class, 'index'])->name('user.index');
@@ -191,6 +189,12 @@ Route::controller(JadwalController::class)->group(function(){
 
 // grup controller otomatis
 Route::controller(AntColonyController::class)->group(function(){
-    Route::get('/pages/jadwal/manual/init', 'initialisasi')->name('init');
+    Route::get('/pages/jadwal/otomatis', 'index')->name('otomatis.index');
+    Route::get('/pages/jadwal/otomatis/init', 'initialisasi')->name('init');
 });
-Route::get('/ot', [contoh::class, 'otomatis'])->name('otomatis');
+
+// testing
+// Route::get('/tt', [contoh::class, 'test'])->name('test');
+// Route::get('/test', [AntColonyController::class, 'initialisasi'])->name('test');
+// Route::post('/loop', [contoh::class, 'loop1'])->name('loop');
+// Route::get('/ot', [contoh::class, 'otomatis'])->name('coba');

@@ -10,7 +10,7 @@
             @csrf
             <div class="form-group">
                 <label for="Guru">Guru</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Guru" name="guru_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Guru" name="guru_id" required>
                     <option selected disabled hidden value="">Pilih Guru</option>
                     @foreach ($dataGuru as $Guru)
                         <option value="{{ $Guru->id }}">{{ $Guru->nama }}</option>
@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="Hari">Hari</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Hari" name="hari_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Hari" name="hari_id" required>
                     <option selected disabled hidden value="">Pilih Hari</option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam" name="waktu_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Jam" name="waktu_id" required>
                     <option selected disabled hidden value="">Pilih Jam</option>
                     
                 </select>

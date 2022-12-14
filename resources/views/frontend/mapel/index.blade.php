@@ -109,6 +109,11 @@
                 // ],
             });
         });
+        $(".chosen").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+        });
     </script>
     <!-- Plugin js for this page -->
     {{-- <script src="{{ asset('/') }}vendors/chart.js/Chart.min.js"></script> --}}

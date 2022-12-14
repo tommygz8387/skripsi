@@ -47,7 +47,7 @@
             <div class="collapse" id="penjadwalan">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Manual</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Otomatis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('otomatis.index') }}">Jadwal Otomatis</a></li>
                 </ul>
             </div>
         </li>

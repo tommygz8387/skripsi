@@ -16,7 +16,7 @@ class HariFactory extends Factory
         return [
             //
             'hari' => $this->faker->word(),
-            'jml_jam' => $this->faker->numberBetween(7,10),
+            'jml_jam' => $this->faker->numberBetween(7,9),
             'created_at' => now(),
             'updated_at' => now(),
         ];

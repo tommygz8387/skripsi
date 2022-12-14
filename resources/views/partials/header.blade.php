@@ -10,14 +10,12 @@
     <link rel="stylesheet" href="{{ asset('/') }}vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="{{ asset('/') }}vendors/select2/select2.min.css">
-    <link rel="stylesheet" href="{{ asset('/') }}vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('/') }}vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    {{-- <link rel="stylesheet" href="{{ asset('/') }}js/select.dataTables.min.css"> --}}
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('/') }}css/vertical-layout-light/style.css">
     <link rel="stylesheet" href="{{ asset('/') }}css/loader.css">
+    <link rel="stylesheet" href="{{ asset('/') }}vendor/chosen/chosen.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('/') }}images/favicon.png" />
     @yield('cus-css')

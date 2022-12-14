@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group">
                 <label for="Guru">Guru</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Guru" name="guru_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Guru" name="guru_id" required>
                     <option selected hidden value="{{ $JKhusus->guru_id }}">{{ $JKhusus->guru->nama }}</option>
                     @foreach ($dataGuru as $Guru)
                         <option value="{{ $Guru->id }}">{{ $Guru->nama }}</option>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="Hari">Hari</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Hari" name="hari_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Hari" name="hari_id" required>
                     <option selected hidden value="{{ $JKhusus->slot->hari_id }}">{{ $JKhusus->slot->hari->hari }}</option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam" name="waktu_id" required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Jam" name="waktu_id" required>
                     <option selected hidden value="{{ $JKhusus->slot->waktu_id }}">{{ $JKhusus->slot->waktu->jam_mulai }}-{{ $JKhusus->slot->waktu->jam_selesai }}</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>

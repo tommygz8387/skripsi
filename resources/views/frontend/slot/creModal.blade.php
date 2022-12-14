@@ -10,8 +10,8 @@
             @csrf
             <div class="form-group">
                 <label for="Hari">Hari</label><br>
-                <select class="form-control js-example-basic-single " aria-label="Default select example" id="Hari" name="hari_id" 
-                required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Hari" name="hari_id" 
+                required>
                     <option selected disabled hidden value="">Pilih Hari</option>
                     @foreach ($dataHari as $hari)
                         @if (count(App\Models\Slot::where('hari_id', $hari->id)->get()) < $hari->jml_jam)
@@ -22,8 +22,8 @@
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam" name="waktu_id"
-                    required style="width: 100%">
+                <select class="chosen" aria-label="Default select example" id="Jam" name="waktu_id"
+                    required>
                     <option selected disabled hidden value="">Pilih Jam</option>
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
