@@ -19,7 +19,7 @@ class Mapel extends Model
     protected $table = 'mapels';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'nama','jurusan_id','ampu1','ampu2','ampu3'
+        'nama','jurusan_id'
     ];
 
     public function jurusan()

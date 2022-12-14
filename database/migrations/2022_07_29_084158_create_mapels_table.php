@@ -19,9 +19,6 @@ class CreateMapelsTable extends Migration
             $table->foreignId('jurusan_id')->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('ampu1');
-            $table->integer('ampu2');
-            $table->integer('ampu3');
             $table->timestamps();
         });
     }

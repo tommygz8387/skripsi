@@ -39,9 +39,6 @@
                                     <th>#</th>
                                     <th>Nama</th>
                                     <th>Jurusan</th>
-                                    <th>Ampu 10</th>
-                                    <th>Ampu 11</th>
-                                    <th>Ampu 12</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -51,9 +48,6 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $Mapel->nama }}</td>
                                         <td>{{ $Mapel->jurusan->jurusan }}</td>
-                                        <td>{{ $Mapel->ampu1 }}</td>
-                                        <td>{{ $Mapel->ampu2 }}</td>
-                                        <td>{{ $Mapel->ampu3 }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Mapel->id }}">
