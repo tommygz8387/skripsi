@@ -9,6 +9,11 @@
             @include('frontend.guru.creModal')
         </div>
     </div>
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.guru.impModal')
+        </div>
+    </div>
     <div class="row">
         {{-- tabel data guru --}}
         <div class="col-md-12 grid-margin stretch-card">
@@ -22,11 +27,32 @@
                             </p>
                         </div>
                         <div class="cols">
-                            <!-- Button trigger create modal -->
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#createGuruModal">
-                                Tambah Data
-                            </button>
+                        </div>
+                        <div class="cols-3">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <!-- Button trigger create modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#createGuruModal">
+                                    Tambah Data
+                                </button>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        More
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <!-- Button trigger import modal -->
+                                        <button type="button" class="dropdown-item" data-toggle="modal"
+                                            data-target="#importModal">
+                                            Import
+                                        </button>
+                                        <!-- Button trigger export -->
+                                        <a href="{{ route('manual.export') }}" class="dropdown-item">
+                                            Export
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>

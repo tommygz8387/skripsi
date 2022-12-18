@@ -3,7 +3,7 @@
 
 @include('partials.header')
 
-<body>
+<body onload="timeCount();">
     <div class="loader-wrapper">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
@@ -23,6 +23,15 @@
                 <div class="content-wrapper">
                     @yield('content')
                 </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022 - Presented by <a href="https://www.google.com/" target="_blank">Toms</a> </span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block mt-2">Created with Bootstrap admin template from BootstrapDash. All rights reserved.</span> 
+                    </div>
+                </footer> 
             </div>
             <!-- main-panel ends -->
         </div>

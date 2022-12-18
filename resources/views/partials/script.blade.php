@@ -7,7 +7,6 @@
 <script src="{{ asset('/') }}js/hoverable-collapse.js"></script>
 <script src="{{ asset('/') }}js/template.js"></script>
 <script src="{{ asset('/') }}js/settings.js"></script>
-<script src="{{ asset('/') }}js/dashboard.js"></script>
 <!-- End custom js for this page-->
 <!-- inject:js -->
 @yield('cus-script')

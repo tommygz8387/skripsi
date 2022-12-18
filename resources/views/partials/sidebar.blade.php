@@ -2,13 +2,13 @@
     <ul class="nav">
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/home') }}">
-                <i class="ti-home menu-icon"></i>
+                <i class="ti-home menu-icon text-bg-light"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#menu" aria-expanded="false" aria-controls="menu">
-                <i class="ti-layout-grid2 menu-icon"></i>
+                <i class="ti-layout-grid2 menu-icon text-bg-light"></i>
                 <span class="menu-title">Data Utama</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -25,7 +25,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#aturjadwal" aria-expanded="false" aria-controls="aturjadwal">
-                <i class="ti-agenda menu-icon"></i>
+                <i class="ti-agenda menu-icon text-bg-light"></i>
                 <span class="menu-title">Atur Jadwal</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -40,7 +40,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#penjadwalan" aria-expanded="false"
                 aria-controls="penjadwalan">
-                <i class="ti-book menu-icon"></i>
+                <i class="ti-book menu-icon text-bg-light"></i>
                 <span class="menu-title">Penjadwalan</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -54,7 +54,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#jadwal" aria-expanded="false"
                 aria-controls="jadwal">
-                <i class="ti-calendar menu-icon"></i>
+                <i class="ti-calendar menu-icon text-bg-light"></i>
                 <span class="menu-title">Jadwal</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -67,7 +67,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="icon-cog menu-icon"></i>
+                <i class="icon-cog menu-icon text-bg-light"></i>
                 <span class="menu-title">Pengaturan</span>
             </a>
         </li>

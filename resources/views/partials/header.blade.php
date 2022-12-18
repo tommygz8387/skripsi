@@ -17,6 +17,6 @@
     <link rel="stylesheet" href="{{ asset('/') }}css/loader.css">
     <link rel="stylesheet" href="{{ asset('/') }}vendor/chosen/chosen.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('/') }}images/favicon.png" />
+    <link rel="shortcut icon" href="{{ asset('/') }}images/logo-mini.svg" />
     @yield('cus-css')
 </head>
