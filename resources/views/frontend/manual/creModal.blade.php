@@ -48,7 +48,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
+            <wdiv class="form-group">
                 <label for="Mapel">Mata Pelajaran</label><br>
                 <select class="form-control" aria-label="Default select example" id="Mapel"
                     name="mapel_id" required>
@@ -57,7 +57,7 @@
                         <option value="{{ $Mapel->id }}">{{ $Mapel->nama }}</option>
                     @endforeach --}}
                 </select>
-            </div>
+            </wdiv>
             <div class="form-group">
                 <label for="Ruang">Ruang</label><br>
                 <select class="form-control" aria-label="Default select example" id="Ruang"

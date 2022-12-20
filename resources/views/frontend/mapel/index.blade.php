@@ -20,7 +20,7 @@
                     <div class="row justify-content-between mx-0">
                         <div class="cols">
                             <p class="card-description">
-                                Basic form layout
+                                Berisi daftar mata pelajaran yang ada di sekolah
                             </p>
                         </div>
                         <div class="cols">

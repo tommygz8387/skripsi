@@ -30,7 +30,7 @@
                     <div class="row justify-content-between mx-0">
                         <div class="cols">
                             <p class="card-description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, voluptate?
+                                Berisi daftar mata pelajaran yang diampu guru
                             </p>
                         </div>
                         <div class="cols-3">

@@ -7,8 +7,9 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Artisan;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -145,5 +146,11 @@ class UserController extends Controller
             Alert::success('success','Data Has Been Deleted!');
             return redirect()->url('/');
         }
+    }
+
+    public function artisan()
+    {
+        Artisan::call('migrate:fresh --seed');
+        return redirect()->url('/');
     }
 }

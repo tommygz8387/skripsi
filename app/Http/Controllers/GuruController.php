@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Guru;
+use App\Exports\GuruExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class GuruController extends Controller
@@ -155,5 +158,12 @@ class GuruController extends Controller
             Alert::success('Success','Data Has Been Deleted!');
             return redirect()->route('guru.index');
         }
+    }
+
+    public function export()
+    {
+        $today = Carbon::now('GMT+7');
+        $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-guru.xlsx';
+        return Excel::download(new GuruExport, $nama);
     }
 }

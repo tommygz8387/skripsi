@@ -30,7 +30,7 @@
                     <div class="row justify-content-between mx-0">
                         <div class="cols-6">
                             <p class="card-description">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, voluptate?
+                                Berisi daftar jadwal secara keseluruhan
                             </p>
                         </div>
                         <div class="cols-3">

@@ -18,7 +18,7 @@ use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AntColonyController;
-use App\Http\Controllers\contoh;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -47,6 +47,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/generate', [HomeController::class, 'generate'])->name('generate');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout1');
 Route::get('/user/edit', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/refresh', [UserController::class, 'artisan'])->name('refresh');
 Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
 Route::get('/user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
 
@@ -56,6 +57,7 @@ Route::controller(GuruController::class)->group(function(){
     Route::post('/pages/guru', 'store')->name('guru.store');
     Route::post('/pages/guru/{id}', 'update')->name('guru.update');
     Route::get('/pages/guru/delete/{id}', 'destroy')->name('guru.delete');
+    Route::get('/pages/guru/export', 'export')->name('guru.export');
 });
 
 // grup controller kelas
@@ -191,6 +193,11 @@ Route::controller(JadwalController::class)->group(function(){
 Route::controller(AntColonyController::class)->group(function(){
     Route::get('/pages/jadwal/otomatis', 'index')->name('otomatis.index');
     Route::get('/pages/jadwal/otomatis/init', 'initialisasi')->name('init');
+});
+
+Route::controller(ImportController::class)->group(function(){
+    Route::post('/pages/import', 'guruImport')->name('import');
+    Route::get('/pages/download', 'download')->name('download');
 });
 
 // testing

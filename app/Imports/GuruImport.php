@@ -16,11 +16,11 @@ class GuruImport implements ToModel
     {
         return new Guru([
             //
+            'nip'=>$row[0],
             'nama'=>$row[1],
-            'nip'=>$row[2],
-            'no_tlp'=>$row[3],
-            'jml_ampu'=>$row[4],
-            'keterangan'=>$row[5]
+            'no_tlp'=>$row[2],
+            'jml_ampu'=>$row[3],
+            'keterangan'=>$row[4]
         ]);
     }
 }

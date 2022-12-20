@@ -18,7 +18,7 @@
                     <div class="row justify-content-between mx-0">
                         <div class="cols">
                             <p class="card-description">
-                                Basic form layout
+                                Berisi daftar pelajaran berdasarkan kelas
                             </p>
                         </div>
                         <div class="cols">

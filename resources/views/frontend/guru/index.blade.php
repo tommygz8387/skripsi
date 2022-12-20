@@ -23,7 +23,7 @@
                     <div class="row justify-content-between mx-0">
                         <div class="cols">
                             <p class="card-description">
-                                Basic form layout
+                                Berisi daftar guru yang terlibat dalam kegiatan belajar mengajar
                             </p>
                         </div>
                         <div class="cols">
@@ -47,7 +47,7 @@
                                             Import
                                         </button>
                                         <!-- Button trigger export -->
-                                        <a href="{{ route('manual.export') }}" class="dropdown-item">
+                                        <a href="{{ route('guru.export') }}" class="dropdown-item">
                                             Export
                                         </a>
                                     </div>
@@ -134,7 +134,7 @@
             $('#guru').DataTable();
         });
     </script>
-    <script>
+    {{-- <script>
         $(document).ready(function(){
         $('#sub').click(function(){
             var fd = new FormData();
@@ -159,13 +159,10 @@
             });
         });
         });
-    </script>
+    </script> --}}
     <!-- Plugin js for this page -->
-    {{-- <script src="{{ asset('/') }}vendors/chart.js/Chart.min.js"></script> --}}
     <script src="{{ asset('/') }}vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="{{ asset('/') }}vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-    {{-- <script src="{{ asset('/') }}js/dataTables.select.min.js"></script>
-    <script src="{{ asset('/') }}js/todolist.js"></script>
-    <script src="{{ asset('/') }}js/Chart.roundedBarCharts.js"></script> --}}
+    <script src="{{ asset('/') }}js/file-upload.js"></script>
     <!-- End plugin js for this page -->
 @endsection
