@@ -33,7 +33,7 @@
                                 <!-- Button trigger create modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                     data-target="#createGuruModal">
-                                    Tambah Data
+                                    Add Data
                                 </button>
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -132,6 +132,32 @@
     <script>
         $(document).ready(function() {
             $('#guru').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+        $('#sub').click(function(){
+            var fd = new FormData();
+            var files = $('#iguru')[0].files[0];
+            fd.append('iguru',files);
+
+            // AJAX request
+            $.ajax({
+            url: 'ajaxfile.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                // Show image preview
+                $('#preview').append("<img src='"+response+"' width='100' height='100' style='display: inline-block;'>");
+                }else{
+                alert('file not uploaded');
+                }
+            }
+            });
+        });
         });
     </script>
     <!-- Plugin js for this page -->
