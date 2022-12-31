@@ -108,9 +108,6 @@ class MapelController extends Controller
         $cek = Mapel::
         where('nama',$request->nama)->
         where('jurusan_id',$request->jurusan_id)->
-        where('ampu1',$request->ampu1)->
-        where('ampu2',$request->ampu2)->
-        where('ampu3',$request->ampu3)->
         exists();
         
         // dd($cek);

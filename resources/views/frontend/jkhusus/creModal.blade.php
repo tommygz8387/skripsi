@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label><br>
-                <select class="chosen" aria-label="Default select example" id="Jam" name="waktu_id" required>
+                <select class="form-control" aria-label="Default select example" id="Jam" name="waktu_id" required>
                     <option selected disabled hidden value="">Pilih Jam</option>
                     
                 </select>

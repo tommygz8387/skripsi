@@ -7,12 +7,14 @@
         </button>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            Apakah anda ingin membuat data dummy?
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a href="{{ route('jkhusus.seed') }}" class="btn btn-primary mr-2">Submit</a>
-        <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
+        <form class="forms-sample" method="get" action="{{ route('jkhusus.generate') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="nilai">Masukkan jumlah data</label>
+                <input type="number" class="form-control" id="nilai" placeholder="Masukkan jumlah data" name="val" required>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </form>
     </div>
 </div>

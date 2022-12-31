@@ -135,7 +135,7 @@ Route::controller(JKhususController::class)->group(function(){
     Route::post('/pages/jkhusus/{id}', 'update')->name('jkhusus.update');
     Route::get('/pages/jkhusus/delete/{id}', 'destroy')->name('jkhusus.delete');
     Route::get('/pages/jkhusus/reset', 'reset')->name('jkhusus.reset');
-    Route::get('/pages/jkhusus/seed', 'seed')->name('jkhusus.seed');
+    Route::get('/pages/jkhusus/generate', 'generate')->name('jkhusus.generate');
     Route::get('/pages/jkhusus/export', 'export')->name('jkhusus.export');
     Route::post('/pages/getSlot', 'getSlot')->name('jkhusus.getSlot');
 });
@@ -192,7 +192,7 @@ Route::controller(JadwalController::class)->group(function(){
 // grup controller otomatis
 Route::controller(AntColonyController::class)->group(function(){
     Route::get('/pages/jadwal/otomatis', 'index')->name('otomatis.index');
-    Route::get('/pages/jadwal/otomatis/init', 'initialisasi')->name('init');
+    Route::get('/pages/jadwal/otomatis/aco', 'iterasi')->name('init');
 });
 
 Route::controller(ImportController::class)->group(function(){
@@ -202,6 +202,6 @@ Route::controller(ImportController::class)->group(function(){
 
 // testing
 // Route::get('/tt', [contoh::class, 'test'])->name('test');
-// Route::get('/test', [AntColonyController::class, 'initialisasi'])->name('test');
+// Route::get('/test', [AntColonyController::class, 'iterasi2']);
 // Route::post('/loop', [contoh::class, 'loop1'])->name('loop');
 // Route::get('/ot', [contoh::class, 'otomatis'])->name('coba');

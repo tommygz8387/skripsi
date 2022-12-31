@@ -224,7 +224,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                     <a class="dropdown-item" href="{{ route('user.index') }}">
                         <i class="ti-settings text-primary"></i>
-                        Settings
+                        Profile
                     </a>
                     <a class="dropdown-item" href="{{ route('logout1') }}">
                         <i class="ti-power-off text-primary"></i>

@@ -48,7 +48,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>TIngkat</th>
+                                    <th>Tingkat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

@@ -46,8 +46,8 @@
             </a>
             <div class="collapse" id="penjadwalan">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Manual</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('otomatis.index') }}">Jadwal Otomatis</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('manual.index') }}">Jadwal Manual</a></li>
                 </ul>
             </div>
         </li>
@@ -64,12 +64,6 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.guru') }}">Jadwal Guru</a></li>
                 </ul>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('user.index') }}">
-                <i class="icon-cog menu-icon text-bg-light"></i>
-                <span class="menu-title">Pengaturan</span>
-            </a>
         </li>
     </ul>
 </nav>

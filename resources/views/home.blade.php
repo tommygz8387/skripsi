@@ -120,7 +120,7 @@
                         algoritma ant colony optimization untuk mengoptimalkan jadwal dengan cara memerhatikan
                         batasan-batasan (<span class="font-italic"> constraint </span>) yang telah ditentukan sebelumnya. contoh batasan yang ada yaitu:
                     </p>
-                    <ol class="font-weight-500 text-justify">
+                    <ul class="font-weight-500 text-justify list-arrow">
                         <li>Tidak ada bentrok pada jadwal mengajar guru, dimana guru hanya boleh mengajar satu kelas
                         dalam satu waktu.</li>
                         <li>Tidak ada bentrok pada jadwal penggunaan ruangan, dimana ruangan khusus selain ruang kelas
@@ -136,7 +136,7 @@
                         dengan masing-masing mata pelajaran memiliki beban atau jumlah waktu tertentu, maka semua mata
                         pelajaran harus dialokasikan dengan baik sesuai dengan alokasi waktu dan bebannya masing-masing.</li>
                         <li>Tidak ada guru yang mengajar pada jam khusus yang diminta guru tersebut.</li>
-                    </ol>
+                    </ul>
                     <p class="font-weight-500 text-justify">
                     Dengan adanya sistem ini, diharapkan tidak ditemukan lagi bentrok pada mata pelajaran yang dapat
                     mengganggu proses belajar mengajar di sekolah.</p>

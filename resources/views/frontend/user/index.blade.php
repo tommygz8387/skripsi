@@ -7,7 +7,7 @@
     <div class="col-md-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit User</h4>
+                <h4 class="card-title">Profile User</h4>
                 <div class="row justify-content-between mx-0">
                     <p class="card-description">
                         Isi password lama dan baru jika ingin mengganti password

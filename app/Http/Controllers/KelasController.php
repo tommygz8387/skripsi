@@ -22,7 +22,7 @@ class KelasController extends Controller
     public function index()
     {
         //
-        $data['dataJurusan'] = Jurusan::where('jurusan','!=','Umum')->latest()->get();
+        $data['dataJurusan'] = Jurusan::latest()->get();
         $data['dataTingkat'] = Tingkat::latest()->get();
         $data['dataKelas'] = Kelas::with(['jurusan','tingkat'])->latest()->get();
         // dd($data);

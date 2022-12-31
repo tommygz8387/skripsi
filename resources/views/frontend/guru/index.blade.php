@@ -64,7 +64,7 @@
                                     <th>NIP</th>
                                     <th>Nama</th>
                                     <th>No Telepon</th>
-                                    <th><span data-toggle="tooltip" title="Jam Ampu per Minggu">Ampu</span></th>
+                                    <th><span data-bs-toggle="tooltip" data-placement="top" title="Jumlah Ampu Guru per Minggu">Ampu</span></th>
                                     <th>Keterangan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -161,8 +161,12 @@
         });
     </script> --}}
     <!-- Plugin js for this page -->
+    <script src="{{ asset('/') }}js/tooltips.js"></script>
     <script src="{{ asset('/') }}vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="{{ asset('/') }}vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="{{ asset('/') }}js/file-upload.js"></script>
+    <script>
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    </script>
     <!-- End plugin js for this page -->
 @endsection

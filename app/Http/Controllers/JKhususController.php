@@ -8,6 +8,7 @@ use App\Models\Hari;
 use App\Models\Slot;
 use App\Models\Waktu;
 use App\Models\JKhusus;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Exports\JKhususExport;
 use Illuminate\Support\Collection;
@@ -19,7 +20,6 @@ class JKhususController extends Controller
     private $jkhusus;
     public function __construct()
     {
-        $this->jkhusus = JKhusus::with(['guru','slot']);
         $this->middleware('auth');
     }
     /**
@@ -33,7 +33,7 @@ class JKhususController extends Controller
         $data['dataGuru'] = Guru::latest()->get();
         $data['dataHari'] = Hari::latest()->get();
         $data['dataWaktu'] = Waktu::latest()->get();
-        $data['dataJKhusus'] = $this->jkhusus
+        $data['dataJKhusus'] = JKhusus::with(['guru','slot'])
         ->latest()
         ->get();
         return view('frontend.jkhusus.index',$data);
@@ -60,7 +60,7 @@ class JKhususController extends Controller
     public function store(Request $request)
     {
         // cek duplikat
-        $cek = $this->jkhusus->
+        $cek = JKhusus::with(['guru','slot'])->
         where('guru_id',$request->guru_id)->
         where('slot_id',$request->slot_id)->
         exists();
@@ -79,8 +79,8 @@ class JKhususController extends Controller
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
             return redirect()->route('jkhusus.index');
         }
-        // $store = $this->jkhusus->create($request->all());
-        $store = $this->jkhusus->create(array_merge($request->all(), ['slot_id' => $cek]));
+        // $store = JKhusus::with(['guru','slot'])->create($request->all());
+        $store = JKhusus::create(array_merge($request->all(), ['slot_id' => $cek]));
         if(!$store){
             Alert::error('Error','Add Data Failed!');
             return redirect()->route('jkhusus.index');
@@ -123,7 +123,7 @@ class JKhususController extends Controller
     public function update(Request $request, $id)
     {
         // cek duplikat
-        $cek = $this->jkhusus->
+        $cek = JKhusus::with(['guru','slot'])->
         where('guru_id',$request->guru_id)->
         where('slot_id',$request->slot_id)->
         exists();
@@ -160,7 +160,7 @@ class JKhususController extends Controller
     public function destroy($id)
     {
         //
-        $destroy = $this->jkhusus->find($id);
+        $destroy = JKhusus::find($id);
 
         // cek data
         if (!$destroy) {
@@ -181,7 +181,7 @@ class JKhususController extends Controller
     public function reset()
     {
         //
-        $reset = $this->jkhusus->get();
+        $reset = JKhusus::get();
         // dd($reset);
 
         // cek data
@@ -200,18 +200,17 @@ class JKhususController extends Controller
         }
     }
 
-    public function seed()
+    public function generate(Request $request)
     {
-        $cek = $this->jkhusus->get();
+        $nilai = $request->val;
+        $guru=Guru::pluck('id')->toArray();
+        $slot=Slot::pluck('id')->toArray();
 
-        if ($cek->isEmpty()) {
-            JKhusus::factory(20)->create();
+        for ($i=0; $i < $nilai; $i++) { 
+            JKhusus::create(['guru_id' => Arr::random($guru), 'slot_id' => Arr::random($slot)]);
+        }
             Alert::success('Success','Data Has Been Generated!');
             return redirect()->route('jkhusus.index');
-        } else {
-            Alert::error('Error','Data Isn\'t Empty!');
-            return redirect()->route('jkhusus.index');
-        }
 
     }
 
