@@ -36,11 +36,11 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="rho" data-bs-toggle="tooltip" data-placement="top" title="ρ (Rho) adalah tetapan penguapan jejak semut, nilai ρ harus > 0 dan < 1 untuk mencegah jejak pheromone yang tak terhingga.">Rho (&rho;)</label>
-                                <input type="number" class="form-control" id="rho" placeholder="Nilai Rho" name="rho" required step=".01" onkeyup="success()" value="0.1">
+                                <input type="number" class="form-control" id="rho" placeholder="Nilai Rho" name="rho" required step=".01" onkeyup="success()" value="0.5">
                             </div>
                             <div class="form-group">
                                 <label for="tau" data-bs-toggle="tooltip" data-placement="top" title="𝜏ij adalah Intensitas jejak semut antar titik dan perubahannya.">&tau;ij</label>
-                                <input type="number" class="form-control" id="tau" placeholder="Nilai &tau;ij" name="tau" required step=".01" onkeyup="success()" value="0.1">
+                                <input type="number" class="form-control" id="tau" placeholder="Nilai &tau;ij" name="tau" required step=".01" onkeyup="success()" value="0.01">
                             </div>
                             <div class="d-flex justify-content-end mt-5">
                                 <button type="submit" class="btn btn-primary mr-2" id="g">Submit</button>

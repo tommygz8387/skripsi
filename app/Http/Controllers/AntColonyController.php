@@ -149,14 +149,15 @@ class AntColonyController extends Controller
                             'ruang_id'=>$ranRuang,
                             'slot_id'=>$ranSlot,
                         ]);
-
-                        if ($ranSlot+1) {
-                            Manual::create([
-                            'ampu_id'=>$ranAmpu,
-                            'kelas_id'=>$ranKelas,
-                            'ruang_id'=>$ranRuang,
-                            'slot_id'=>$ranSlot+1,
-                        ]);
+                        if (count(Manual::whereIn('ampu_id',$x)->get())<$a) {
+                            if ($ranSlot+1) {
+                                Manual::create([
+                                'ampu_id'=>$ranAmpu,
+                                'kelas_id'=>$ranKelas,
+                                'ruang_id'=>$ranRuang,
+                                'slot_id'=>$ranSlot+1,
+                            ]);
+                        }
                         }
                         
                         
@@ -216,7 +217,10 @@ class AntColonyController extends Controller
                     $getTfromA = $thisAmpu->pluck('tingkat_id');
                     $getKelas = Kelas::where('tingkat_id',$getTfromA)->pluck('id');
                     $ranKelas = Arr::random($getKelas->toArray());
-                    $ranSlot = Arr::random(Slot::pluck('id')->toArray());
+                    $thisJadwal = Manual::where('kelas_id',$ranKelas);
+                    $getSfK = $thisJadwal->pluck('slot_id');
+                    // dd($getSfK->toArray());
+                    $ranSlot = Arr::random(Slot::whereNotIn('id',$getSfK)->pluck('id')->toArray());
                     // generate id
                     $getMapelId = $thisAmpu->value('mapel_id');
                     $getNMapel = Mapel::where('id',$getMapelId)->value('nama');
@@ -241,7 +245,7 @@ class AntColonyController extends Controller
     
                     // cek apakah sudah ada mapel di kelas
                     $cekMapelAmpu = Ampu::where('mapel_id',$getMapelId)->pluck('id');
-                    $cekIfMapelKelas = Manual::where('kelas_id',$ranKelas)->whereIn('ampu_id',$cekMapelAmpu);
+                    $cekIfMapelKelas = $thisJadwal->whereIn('ampu_id',$cekMapelAmpu);
                     $jmlMapel = count($cekIfMapelKelas->get());
                     // dd($jmlMapel);
                     if ($jmlMapel>=2) {
@@ -250,7 +254,7 @@ class AntColonyController extends Controller
                     
                     
                     // cek apakah sudah ada slot di kelas
-                    $cekIfSlotKelas = Manual::where('kelas_id',$ranKelas)->where('slot_id',$ranSlot);
+                    $cekIfSlotKelas = $thisJadwal->where('slot_id',$ranSlot);
                     if ($cekIfSlotKelas->exists()) {
                         continue;
                     }
@@ -271,44 +275,98 @@ class AntColonyController extends Controller
                         continue;
                     }
     
-                    // cek duplikat
-                    if (Manual::where('ampu_id',$ranAmpu)
-                    ->where('kelas_id',$ranKelas)
-                    ->where('ruang_id',$ranRuang)
-                    ->where('slot_id',$ranSlot)
-                    ->exists()) {
-                        continue;
-                    }
-    
-    
                     // akhir kondisi
     
                     // insert data
-    
-                    Manual::create([
-                        'ampu_id'=>$ranAmpu,
-                        'kelas_id'=>$ranKelas,
-                        'ruang_id'=>$ranRuang,
-                        'slot_id'=>$ranSlot,
-                    ]);
+                    // slot awal
+                    $cekHSlotA = Slot::where('id',$ranSlot)->value('hari_id');
+                    // slot setelah
+                    $cekSlot = Slot::where('id',$ranSlot+1);
+                    $cekIdSlot = $cekSlot->value('id');
+                    $cekHSlot = $cekSlot->value('hari_id');
+                    // slot sebelum
+                    $cekSlotS = Slot::where('id',$ranSlot-1);
+                    $cekIdSlotS = $cekSlotS->value('id');
+                    $cekHSlotS = $cekSlotS->value('hari_id');
+                    // dd($cekHSlotA);
+                    if (count(Manual::whereIn('ampu_id',$cekI)->get())<$a) {
+                        // tambah slot bawah
+                        if ($cekIdSlot) {
+                            if (Manual::where('ampu_id',$ranAmpu)
+                            ->where('kelas_id',$ranKelas)
+                            ->where('ruang_id',$ranRuang)
+                            ->where('slot_id',$ranSlot)
+                            ->exists()) {
+                                continue;
+                            }
+                            if (Manual::where('ampu_id',$ranAmpu)
+                            ->where('kelas_id',$ranKelas)
+                            ->where('ruang_id',$ranRuang)
+                            ->where('slot_id',$ranSlot+1)
+                            ->exists()) {
+                                continue;
+                            }
 
-                    // $ranSlot=50;
-                    
-                    $cekSlot = Slot::where('id',$ranSlot+1)->value('id');
-                    if ($cekSlot) {
-                        if (Manual::where('ampu_id',$ranAmpu)
-                        ->where('kelas_id',$ranKelas)
-                        ->where('ruang_id',$ranRuang)
-                        ->where('slot_id',$ranSlot+1)
-                        ->exists()) {
+                            if ($cekHSlotA==$cekHSlot) {
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot+1,
+                                ]);
+                                $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                                continue;
+                            }else {
+                                continue;
+                            }
+                        }else{
                             continue;
                         }
-                        Manual::create([
-                        'ampu_id'=>$ranAmpu,
-                        'kelas_id'=>$ranKelas,
-                        'ruang_id'=>$ranRuang,
-                        'slot_id'=>$ranSlot+1,
-                    ]);
+
+                        // tambah slot atas
+                        if ($cekIdSlotS) {
+                            if (Manual::where('ampu_id',$ranAmpu)
+                            ->where('kelas_id',$ranKelas)
+                            ->where('ruang_id',$ranRuang)
+                            ->where('slot_id',$ranSlot)
+                            ->exists()) {
+                                continue;
+                            }
+                            if (Manual::where('ampu_id',$ranAmpu)
+                            ->where('kelas_id',$ranKelas)
+                            ->where('ruang_id',$ranRuang)
+                            ->where('slot_id',$ranSlot-1)
+                            ->exists()) {
+                                continue;
+                            }
+
+                            if ($cekHSlotA==$cekHSlotS) {
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot-1,
+                                ]);
+                                $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                                continue;
+                            }else {
+                                continue;
+                            }
+                        }else{
+                            continue;
+                        }
                     }
                     
                     
@@ -328,7 +386,7 @@ class AntColonyController extends Controller
             // echo $jmlM;
         } while ($jmlM <= $ttlA);
         } catch (\Throwable $th) {
-            Alert::error('Error','Terdapat Error pada Data');
+            Alert::error('Error',$th->getMessage());
             return redirect()->route('manual.index');
         }
     }
