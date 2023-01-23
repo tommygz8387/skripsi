@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="{{ route('slot.delete', ['id' => $Slot->id]) }}" class="btn btn-primary mr-2">Submit</a>
-        <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
+        <a href="{{ route('slot.delete', ['id' => $Slot->id]) }}" class="btn btn-primary mr-2">Yes</a>
+        <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">No</button>
     </div>
 </div>

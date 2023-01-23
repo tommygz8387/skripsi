@@ -13,11 +13,16 @@ class ImportController extends Controller
     public function guruImport(Request $request)
     {
         //
-        // dd($request->hasFile('iguru'));
-        Excel::import(new GuruImport, request()->file('iguru'));
-        
-        Alert::success('Success','Data Has Been Deleted!');
-        return redirect()->route('guru.index');
+        try {
+            // dd($request->hasFile('iguru'));
+            Excel::import(new GuruImport, request()->file('iguru'));
+            
+            Alert::success('Success','Data Has Been Deleted!');
+            return redirect()->route('guru.index');
+        } catch (\Throwable $th) {
+            Alert::error('Error',$th->getMessage());
+            return redirect()->route('guru.index');
+        }
     }
 
     public function download()
