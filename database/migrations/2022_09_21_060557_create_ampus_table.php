@@ -16,14 +16,15 @@ class CreateAmpusTable extends Migration
         Schema::create('ampus', function (Blueprint $table) {
             $table->id();
             $table->foreignId('guru_id')->constrained()
-                ->onUpdate('cascade')
+            ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('mapel_id')->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->foreignId('tingkat_id')->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->integer('beban');
             $table->timestamps();
         });
     }

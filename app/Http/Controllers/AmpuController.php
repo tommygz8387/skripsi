@@ -61,6 +61,7 @@ class AmpuController extends Controller
         where('guru_id',$request->guru_id)->
         where('mapel_id',$request->mapel_id)->
         where('tingkat_id',$request->tingkat_id)->
+        where('beban',$request->beban)->
         exists();
         
         // dd($cek);
@@ -115,6 +116,7 @@ class AmpuController extends Controller
         where('guru_id',$request->guru_id)->
         where('mapel_id',$request->mapel_id)->
         where('tingkat_id',$request->tingkat_id)->
+        where('beban',$request->beban)->
         exists();
         
         // dd($cek);

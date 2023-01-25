@@ -35,6 +35,10 @@
                     @endforeach
                 </select>
             </div>
+            <div class="form-group">
+                <label for="Beban">Beban Ampu /  Minggu</label>
+                <input type="number" class="form-control" id="Beban" placeholder="Beban Ampu" name="beban" min="1" max="4" step="1" required>
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button type="reset" class="btn btn-danger">Reset</button>
         </form>

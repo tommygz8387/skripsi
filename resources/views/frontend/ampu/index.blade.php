@@ -74,6 +74,7 @@
                                     <th>Nama Guru</th>
                                     <th>Mata Pelajaran</th>
                                     <th>Tingkat</th>
+                                    <th>Beban/Minggu</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -84,6 +85,7 @@
                                         <td>{{ $Ampu->guru->nama }}</td>
                                         <td>{{ $Ampu->mapel->nama }}</td>
                                         <td>{{ $Ampu->tingkat->tingkat }}</td>
+                                        <td>{{ $Ampu->beban }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
                                                 id="Dropdown{{ $Ampu->id }}">

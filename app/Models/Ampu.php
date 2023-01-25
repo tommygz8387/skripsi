@@ -21,7 +21,7 @@ class Ampu extends Model
     protected $table = 'ampus';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'guru_id','mapel_id','tingkat_id'
+        'guru_id','mapel_id','tingkat_id','beban'
     ];
 
     public function guru()

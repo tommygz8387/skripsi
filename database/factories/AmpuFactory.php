@@ -17,6 +17,7 @@ class AmpuFactory extends Factory
             'guru_id' => $this->faker->numberBetween(1, 20),
             'mapel_id' => $this->faker->numberBetween(1, 15),
             'tingkat_id' => $this->faker->numberBetween(1, 3),
+            'beban' => $this->faker->numberBetween(1, 3),
             'created_at' => now(),
             'updated_at' => now(),
         ];
