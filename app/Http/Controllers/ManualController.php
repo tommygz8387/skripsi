@@ -72,7 +72,6 @@ class ManualController extends Controller
     {
         // cek apakah guru bisa mengajar mapel tersebut
         $cekAmpu = Ampu::where('guru_id',$request->guru_id)->where('mapel_id',$request->mapel_id)->value('id');
-        // dd($cekAmpu);
         if(!$cekAmpu){
             Alert::error('Error','Guru Tidak Mengampu Mata Pelajaran Tersebut!');
             return redirect()->route('manual.index');
@@ -80,7 +79,6 @@ class ManualController extends Controller
 
         // cek apakah slot ajar ada
         $cekSlot = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
-        // dd($cekSlot);
         if(!$cekSlot){
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
             return redirect()->route('manual.index');
@@ -88,19 +86,23 @@ class ManualController extends Controller
 
         // cek apakah data ada di jam khusus
         $cekJK = JKhusus::where('guru_id',$request->guru_id)->where('slot_id',$cekSlot)->value('id');
-        // dd($cekJK);
         if($cekJK){
             Alert::error('Error','Guru Tidak Bisa Mengajar Di Waktu Tersebut! Cek Jam Khusus');
+            return redirect()->route('manual.index');
+        }
+
+        // cek apakah data ada di jam khusus kelas
+        $cekJK = JKhusus::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot)->value('id');
+        if($cekJK){
+            Alert::error('Error','Tidak boleh ada jadwal pada jam tersebut! Cek jam khusus kelas');
             return redirect()->route('manual.index');
         }
 
         // cek apakah jumlah ampu guru sudah penuh
         $cekGuru = Guru::where('id',$request->guru_id)->value('jml_ampu');
         $cekIdAmpu = Ampu::where('guru_id',$request->guru_id)->pluck('id');
-        // dd($cekIdAmpu);
-        // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
         $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
-        // dd($cekIf);
+        
         if($cekIf>=$cekGuru){
             Alert::error('Error','Jumlah Ampu Guru Sudah Terpenuhi!');
             return redirect()->route('manual.index');
@@ -108,9 +110,8 @@ class ManualController extends Controller
 
         // cek apakah sudah ada mapel di kelas
         $cekMapelAmpu = Ampu::where('mapel_id',$request->mapel_id)->pluck('id');
-        // dd($cekMapelAmpu);
         $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
-        // dd($cekIfMapelKelas->exists());
+        
         if ($cekIfMapelKelas->exists()) {
             Alert::error('Error','Mapel sudah ada di kelas tersebut!');
             return redirect()->route('manual.index');
@@ -118,10 +119,7 @@ class ManualController extends Controller
         
         
         // cek apakah sudah ada slot di kelas
-        // dd($cekMapelAmpu);
         $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
-        // dd($request->kelas_id);
-        // dd($cekIfSlotKelas->get());
         if ($cekIfSlotKelas->exists()) {
             Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
             return redirect()->route('manual.index');
@@ -138,10 +136,7 @@ class ManualController extends Controller
         }
 
         // cek bentrok guru
-        $cekGuru = Ampu::where('guru_id',$request->guru_id)->pluck('id');
-        // dd($cekGuru);
-        $cekIfGuruSlot = Manual::where('slot_id',$cekSlot)->whereIn('ampu_id',$cekGuru);
-        // dd($cekIfGuruSlot->get());
+        $cekIfGuruSlot = Manual::where('slot_id',$cekSlot)->whereIn('ampu_id',$cekIdAmpu);
         if ($cekIfGuruSlot->exists()) {
             Alert::error('Error','Jadwal Guru Bentrok!');
             return redirect()->route('manual.index');
@@ -202,7 +197,6 @@ class ManualController extends Controller
         //
         // cek apakah guru bisa mengajar mapel tersebut
         $cekAmpu = Ampu::where('guru_id',$request->guru_id)->where('mapel_id',$request->mapel_id)->value('id');
-        // dd($cekAmpu);
         if(!$cekAmpu){
             Alert::error('Error','Guru Tidak Mengampu Mata Pelajaran Tersebut!');
             return redirect()->route('manual.index');
@@ -210,7 +204,6 @@ class ManualController extends Controller
 
         // cek apakah slot ajar ada
         $cekSlot = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
-        // dd($cekSlot);
         if(!$cekSlot){
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
             return redirect()->route('manual.index');
@@ -218,7 +211,6 @@ class ManualController extends Controller
 
         // cek apakah data ada di jam khusus
         $cekJK = JKhusus::where('guru_id',$request->guru_id)->where('slot_id',$cekSlot)->value('id');
-        // dd($cekJK);
         if($cekJK){
             Alert::error('Error','Guru Tidak Bisa Mengajar Di Waktu Tersebut! Cek Jam Khusus');
             return redirect()->route('manual.index');
@@ -227,10 +219,8 @@ class ManualController extends Controller
         // cek apakah jumlah ampu guru sudah penuh
         $cekGuru = Guru::where('id',$request->guru_id)->value('jml_ampu');
         $cekIdAmpu = Ampu::where('guru_id',$request->guru_id)->pluck('id');
-        // dd($cekIdAmpu);
-        // $cekIf = Manual::whereIn('ampu_id',$cekIdAmpu)->get();
         $cekIf = count($this->manual->whereIn('ampu_id',$cekIdAmpu)->get());
-        // dd($cekIf);
+        
         if($cekIf>=$cekGuru){
             Alert::error('Error','Jumlah Ampu Guru Sudah Terpenuhi!');
             return redirect()->route('manual.index');
@@ -238,9 +228,8 @@ class ManualController extends Controller
 
         // cek apakah sudah ada mapel di kelas
         $cekMapelAmpu = Ampu::where('mapel_id',$request->mapel_id)->pluck('id');
-        // dd($cekMapelAmpu);
         $cekIfMapelKelas = Manual::where('kelas_id',$request->kelas_id)->whereIn('ampu_id',$cekMapelAmpu);
-        // dd($cekIfMapelKelas->exists());
+
         if ($cekIfMapelKelas->exists()) {
             Alert::error('Error','Mapel sudah ada di kelas tersebut!');
             return redirect()->route('manual.index');
@@ -248,10 +237,7 @@ class ManualController extends Controller
         
         
         // cek apakah sudah ada slot di kelas
-        // dd($cekMapelAmpu);
         $cekIfSlotKelas = Manual::where('kelas_id',$request->kelas_id)->where('slot_id',$cekSlot);
-        // dd($request->kelas_id);
-        // dd($cekIfSlotKelas->get());
         if ($cekIfSlotKelas->exists()) {
             Alert::error('Error','Slot ajar dikelas tersebut sudah terisi!');
             return redirect()->route('manual.index');
@@ -269,9 +255,8 @@ class ManualController extends Controller
 
         // cek bentrok guru
         $cekGuru = Ampu::where('guru_id',$request->guru_id)->pluck('id');
-        // dd($cekGuru);
         $cekIfGuruSlot = Manual::where('slot_id',$cekSlot)->whereIn('ampu_id',$cekGuru);
-        // dd($cekIfGuruSlot->get());
+
         if ($cekIfGuruSlot->exists()) {
             Alert::error('Error','Jadwal Guru Bentrok!');
             return redirect()->route('manual.index');
@@ -372,11 +357,12 @@ class ManualController extends Controller
     {
         $guru = $request->ampu;
 
-        $ampus = Ampu::with('mapel')->select('id','guru_id','mapel_id')->where('guru_id',$guru)->get();
+        $ampus = Ampu::with(['mapel','tingkat'])->select('id','guru_id','mapel_id','tingkat_id')->where('guru_id',$guru)->get();
         // dd($ampus);
 
         foreach ($ampus as $ampu) {
-            $isi = $ampu->mapel->nama;
+            $isi = $ampu->mapel->nama.'-'.$ampu->tingkat->tingkat;
+            // $tkt = $ampu->tingkat->tingkat;
             echo "<option value='$ampu->mapel_id'>$isi</option>";
             // echo "<option>awe</option>";
         }

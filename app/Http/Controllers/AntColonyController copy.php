@@ -74,7 +74,6 @@ class AntColonyController extends Controller
                     $ranAmpu = Arr::random($cekI);
                     $thisAmpu = Ampu::where('id',$ranAmpu);
                     $getTfromA = $thisAmpu->pluck('tingkat_id');
-                    $getBfromA = $thisAmpu->value('beban');
                     $getKelas = Kelas::where('tingkat_id',$getTfromA)->pluck('id');
                     $ranKelas = Arr::random($getKelas->toArray());
                     $thisJadwal = Manual::where('kelas_id',$ranKelas);
@@ -84,7 +83,6 @@ class AntColonyController extends Controller
                     $getMapelId = $thisAmpu->value('mapel_id');
                     $getNMapel = Mapel::where('id',$getMapelId)->value('nama');
 
-                    dd($getBfromA);
                     
                     // KONDISI SPESIFIK
                     // TIDAK BISA DIGUNAKAN JIKA DATA BERBEDA

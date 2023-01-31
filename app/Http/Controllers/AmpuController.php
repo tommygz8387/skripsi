@@ -31,11 +31,11 @@ class AmpuController extends Controller
     public function index()
     {
         //
-        dd(Guru::pluck('id'));
+        // dd(Guru::pluck('id'));
         $data['dataGuru'] = Guru::all();
         $data['dataMapel'] = Mapel::all();
         $data['dataTingkat'] = Tingkat::all();
-        $data['dataAmpu'] = $this->ampu->latest()->get();
+        $data['dataAmpu'] = $this->ampu->get();
         return view('frontend.ampu.index',$data);
     }
 

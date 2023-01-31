@@ -112,14 +112,14 @@
                                         </td>
                                     </tr>
 
-                                    // Modal Edit
+                                    {{-- Modal Edit --}}
                                     <div class="modal fade" id="editModal{{ $Manual->id }}" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             @include('frontend.manual.editModal')
                                         </div>
                                     </div>
-                                    // Modal Delete
+                                    {{-- Modal Delete --}}
                                     <div class="modal fade" id="delModal{{ $Manual->id }}" tabindex="-1"
                                         aria-labelledby="delModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
