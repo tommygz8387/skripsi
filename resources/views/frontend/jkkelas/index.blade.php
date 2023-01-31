@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
 @section('title')
-    Penjadwalan - Jadwal Manual
+    Atur Jadwal - Jadwal Khusus Kelas
 @endsection
 
 @section('content')
     <!-- Modal Tambah -->
+    <div class="modal fade" id="seedModal" tabindex="-1" aria-labelledby="seedModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            @include('frontend.jkkelas.seedModal')
+        </div>
+    </div>
     <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            @include('frontend.manual.creModal')
+            @include('frontend.jkkelas.creModal')
         </div>
     </div>
     <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="resetModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            @include('frontend.manual.resModal')
-        </div>
-    </div>
-    <div class="modal fade" id="seedModal" tabindex="-1" aria-labelledby="seedModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            @include('frontend.manual.seedModal')
+            @include('frontend.jkkelas.resModal')
         </div>
     </div>
     <div class="row">
@@ -26,11 +26,11 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">List Jam Ajar</h4>
+                    <h4 class="card-title">List Jam Khusus Kelas</h4>
                     <div class="row justify-content-between mx-0">
                         <div class="cols-6">
                             <p class="card-description">
-                                Berisi daftar jadwal secara keseluruhan
+                                Jam khusus ini diisi saat tidak ada jam pelajaran pada kelas tersebut.
                             </p>
                         </div>
                         <div class="cols-3">
@@ -57,9 +57,9 @@
                                             Reset
                                         </button>
                                         <!-- Button trigger export -->
-                                        <a href="{{ route('manual.export') }}" class="dropdown-item">
+                                        {{-- <a href="{{ route('jkkelas.export') }}" class="dropdown-item">
                                             Export
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -71,40 +71,34 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Kelas</th>
                                     <th>Hari</th>
                                     <th>Jam</th>
-                                    <th>Kelas</th>
-                                    <th>Nama Guru</th>
-                                    <th>Mata Pelajaran</th>
-                                    <th>Ruang</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dataManual as $Manual)
+                                @foreach ($dataJKKelas as $JKKelas)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $Manual->slot->hari->hari }}</td>
-                                        <td>{{ $Manual->slot->waktu->jam_mulai }}-<br>{{ $Manual->slot->waktu->jam_selesai }}</td>
-                                        <td>{{ $Manual->kelas->nama }}</td>
-                                        <td>{{ $Manual->ampu->guru->nama }}</td>
-                                        <td>{{ $Manual->ampu->mapel->nama }}</td>
-                                        <td>{{ $Manual->ruang->nama }}</td>
+                                        <td>{{ $JKKelas->kelas->nama }}</td>
+                                        <td>{{ $JKKelas->slot->hari->hari }}</td>
+                                        <td>{{ $JKKelas->slot->waktu->jam_mulai }}-{{ $JKKelas->slot->waktu->jam_selesai }}</td>
                                         <td>
                                             <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                                                id="Dropdown{{ $Manual->id }}">
+                                                id="Dropdown{{ $JKKelas->id }}">
                                                 <i class="icon-ellipsis text-black"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
-                                                aria-labelledby="Dropdown{{ $Manual->id }}">
+                                                aria-labelledby="Dropdown{{ $JKKelas->id }}">
                                                 <!-- Button trigger edit modal -->
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#editModal{{ $Manual->id }}">
+                                                    data-target="#editModal{{ $JKKelas->id }}">
                                                     <i class="ti-pencil text-black"></i>
                                                     Edit
                                                 </button>
                                                 <button class="dropdown-item" data-toggle="modal"
-                                                    data-target="#delModal{{ $Manual->id }}">
+                                                    data-target="#delModal{{ $JKKelas->id }}">
                                                     <i class="ti-eraser text-black"></i>
                                                     Delete
                                                 </button>
@@ -112,18 +106,18 @@
                                         </td>
                                     </tr>
 
-                                    // Modal Edit
-                                    <div class="modal fade" id="editModal{{ $Manual->id }}" tabindex="-1"
+                                    {{-- Modal Edit --}}
+                                    <div class="modal fade" id="editModal{{ $JKKelas->id }}" tabindex="-1"
                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            @include('frontend.manual.editModal')
+                                            @include('frontend.jkkelas.editModal')
                                         </div>
                                     </div>
-                                    // Modal Delete
-                                    <div class="modal fade" id="delModal{{ $Manual->id }}" tabindex="-1"
+                                    {{-- Modal Delete --}}
+                                    <div class="modal fade" id="delModal{{ $JKKelas->id }}" tabindex="-1"
                                         aria-labelledby="delModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            @include('frontend.manual.delModal')
+                                            @include('frontend.jkkelas.delModal')
                                         </div>
                                     </div>
                                 @endforeach
@@ -136,8 +130,6 @@
     </div>
 @endsection
 @section('cus-script')
-<script src="{{ asset('/') }}vendors/select2/select2.min.js"></script>
-<script src="{{ asset('/') }}js/select2.js"></script>
     <script>
         $(function(){
             $.ajaxSetup({
@@ -153,7 +145,7 @@
                 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('jkhusus.getSlot') }}",
+                    url: "{{ route('jkkelas.getSlot') }}",
                     data: {awe : hari_id},
                     cache: false,
 
@@ -164,26 +156,7 @@
                         console.log('error:',data);
                     }
                 });
-                    // console.log(hari_id);
-            });
-            $('#Guru').on('change',function(){
-                let guru_id = $('#Guru').val();
-
-                
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('manual.getAmpu') }}",
-                    data: {ampu : guru_id},
-                    cache: false,
-
-                    success: function (msg) {  
-                        $('#Mapel').html(msg);
-                    },
-                    error: function (data) {  
-                        console.log('error:',data);
-                    }
-                });
-                    // console.log(guru_id);
+                    // console.log(msg);
             });
         });
     </script>
@@ -195,6 +168,11 @@
                     [10, 25, 50, 'All'],
                 ],
             });
+        });
+        $(".chosen").chosen({
+            disable_search_threshold: 10,
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
         });
     </script>
     <!-- Plugin js for this page -->

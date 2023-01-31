@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Guru;
 use App\Models\Slot;
+use App\Models\Kelas;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class JKhususFactory extends Factory
+class JKKelasFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,11 +15,11 @@ class JKhususFactory extends Factory
      */
     public function definition()
     {
-        $guru=Guru::pluck('id');
+        $kelas=Kelas::pluck('id');
         $slot=Slot::pluck('id');
         return [
             //
-            'guru_id' => $this->faker->randomElement($guru),
+            'kelas_id' => $this->faker->randomElement($kelas),
             'slot_id' => $this->faker->randomElement($slot),
             'created_at' => now(),
             'updated_at' => now(),

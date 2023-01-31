@@ -31,6 +31,7 @@ class AmpuController extends Controller
     public function index()
     {
         //
+        dd(Guru::pluck('id'));
         $data['dataGuru'] = Guru::all();
         $data['dataMapel'] = Mapel::all();
         $data['dataTingkat'] = Tingkat::all();

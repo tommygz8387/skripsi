@@ -37,4 +37,8 @@ class Kelas extends Model
     {
         return $this->hasMany(Manual::class);
     }
+    public function jkkelas()
+    {
+        return $this->hasMany(JKKelas::class);
+    }
 }

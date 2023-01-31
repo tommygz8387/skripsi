@@ -22,6 +22,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ManualController extends Controller
 {
+    private $manual;
     public function __construct()
     {
         $this->manual = Manual::with(['ampu','kelas','ruang','slot']);

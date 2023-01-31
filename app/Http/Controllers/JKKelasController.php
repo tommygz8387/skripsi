@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Guru;
 use App\Models\Hari;
 use App\Models\Slot;
+use App\Models\Kelas;
 use App\Models\Waktu;
-use App\Models\JKhusus;
+use App\Models\JKKelas;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use App\Exports\JKhususExport;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class JKhususController extends Controller
+class JKKelasController extends Controller
 {
     public function __construct()
     {
@@ -29,15 +27,13 @@ class JKhususController extends Controller
     public function index()
     {
         //
-        $data['dataGuru'] = Guru::latest()->get();
+        $data['dataKelas'] = Kelas::latest()->get();
         $data['dataHari'] = Hari::latest()->get();
         $data['dataWaktu'] = Waktu::latest()->get();
-        $data['dataJKhusus'] = JKhusus::with(['guru','slot'])
+        $data['dataJKKelas'] = JKKelas::with(['kelas','slot'])
         ->latest()
         ->get();
-        return view('frontend.jkhusus.index',$data);
-        // $data = Slot::where('hari_id',2)->get();
-        // dd($data->waktu_id);
+        return view('frontend.jkkelas.index',$data);
     }
 
     /**
@@ -59,41 +55,38 @@ class JKhususController extends Controller
     public function store(Request $request)
     {
         // cek duplikat
-        $cek = JKhusus::with(['guru','slot'])->
-        where('guru_id',$request->guru_id)->
+        $cek = JKKelas::with(['kelas','slot'])->
+        where('kelas_id',$request->kelas_id)->
         where('slot_id',$request->slot_id)->
         exists();
         
-        // dd($cek);
+        
         if ($cek) {
             Alert::error('Error','Data Already Exist!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
 
-        // $cekHari = $request->get('hari_id');
-        // $cekWaktu = $request->get('waktu_id');
         $cek = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
-        // dd($cek);
+        
         if(!$cek){
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
-        // $store = JKhusus::with(['guru','slot'])->create($request->all());
-        $store = JKhusus::create(array_merge($request->all(), ['slot_id' => $cek]));
+
+        $store = JKKelas::create(array_merge($request->all(), ['slot_id' => $cek]));
         if(!$store){
             Alert::error('Error','Add Data Failed!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         } else {
-            // Hari::updateOrCreate(['id' => $request->hari_id], ['sisa' => $hariUpdate]);
             Alert::success('Success','Data Added successfully');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\JKhusus  $jKhusus
+     * @param  \App\Models\JKKelas  $jkkelas
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -104,7 +97,7 @@ class JKhususController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\JKhusus  $jKhusus
+     * @param  \App\Models\JKKelas  $jkkelas
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -116,125 +109,117 @@ class JKhususController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JKhusus  $jKhusus
+     * @param  \App\Models\JKKelas  $jkkelas
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         // cek duplikat
-        $cek = JKhusus::with(['guru','slot'])->
-        where('guru_id',$request->guru_id)->
+        $cek = JKKelas::with(['kelas','slot'])->
+        where('kelas_id',$request->kelas_id)->
         where('slot_id',$request->slot_id)->
         exists();
         
-        // dd($cek);
+        
         if ($cek) {
             Alert::error('Error','Data Already Exist!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
         
         $cek2 = Slot::where('hari_id',$request->hari_id)->where('waktu_id',$request->waktu_id)->value('id');
-        // dd($cek2);
         if(!$cek2){
             Alert::error('Error','Tidak Ada Waktu Pelajaran Pada Hari dan Jam Tersebut!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
 
-        $update = JKhusus::updateOrCreate(['id' => $id], array_merge($request->all(), ['slot_id' => $cek2]));
+        $update = JKKelas::updateOrCreate(['id' => $id], array_merge($request->all(), ['slot_id' => $cek2]));
         if (!$update) {
             Alert::error('Error','Data Not Found!');
             return redirect()->back();
         }else{
             Alert::success('Success','Data Updated Successfully');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\JKhusus  $jKhusus
+     * @param  \App\Models\JKKelas  $jkkelas
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
-        $destroy = JKhusus::find($id);
+        $destroy = JKKelas::find($id);
 
         // cek data
         if (!$destroy) {
             Alert::error('Error','Data Not Found!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
 
         $destroy->delete();
         if (!$destroy) {
             Alert::error('Error','Data Cannot Be Deleted!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }else{
             Alert::success('Success','Data Has Been Deleted!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
     }
 
     public function reset()
     {
         //
-        $reset = JKhusus::get();
-        // dd($reset);
+        $reset = JKKelas::get();
 
         // cek data
         if ($reset->isEmpty()) {
             Alert::error('Error','Data Not Found!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
 
         $reset->map->delete();
         if (!$reset) {
             Alert::error('Error','Data Cannot Be Deleted!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }else{
             Alert::success('Success','Data Has Been Deleted!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
         }
     }
 
     public function generate(Request $request)
     {
         $nilai = $request->val;
-        $guru=Guru::pluck('id')->toArray();
+        $kelas=Kelas::pluck('id')->toArray();
         $slot=Slot::pluck('id')->toArray();
 
         for ($i=0; $i < $nilai; $i++) { 
-            JKhusus::create(['guru_id' => Arr::random($guru), 'slot_id' => Arr::random($slot)]);
+            JKKelas::create(['kelas_id' => Arr::random($kelas), 'slot_id' => Arr::random($slot)]);
         }
             Alert::success('Success','Data Has Been Generated!');
-            return redirect()->route('jkhusus.index');
+            return redirect()->route('jkkelas.index');
 
     }
 
-    public function export()
-    {
-        $today = Carbon::now('GMT+7');
-        $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-jkhusus.xlsx';
-        return Excel::download(new JKhususExport, $nama);
-    }
+    // public function export()
+    // {
+    //     $today = Carbon::now('GMT+7');
+    //     $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-jkkelas.xlsx';
+    //     return Excel::download(new jkkelasExport, $nama);
+    // }
 
     public function getSlot(Request $request)
     {
         $hari = $request->awe;
 
         $slots = Slot::with('waktu')->select('id','hari_id','waktu_id')->where('hari_id',$hari)->get();
-        // dd($slots);
 
         foreach ($slots as $slot) {
             $isi = $slot->waktu->jam_mulai.'-'.$slot->waktu->jam_selesai;
             echo "<option value='$slot->waktu_id'>$isi</option>";
-            // echo "<option>awe</option>";
         }
-        // for ($i = 0; $i < count($slots); $i++){
-        //     echo "<option value='$i'>'$slots->id'</option>";
-        // }
-        // return response()->json($slots);
     }
 }

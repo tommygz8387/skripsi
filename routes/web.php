@@ -14,6 +14,7 @@ use App\Http\Controllers\WaktuController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\ManualController;
 use App\Http\Controllers\JKhususController;
+use App\Http\Controllers\JKKelasController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\TingkatController;
 use App\Http\Controllers\UserController;
@@ -138,6 +139,19 @@ Route::controller(JKhususController::class)->group(function(){
     Route::get('/pages/jkhusus/generate', 'generate')->name('jkhusus.generate');
     Route::get('/pages/jkhusus/export', 'export')->name('jkhusus.export');
     Route::post('/pages/getSlot', 'getSlot')->name('jkhusus.getSlot');
+});
+
+// grup controller jam khusus kelas
+Route::controller(JKKelasController::class)->group(function(){
+    Route::get('/pages/jkkelas', 'index')->name('jkkelas.index');
+    Route::post('/pages/jkkelas', 'store')->name('jkkelas.store');
+    // Route::get('/pages/jkkelas/{id}', 'edit')->name('jkkelas.edit');
+    Route::post('/pages/jkkelas/{id}', 'update')->name('jkkelas.update');
+    Route::get('/pages/jkkelas/delete/{id}', 'destroy')->name('jkkelas.delete');
+    Route::get('/pages/jkkelas/reset', 'reset')->name('jkkelas.reset');
+    Route::get('/pages/jkkelas/generate', 'generate')->name('jkkelas.generate');
+    Route::get('/pages/jkkelas/export', 'export')->name('jkkelas.export');
+    Route::post('/pages/jkkelas/getSlot', 'getSlot')->name('jkkelas.getSlot');
 });
 
 // grup controller penjadwalan manual

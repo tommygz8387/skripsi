@@ -21,12 +21,12 @@
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="alpha" data-bs-toggle="tooltip" data-placement="top" title="α (Alpha) adalah tetapan pengendali intensitas jejak semut, nilai α ≥ 0.">Alpha (&alpha;)</label>
-                                <input type="number" class="form-control" id="alpha" placeholder="Nilai Alpha" name="alpha" required step=".01" onkeyup="success()" value="0.1">
+                                <label for="alpha" data-bs-toggle="tooltip" data-placement="top" title="α (Alpha) adalah tetapan pengendali intensitas jejak semut, nilai α ≥ 0. Semakin besar nilai alpha, semakin besar max iterasi semut.">Alpha (&alpha;)</label>
+                                <input type="number" class="form-control" id="alpha" placeholder="Nilai Alpha" name="alpha" required step=".1" onkeyup="success()" value="2">
                             </div>
                             <div class="form-group">
-                                <label for="beta" data-bs-toggle="tooltip" data-placement="top" title="β (Betha) adalah tetapan pengendali visibilitas, nilai β ≥ 0.">Beta (&beta;)</label>
-                                <input type="number" class="form-control" id="beta" placeholder="Nilai Beta" name="beta" required step=".01" onkeyup="success()" value="0.1">
+                                <label for="beta" data-bs-toggle="tooltip" data-placement="top" title="β (Betha) adalah tetapan pengendali visibilitas, nilai β ≥ 0. Semakin besar nilai betha, semakin besar nilai feromon.">Beta (&beta;)</label>
+                                <input type="number" class="form-control" id="beta" placeholder="Nilai Beta" name="beta" required step=".1" onkeyup="success()" value="1">
                             </div>
                             <div class="form-group">
                                 <label for="q" data-bs-toggle="tooltip" data-placement="top" title="Q adalah tetapan siklus semut(jumlah percobaan), pada sistem ini menjadi lamanya waktu percobaan dalam detik">Nilai Q</label>

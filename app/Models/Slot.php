@@ -40,4 +40,8 @@ class Slot extends Model
     {
         return $this->hasMany(JKhusus::class);
     }
+    public function jkkelas()
+    {
+        return $this->hasMany(JKKelas::class);
+    }
 }
