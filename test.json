@@ -1,0 +1,74 @@
+{
+  "data": {
+    "id": 2,
+    "ampu_id": 2,
+    "kelas_id": 4,
+    "ruang_id": 1,
+    "slot_id": 15,
+    "created_at": "2023-02-02T09:01:47.000000Z",
+    "updated_at": "2023-02-02T09:01:47.000000Z",
+    "ampu": {
+      "id": 2,
+      "guru_id": 1,
+      "mapel_id": 1,
+      "tingkat_id": 2,
+      "beban": 2,
+      "created_at": "2022-12-29T12:57:11.000000Z",
+      "updated_at": "2022-12-29T12:57:11.000000Z",
+      "guru": {
+        "id": 1,
+        "nama": "Ruhiat, S.Pd.",
+        "nip": "1322664",
+        "no_tlp": "089636875208",
+        "jml_ampu": 18,
+        "keterangan": "B.Inggris",
+        "created_at": "2022-12-29T06:05:21.000000Z",
+        "updated_at": "2022-12-30T12:05:22.000000Z"
+      },
+      "mapel": {
+        "id": 1,
+        "nama": "Bahasa Inggris",
+        "jurusan_id": 3,
+        "created_at": "2022-12-29T06:17:06.000000Z",
+        "updated_at": "2022-12-29T06:17:06.000000Z"
+      }
+    },
+    "kelas": {
+      "id": 4,
+      "nama": "XI IPA",
+      "tingkat_id": 2,
+      "jurusan_id": 1,
+      "created_at": "2022-12-29T06:13:17.000000Z",
+      "updated_at": "2022-12-29T06:13:17.000000Z"
+    },
+    "ruang": {
+      "id": 1,
+      "nama": "Kelas",
+      "kode": "K",
+      "created_at": "2023-01-31T14:25:07.000000Z",
+      "updated_at": "2023-01-31T14:25:07.000000Z"
+    },
+    "slot": {
+      "id": 15,
+      "hari_id": 2,
+      "waktu_id": 5,
+      "created_at": "2023-01-31T13:53:08.000000Z",
+      "updated_at": "2023-01-31T13:53:08.000000Z",
+      "hari": {
+        "id": 2,
+        "hari": "Selasa",
+        "jml_jam": 10,
+        "created_at": "2023-01-31T14:25:07.000000Z",
+        "updated_at": "2023-01-31T14:25:07.000000Z"
+      },
+      "waktu": {
+        "id": 5,
+        "jam_mulai": "10:15",
+        "jam_selesai": "10:50",
+        "total": 35,
+        "created_at": "2022-12-29T12:30:50.000000Z",
+        "updated_at": "2022-12-29T12:33:03.000000Z"
+      }
+    }
+  }
+}

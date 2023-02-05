@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{ route('manual.delete', ['id' => $Manual->id]) }}" class="btn btn-primary mr-2">Submit</a>
+            <a href="" id="hapus2" class="btn btn-danger mr-2">Submit</a>
             <button type="button" class="btn btn-secondary text-light" data-dismiss="modal">Close</button>
         </div>
     </div>

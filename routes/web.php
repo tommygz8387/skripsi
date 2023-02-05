@@ -151,15 +151,15 @@ Route::controller(JKKelasController::class)->group(function(){
     Route::get('/pages/jkkelas/reset', 'reset')->name('jkkelas.reset');
     Route::get('/pages/jkkelas/generate', 'generate')->name('jkkelas.generate');
     Route::get('/pages/jkkelas/export', 'export')->name('jkkelas.export');
-    Route::post('/pages/jkkelas/getSlot', 'getSlot')->name('jkkelas.getSlot');
 });
 
 // grup controller penjadwalan manual
 Route::controller(ManualController::class)->group(function(){
     Route::get('/pages/jadwal/manual', 'index')->name('manual.index');
     Route::post('/pages/jadwal/manual', 'store')->name('manual.store');
-    // Route::get('/pages/jadwal/manual/{id}', 'edit')->name('manual.edit');
+    Route::get('/pages/jadwal/manual/{id}', 'edit')->name('manual.edit');
     Route::post('/pages/jadwal/manual/{id}', 'update')->name('manual.update');
+    Route::get('/pages/jadwal/manual/del/{id}', 'del')->name('manual.del');
     Route::get('/pages/jadwal/manual/delete/{id}', 'destroy')->name('manual.delete');
     Route::get('/pages/manual/reset', 'reset')->name('manual.reset');
     Route::get('/pages/manual/seed', 'seed')->name('manual.seed');

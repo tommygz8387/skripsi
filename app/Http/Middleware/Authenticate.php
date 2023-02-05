@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -15,6 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            Alert::error('Error','Anda Belum Login!');
             return route('login');
         }
     }

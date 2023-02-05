@@ -145,7 +145,7 @@
                 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('jkkelas.getSlot') }}",
+                    url: "{{ route('jkhusus.getSlot') }}",
                     data: {awe : hari_id},
                     cache: false,
 

@@ -6,13 +6,14 @@
         </button>
     </div>
     <div class="modal-body">
-        <form class="forms-sample" method="POST" action="{{ route('manual.update', ['id' => $Manual->id]) }}"
+        <form id="form2" class="forms-sample" method="POST" action=""
             enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="Hari">Hari</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Hari" name="hari_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->slot->hari_id }}">{{ $Manual->slot->hari->hari }}</option>
+                <select class="form-control js-example-basic-single" id="Hari" name="hari_id" style="width: 100%">
+                    {{-- <option selected hidden value="{{ $Manual->slot->hari_id }}">{{ $Manual->slot->hari->hari }}</option> --}}
+                    <option selected hidden value="" id="isiHari"></option>
                     @foreach ($dataHari as $hari)
                         <option value="{{ $hari->id }}">{{ $hari->hari }}</option>
                     @endforeach
@@ -20,8 +21,9 @@
             </div>
             <div class="form-group">
                 <label for="Jam">Jam</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Jam" name="waktu_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->slot->waktu_id }}">{{ $Manual->slot->waktu->jam_mulai }}-{{ $Manual->slot->waktu->jam_selesai }}</option>
+                <select class="form-control js-example-basic-single" id="Jam" name="waktu_id" style="width: 100%">
+                    <option selected hidden value="" id="isiJam"></option>
+                    {{-- <option selected hidden value="{{ $Manual->slot->waktu_id }}">{{ $Manual->slot->waktu->jam_mulai }}-{{ $Manual->slot->waktu->jam_selesai }}</option> --}}
                     @foreach ($dataWaktu as $waktu)
                         <option value="{{ $waktu->id }}">{{ $waktu->jam_mulai }}-{{ $waktu->jam_selesai }}</option>
                     @endforeach
@@ -29,8 +31,9 @@
             </div>
             <div class="form-group">
                 <label for="Kelas">Kelas</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Kelas" name="kelas_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->kelas_id }}">{{ $Manual->kelas->nama }}</option>
+                <select class="form-control js-example-basic-single" id="Kelas" name="kelas_id" style="width: 100%">
+                    {{-- <option selected hidden value="{{ $Manual->kelas_id }}">{{ $Manual->kelas->nama }}</option> --}}
+                    <option selected hidden value="" id="isiKelas"></option>
                     @foreach ($dataKelas as $Kelas)
                         <option value="{{ $Kelas->id }}">{{ $Kelas->nama }}</option>
                     @endforeach
@@ -38,8 +41,9 @@
             </div>
             <div class="form-group">
                 <label for="Guru">Guru</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Guru" name="guru_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->ampu->guru_id }}">{{ $Manual->ampu->guru->nama }}</option>
+                <select class="form-control js-example-basic-single" id="Guru" name="guru_id" style="width: 100%">
+                    <option selected hidden value="" id="isiGuru"></option>
+                    {{-- <option selected hidden value="{{ $Manual->ampu->guru_id }}">{{ $Manual->ampu->guru->nama }}</option> --}}
                     @foreach ($dataGuru as $Guru)
                         <option value="{{ $Guru->id }}">{{ $Guru->nama }}</option>
                     @endforeach
@@ -47,8 +51,9 @@
             </div>
             <div class="form-group">
                 <label for="Mapel">Mata Pelajaran</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Mapel" name="mapel_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->ampu->mapel_id }}">{{ $Manual->ampu->mapel->nama }}</option>
+                <select class="form-control js-example-basic-single" id="Mapel" name="mapel_id" style="width: 100%">
+                    <option selected hidden value="" id="isiMapel"></option>
+                    {{-- <option selected hidden value="{{ $Manual->ampu->mapel_id }}">{{ $Manual->ampu->mapel->nama }}</option> --}}
                     @foreach ($dataMapel as $Mapel)
                         <option value="{{ $Mapel->id }}">{{ $Mapel->nama }}</option>
                     @endforeach
@@ -56,8 +61,9 @@
             </div>
             <div class="form-group">
                 <label for="Ruang">Ruang</label><br>
-                <select class="form-control js-example-basic-single" aria-label="Default select example" id="Ruang" name="ruang_id" style="width: 100%">
-                    <option selected hidden value="{{ $Manual->ruang_id }}">{{ $Manual->ruang->nama }}</option>
+                <select class="form-control js-example-basic-single" id="Ruang" name="ruang_id" style="width: 100%">
+                    {{-- <option selected hidden value="{{ $Manual->ruang_id }}">{{ $Manual->ruang->nama }}</option> --}}
+                    <option selected hidden value="" id="isiRuang"></option>
                     @foreach ($dataRuang as $Ruang)
                         <option value="{{ $Ruang->id }}">{{ $Ruang->nama }}</option>
                     @endforeach

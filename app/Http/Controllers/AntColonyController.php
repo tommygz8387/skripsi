@@ -84,7 +84,6 @@ class AntColonyController extends Controller
                     $getMapelId = $thisAmpu->value('mapel_id');
                     $getNMapel = Mapel::where('id',$getMapelId)->value('nama');
 
-                    dd($getBfromA);
                     
                     // KONDISI SPESIFIK
                     // TIDAK BISA DIGUNAKAN JIKA DATA BERBEDA
@@ -113,8 +112,9 @@ class AntColonyController extends Controller
                     // cek apakah sudah ada mapel di kelas
                     $cekMapelAmpu = Ampu::where('mapel_id',$getMapelId)->pluck('id');
                     $cekIfMapelKelas = $thisJadwal->whereIn('ampu_id',$cekMapelAmpu);
+                    // dd($cekIfMapelKelas);
                     $jmlMapel = count($cekIfMapelKelas->get());
-                    if ($jmlMapel>1) {
+                    if ($jmlMapel>=$getBfromA) {
                         continue;
                     }
                     
@@ -150,8 +150,119 @@ class AntColonyController extends Controller
     
                     // akhir kondisi
     
-                    // insert data
+                    // INSERT DATA
                     // slot awal
+                    $cekHSlotA = Slot::where('id',$ranSlot)->value('hari_id');
+                    // slot setelah
+                    $cekSlot = Slot::where('id',$ranSlot+1);
+                    $cekIdSlot = $cekSlot->value('id');
+                    $cekHSlot = $cekSlot->value('hari_id');
+                    // slot sebelum
+                    $cekSlotS = Slot::where('id',$ranSlot-1);
+                    $cekIdSlotS = $cekSlotS->value('id');
+                    $cekHSlotS = $cekSlotS->value('hari_id');
+
+                    // switch ($getBfromA) {
+                    //     case 1:
+                    //         Manual::create([
+                    //             'ampu_id'=>$ranAmpu,
+                    //             'kelas_id'=>$ranKelas,
+                    //             'ruang_id'=>$ranRuang,
+                    //             'slot_id'=>$ranSlot,
+                    //         ]);
+                    //         break;
+                    //     case 2:
+                    //         // jika slot+1 ada & dihari yang sama
+                    //         if ($cekIdSlot && $cekHSlotA==$cekHSlot) {
+                    //             // cek duplikat slot+1
+                    //             if (Manual::whereIn('ampu_id',$cekI)
+                    //             ->where('slot_id',$cekIdSlot)
+                    //             ->exists()) {
+                    //                 break;
+                    //             }
+
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot,
+                    //             ]);
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot+1,
+                    //             ]);
+                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                    //             break;
+                    //         }
+
+                    //         // jika slot-1 ada & dihari yang sama
+                    //         if ($cekIdSlotS && $cekHSlotA==$cekHSlotS) {
+                    //             // cek duplikat slot-1
+                    //             if (Manual::whereIn('ampu_id',$cekI)
+                    //             ->where('slot_id',$cekIdSlotS)
+                    //             ->exists()) {
+                    //                 break;
+                    //             }
+
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot,
+                    //             ]);
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot-1,
+                    //             ]);
+                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                    //             break;
+                    //         }
+                    //     case 3:
+                    //         // jika slot+1 ada & dihari yang sama
+                    //         if ($cekIdSlotS && $cekIdSlot && $cekHSlotA==$cekHSlot) {
+                    //             // cek duplikat slot+1
+                    //             if (Manual::whereIn('ampu_id',$cekI)
+                    //             ->where('slot_id',$cekIdSlot)
+                    //             ->exists()) {
+                    //                 break;
+                    //             }
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot-1,
+                    //             ]);
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot,
+                    //             ]);
+                    //             Manual::create([
+                    //                 'ampu_id'=>$ranAmpu,
+                    //                 'kelas_id'=>$ranKelas,
+                    //                 'ruang_id'=>$ranRuang,
+                    //                 'slot_id'=>$ranSlot+1,
+                    //             ]);
+                                
+                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                    //             break;
+                    //         }
+                    //         break;
+                    //     case 4:
+                    //         $cekMapelAmpu = Ampu::where('mapel_id',$getMapelId)->pluck('id');
+                    //         $cekIfMapelKelas = $thisJadwal->whereIn('ampu_id',$cekMapelAmpu);
+                    //         $jmlMapel = count($cekIfMapelKelas->get());
+                    //         break;
+                        
+                    //     default:
+                    //         break;
+                    // }
+
                     $cekHSlotA = Slot::where('id',$ranSlot)->value('hari_id');
                     // slot setelah
                     $cekSlot = Slot::where('id',$ranSlot+1);
@@ -213,6 +324,9 @@ class AntColonyController extends Controller
                         $b = count(Manual::whereIn('ampu_id',$cekI)->get());
                         continue;
                     }
+                    
+
+                    
                     
     
     

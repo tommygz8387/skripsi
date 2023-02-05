@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Hari;
 use App\Models\Slot;
 use App\Models\Kelas;
@@ -10,7 +9,6 @@ use App\Models\Waktu;
 use App\Models\JKKelas;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class JKKelasController extends Controller
@@ -202,24 +200,5 @@ class JKKelasController extends Controller
             Alert::success('Success','Data Has Been Generated!');
             return redirect()->route('jkkelas.index');
 
-    }
-
-    // public function export()
-    // {
-    //     $today = Carbon::now('GMT+7');
-    //     $nama = $today->month . $today->day . $today->hour . $today->minute . '-data-jkkelas.xlsx';
-    //     return Excel::download(new jkkelasExport, $nama);
-    // }
-
-    public function getSlot(Request $request)
-    {
-        $hari = $request->awe;
-
-        $slots = Slot::with('waktu')->select('id','hari_id','waktu_id')->where('hari_id',$hari)->get();
-
-        foreach ($slots as $slot) {
-            $isi = $slot->waktu->jam_mulai.'-'.$slot->waktu->jam_selesai;
-            echo "<option value='$slot->waktu_id'>$isi</option>";
-        }
     }
 }
