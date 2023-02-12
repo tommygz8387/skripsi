@@ -73,13 +73,23 @@ class AntColonyController extends Controller
                     // generate random
                     $ranAmpu = Arr::random($cekI);
                     $thisAmpu = Ampu::where('id',$ranAmpu);
-                    $getTfromA = $thisAmpu->pluck('tingkat_id');
+                    $getTfromA = $thisAmpu->value('tingkat_id');
+                    $getMfromA = $thisAmpu->value('mapel_id');
+                    $getJfromM = Mapel::where('id',$getMfromA)->value('jurusan_id');
                     $getBfromA = $thisAmpu->value('beban');
-                    $getKelas = Kelas::where('tingkat_id',$getTfromA)->pluck('id');
+                    // kondisi jika mapel umum
+                    if ($getJfromM !== 3 && $getTfromA !== 1) {
+                        $getKelas = Kelas::where('tingkat_id',$getTfromA)->where('jurusan_id',$getJfromM)->pluck('id');
+                        // echo 'benar';
+                        // return $getTfromA.'-'.$getMfromA.'-'.$getJfromM.'-'.$getKelas;
+                    }else{
+                        $getKelas = Kelas::where('tingkat_id',$getTfromA)->pluck('id');
+                    }
+                    
                     $ranKelas = Arr::random($getKelas->toArray());
                     $thisJadwal = Manual::where('kelas_id',$ranKelas);
-                    $getSfK = $thisJadwal->pluck('slot_id');
-                    $ranSlot = Arr::random(Slot::whereNotIn('id',$getSfK)->pluck('id')->toArray());
+                    $getSfromK = $thisJadwal->pluck('slot_id');
+                    $ranSlot = Arr::random(Slot::whereNotIn('id',$getSfromK)->pluck('id')->toArray());
                     // generate id
                     $getMapelId = $thisAmpu->value('mapel_id');
                     $getNMapel = Mapel::where('id',$getMapelId)->value('nama');
@@ -152,7 +162,7 @@ class AntColonyController extends Controller
     
                     // INSERT DATA
                     // slot awal
-                    $cekHSlotA = Slot::where('id',$ranSlot)->value('hari_id');
+                    $getHfromRanS = Slot::where('id',$ranSlot)->value('hari_id');
                     // slot setelah
                     $cekSlot = Slot::where('id',$ranSlot+1);
                     $cekIdSlot = $cekSlot->value('id');
@@ -162,168 +172,182 @@ class AntColonyController extends Controller
                     $cekIdSlotS = $cekSlotS->value('id');
                     $cekHSlotS = $cekSlotS->value('hari_id');
 
-                    // switch ($getBfromA) {
-                    //     case 1:
-                    //         Manual::create([
-                    //             'ampu_id'=>$ranAmpu,
-                    //             'kelas_id'=>$ranKelas,
-                    //             'ruang_id'=>$ranRuang,
-                    //             'slot_id'=>$ranSlot,
-                    //         ]);
-                    //         break;
-                    //     case 2:
-                    //         // jika slot+1 ada & dihari yang sama
-                    //         if ($cekIdSlot && $cekHSlotA==$cekHSlot) {
-                    //             // cek duplikat slot+1
-                    //             if (Manual::whereIn('ampu_id',$cekI)
-                    //             ->where('slot_id',$cekIdSlot)
-                    //             ->exists()) {
-                    //                 break;
-                    //             }
+                    switch ($getBfromA) {
+                        case 1:
+                            Manual::create([
+                                'ampu_id'=>$ranAmpu,
+                                'kelas_id'=>$ranKelas,
+                                'ruang_id'=>$ranRuang,
+                                'slot_id'=>$ranSlot,
+                            ]);
+                            break;
 
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot,
-                    //             ]);
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot+1,
-                    //             ]);
-                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
-                    //             break;
-                    //         }
+                        case 4:
+                            if ($jmlMapel == 0) {
+                                goto nexts;
+                            }elseif($jmlMapel == 2){
+                                $getSfromH = Slot::where('hari_id',$getHfromRanS)->pluck('id');
+                                if (Manual::whereIn('ampu_id',$cekI)
+                                ->where('kelas_id',$ranKelas)
+                                ->whereIn('slot_id',$getSfromH)
+                                ->exists()) {
+                                    break;
+                                }else{
+                                    goto nexts;
+                                }
+                            }
+                            break;
 
-                    //         // jika slot-1 ada & dihari yang sama
-                    //         if ($cekIdSlotS && $cekHSlotA==$cekHSlotS) {
-                    //             // cek duplikat slot-1
-                    //             if (Manual::whereIn('ampu_id',$cekI)
-                    //             ->where('slot_id',$cekIdSlotS)
-                    //             ->exists()) {
-                    //                 break;
-                    //             }
+                        case 2:
+                            nexts:
+                            // jika slot+1 ada & dihari yang sama
+                            if ($cekIdSlot && $getHfromRanS==$cekHSlot) {
+                                // cek duplikat slot+1
+                                if (Manual::whereIn('ampu_id',$cekI)
+                                ->where('slot_id',$cekIdSlot)
+                                ->exists()) {
+                                    break;
+                                }
 
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot,
-                    //             ]);
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot-1,
-                    //             ]);
-                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
-                    //             break;
-                    //         }
-                    //     case 3:
-                    //         // jika slot+1 ada & dihari yang sama
-                    //         if ($cekIdSlotS && $cekIdSlot && $cekHSlotA==$cekHSlot) {
-                    //             // cek duplikat slot+1
-                    //             if (Manual::whereIn('ampu_id',$cekI)
-                    //             ->where('slot_id',$cekIdSlot)
-                    //             ->exists()) {
-                    //                 break;
-                    //             }
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot-1,
-                    //             ]);
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot,
-                    //             ]);
-                    //             Manual::create([
-                    //                 'ampu_id'=>$ranAmpu,
-                    //                 'kelas_id'=>$ranKelas,
-                    //                 'ruang_id'=>$ranRuang,
-                    //                 'slot_id'=>$ranSlot+1,
-                    //             ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot+1,
+                                ]);
+                                $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                                break;
+                            }
+
+                            // jika slot-1 ada & dihari yang sama
+                            if ($cekIdSlotS && $getHfromRanS==$cekHSlotS) {
+                                // cek duplikat slot-1
+                                if (Manual::whereIn('ampu_id',$cekI)
+                                ->where('slot_id',$cekIdSlotS)
+                                ->exists()) {
+                                    break;
+                                }
+
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot-1,
+                                ]);
+                                $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                                break;
+                            }
+                        case 3:
+                            // jika slot+1 ada & dihari yang sama
+                            if ($cekIdSlotS && $cekIdSlot && $getHfromRanS==$cekHSlot) {
+                                // cek duplikat slot+1
+                                if (Manual::whereIn('ampu_id',$cekI)
+                                ->where('slot_id',$cekIdSlot)
+                                ->exists()) {
+                                    break;
+                                }
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot-1,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot,
+                                ]);
+                                Manual::create([
+                                    'ampu_id'=>$ranAmpu,
+                                    'kelas_id'=>$ranKelas,
+                                    'ruang_id'=>$ranRuang,
+                                    'slot_id'=>$ranSlot+1,
+                                ]);
                                 
-                    //             $b = count(Manual::whereIn('ampu_id',$cekI)->get());
-                    //             break;
-                    //         }
-                    //         break;
-                    //     case 4:
-                    //         $cekMapelAmpu = Ampu::where('mapel_id',$getMapelId)->pluck('id');
-                    //         $cekIfMapelKelas = $thisJadwal->whereIn('ampu_id',$cekMapelAmpu);
-                    //         $jmlMapel = count($cekIfMapelKelas->get());
-                    //         break;
+                                $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                                break;
+                            }
+                            break;
                         
-                    //     default:
-                    //         break;
-                    // }
+                        
+                        default:
+                            break;
+                    }
 
-                    $cekHSlotA = Slot::where('id',$ranSlot)->value('hari_id');
-                    // slot setelah
-                    $cekSlot = Slot::where('id',$ranSlot+1);
-                    $cekIdSlot = $cekSlot->value('id');
-                    $cekHSlot = $cekSlot->value('hari_id');
-                    // slot sebelum
-                    $cekSlotS = Slot::where('id',$ranSlot-1);
-                    $cekIdSlotS = $cekSlotS->value('id');
-                    $cekHSlotS = $cekSlotS->value('hari_id');
+                    // $getHfromRanS = Slot::where('id',$ranSlot)->value('hari_id');
+                    // // slot setelah
+                    // $cekSlot = Slot::where('id',$ranSlot+1);
+                    // $cekIdSlot = $cekSlot->value('id');
+                    // $cekHSlot = $cekSlot->value('hari_id');
+                    // // slot sebelum
+                    // $cekSlotS = Slot::where('id',$ranSlot-1);
+                    // $cekIdSlotS = $cekSlotS->value('id');
+                    // $cekHSlotS = $cekSlotS->value('hari_id');
                     
 
-                    // jika slot+1 ada & dihari yang sama
-                    // dd($cekIdSlotS);
-                    if ($cekIdSlot && $cekHSlotA==$cekHSlot) {
-                        // cek duplikat slot+1
-                        if (Manual::whereIn('ampu_id',$cekI)
-                        ->where('slot_id',$cekIdSlot)
-                        ->exists()) {
-                            continue;
-                        }
+                    // // jika slot+1 ada & dihari yang sama
+                    // // dd($cekIdSlotS);
+                    // if ($cekIdSlot && $getHfromRanS==$cekHSlot) {
+                    //     // cek duplikat slot+1
+                    //     if (Manual::whereIn('ampu_id',$cekI)
+                    //     ->where('slot_id',$cekIdSlot)
+                    //     ->exists()) {
+                    //         continue;
+                    //     }
 
-                        Manual::create([
-                            'ampu_id'=>$ranAmpu,
-                            'kelas_id'=>$ranKelas,
-                            'ruang_id'=>$ranRuang,
-                            'slot_id'=>$ranSlot,
-                        ]);
-                        Manual::create([
-                            'ampu_id'=>$ranAmpu,
-                            'kelas_id'=>$ranKelas,
-                            'ruang_id'=>$ranRuang,
-                            'slot_id'=>$ranSlot+1,
-                        ]);
-                        $b = count(Manual::whereIn('ampu_id',$cekI)->get());
-                        continue;
-                    }
+                    //     Manual::create([
+                    //         'ampu_id'=>$ranAmpu,
+                    //         'kelas_id'=>$ranKelas,
+                    //         'ruang_id'=>$ranRuang,
+                    //         'slot_id'=>$ranSlot,
+                    //     ]);
+                    //     Manual::create([
+                    //         'ampu_id'=>$ranAmpu,
+                    //         'kelas_id'=>$ranKelas,
+                    //         'ruang_id'=>$ranRuang,
+                    //         'slot_id'=>$ranSlot+1,
+                    //     ]);
+                    //     $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                    //     continue;
+                    // }
 
-                    // jika slot-1 ada & dihari yang sama
-                    if ($cekIdSlotS && $cekHSlotA==$cekHSlotS) {
-                        // cek duplikat slot-1
-                        if (Manual::whereIn('ampu_id',$cekI)
-                        ->where('slot_id',$cekIdSlotS)
-                        ->exists()) {
-                            continue;
-                        }
+                    // // jika slot-1 ada & dihari yang sama
+                    // if ($cekIdSlotS && $getHfromRanS==$cekHSlotS) {
+                    //     // cek duplikat slot-1
+                    //     if (Manual::whereIn('ampu_id',$cekI)
+                    //     ->where('slot_id',$cekIdSlotS)
+                    //     ->exists()) {
+                    //         continue;
+                    //     }
 
-                        Manual::create([
-                            'ampu_id'=>$ranAmpu,
-                            'kelas_id'=>$ranKelas,
-                            'ruang_id'=>$ranRuang,
-                            'slot_id'=>$ranSlot,
-                        ]);
-                        Manual::create([
-                            'ampu_id'=>$ranAmpu,
-                            'kelas_id'=>$ranKelas,
-                            'ruang_id'=>$ranRuang,
-                            'slot_id'=>$ranSlot-1,
-                        ]);
-                        $b = count(Manual::whereIn('ampu_id',$cekI)->get());
-                        continue;
-                    }
+                    //     Manual::create([
+                    //         'ampu_id'=>$ranAmpu,
+                    //         'kelas_id'=>$ranKelas,
+                    //         'ruang_id'=>$ranRuang,
+                    //         'slot_id'=>$ranSlot,
+                    //     ]);
+                    //     Manual::create([
+                    //         'ampu_id'=>$ranAmpu,
+                    //         'kelas_id'=>$ranKelas,
+                    //         'ruang_id'=>$ranRuang,
+                    //         'slot_id'=>$ranSlot-1,
+                    //     ]);
+                    //     $b = count(Manual::whereIn('ampu_id',$cekI)->get());
+                    //     continue;
+                    // }
                     
 
                     
