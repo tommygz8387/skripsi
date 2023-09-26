@@ -1,5 +1,5 @@
 
-# Sispema ACO
+# Sispenma ACO
 
 Merupakan Aplikasi penjadwalan belajar mengajar yang saya buat untuk menyelesaikan Skripsi S1 jurusan Teknik Informatika yang saya tempu di Universitas Pamulang.
 
